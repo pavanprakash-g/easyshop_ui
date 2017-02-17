@@ -1,0 +1,103 @@
+.loginButtonStyle {
+  padding: 5px;
+  width: 100px;
+  text-align: center;
+  margin: 50px auto;
+  border: 1px solid gray;
+  border-radius: 1rem;
+  background-color: cadetblue
+}
+.tag-line {
+	color: white;
+    font-size: 2rem;
+    margin-top: 0px;
+    font-family: fantasy;
+    padding-top: 20px;
+}
+.btn-container {
+	margin-top: 15%;
+	.btn {
+        text-align: center;
+		color: white;
+    	font-size: 1.45rem;
+    	border: 1px solid #E0E0E0;
+    	display: inline-block;
+    	padding: 10px 50px;
+    	width: 10%;
+    }
+    .primary {
+		display: block;
+    	width: 30%;
+    	margin: 3% auto;
+	}
+}
+.login-container {
+	//background-image: url('../images/e-commerce.png');
+	background-size: cover;
+    height: 68%;
+	.content {
+		color: #E0E0E0;
+    	font-size: 1.15rem;
+    	font-style: italic;
+    	font-family: fantasy;
+	}
+}
+.login-page {
+	height: 100%;
+	background-image: url('../images/bg4.jpg');
+	background-size: cover;
+	background-repeat: round;
+	text-align: center;
+	.login-fields {
+		width: 35%;
+    	margin: 0px auto;
+    	.field {
+    		width: 35%;
+    		margin: 0px 25px 20px 20px;
+    		padding: 10px;
+    	}
+    	.field-label {
+    		position: absolute;
+    		left: 13rem;
+    		color: #E0E0E0;
+    	}
+    	.field-input {
+    		text-align: right;
+    	}
+	}
+	.tag {
+		color:white;
+		font-size: 1.3rem;
+		font-style: italic;
+		font-family: fantasy;
+	}
+	.login-btn {
+		color: white;
+    	font-size: 1.45rem;
+    	border: 1px solid #E0E0E0;
+    	padding: 10px 50px;
+    	width: 35%;
+    	margin: 0px auto;
+    	margin-top: 10%;
+	}
+}
+.step-button {
+    color: white;
+    padding: 7px 20px;
+    font-size: 1.35rem;
+}
+.register-btn {
+    color: white;
+    font-weight: bold;
+    border: 1px solid white;
+    width: 150px;
+    padding: 10px;
+    margin: 0px auto;
+}
+.pswd-link{
+    color: red;
+}
+.logout-button{
+    margin: 10;
+    text-align: right;
+}
