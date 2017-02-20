@@ -10,3 +10,20 @@
 .saveButton {
 	text-align: right;
 }
+.appBar {
+	height: 60px;
+	background-color: rgba(0,188,212,1);
+}
+.appBarButton{
+    float: right;
+    margin: 10px 120px 10px 10px;
+}
+.tabSpan{
+    display: inline-block;
+    margin: 10px 120px 10px 10px;
+}
+.borderedDiv{
+    display: inline-block;
+    border-style: ridge;
+    margin-right: 40px;
+}

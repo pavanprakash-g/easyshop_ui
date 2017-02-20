@@ -3,7 +3,6 @@ var _ = require('underscore');
 var $ = require('jquery');
 var Immutable  = require('immutable');
 var md5 = require('md5');
-var loginDetails = 'login.details';
 
 var Profile = class {
   constructor(eventBus,localStorage) {
@@ -42,9 +41,12 @@ var Profile = class {
   }
 
   updateActiveStatus(custId, status){
+    var query = _.find(this.details, (o) => parseInt(o.custId) === parseInt(custId));
+    query.activeStatus = status;
     $.ajax({
         method: 'PUT',
-        url: window.baseURL+'profile/custDetails?custId='+custId+'&activeStatus='+status,
+        url: window.baseURL+'profile/custDetails',
+        data: JSON.stringify(query),
         contentType: 'application/json',
         dataType: "json",
       }).done((response)=>{

@@ -1,13 +1,12 @@
 var App = require('../../context/events');
 var React = require('react');
-var AppBar = require('material-ui').AppBar;
 var Paper = require('material-ui').Paper;
 var Menu = require('material-ui').Menu;
 var MenuItem = require('material-ui').MenuItem;
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
 
-var EditProfile = React.createClass({
+var Home = React.createClass({
   login(){
     window.router.setRoute('/sign_in');
   },
@@ -17,15 +16,18 @@ var EditProfile = React.createClass({
   logout(){
     window.BUS.trigger(App.events.login.logout);
   },
+  openProfile(){
+    window.router.setRoute('/editProfile');
+  },
   handle(menu){
     console.log('users');
   },
   render: function () {
   return (
   <div>
-    <AppBar title="Easy Shop" iconClassNameRight="muidocs-icon-navigation-expand-more"/>
-    <div className='logout-button'>
-      <RaisedButton label="Logout" primary={true} onClick={this.logout}/>
+    <div className='appBar'> 
+      <span className='appBarButton'> <p onClick={this.openProfile}>Edit Profile</p> </span>
+      <span className='logout-button'> <p onClick={this.logout}>Logout</p> </span>
     </div>
     <div className='login-page'>
       <p className='tag-line'>  This is where the customer will see the list of items!</p>
@@ -34,4 +36,4 @@ var EditProfile = React.createClass({
   </div>);
   }
 });
-module.exports = EditProfile;
+module.exports = Home;

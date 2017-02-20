@@ -56,6 +56,7 @@ var Login = class {
         if(response.verifyLogin.status){
           this.localStorage.setItem('authtoken', response.verifyLogin.uuid);
           this.localStorage.setItem('username', response.verifyLogin.firstName);
+          this.localStorage.setItem('custId', response.verifyLogin.custId);
           window.router.setRoute("/login");
         }
       }).fail((jqXHR, textStatus, errorThrown)=>{

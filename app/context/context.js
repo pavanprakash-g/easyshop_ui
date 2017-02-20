@@ -15,6 +15,13 @@ var Context = function(eventBus, storage) {
     profileModel: profile
   };
 
+  $.ajaxPrefilter(function(options, localOptions, jqXHR) {
+    var loginState = self.models.userLogin.getState();
+    if (loginState.get('loggedIn')) {
+      jqXHR.setRequestHeader('X-AUTH-TOKEN', localstorage.get('authtoken'));
+    }
+  });
+
   eventBus.on(App.events.models.changed, function() {
     self.eventBus.trigger(App.events.ui.render, self.getState());
   });
@@ -28,7 +35,7 @@ var Context = function(eventBus, storage) {
 Context.prototype.getState = function() {
   var self = this;
   return {
-  authInfo: self.models.userLogin.getState(),
+    authInfo: self.models.userLogin.getState(),
     profileModel: self.models.profileModel.getState()
   };
 };

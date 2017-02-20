@@ -4,7 +4,7 @@ var AppDefaults = require('../../lib/app_defaults');
 var Loader = require('react-loader');
 var _ = require('underscore');
 var classnames = require('classnames');
-var TextField = require('material-ui').TextField;
+import Checkbox from 'material-ui/Checkbox';
 import {
   Step,
   Stepper,
@@ -67,6 +67,10 @@ securityQuesAnsChanged(value){
    	window.BUS.trigger(App.events.register.securityQuesAnsChanged, [value]);
     },
 confirmPasswordChanged(value){
+  if(this.props.details.get('password') !== value)
+      window.BUS.trigger(App.events.ui.alert, ['Password is not matching',  'Error']);
+  },
+addressCheckboxChanged(value){
   if(this.props.details.get('password') !== value)
       window.BUS.trigger(App.events.ui.alert, ['Password is not matching',  'Error']);
   },
@@ -177,7 +181,9 @@ getStepContent(stepIndex) {
             <input className='field' placeholder="Zip Code" value={this.props.details.get('zipCode')}
                         onChange={(e) => this.zipCodeChanged(e.target.value)} />
            </div>
+           <Checkbox label='Shipping Address and Billing address same as the above details' onChange={(e) => this.addressCheckboxChanged(e.target.value)} />
           </div>
+
           <div style={securityInfoStyle}>
            <div className='field-container'>
             <p className='field-label'> New Password: </p>

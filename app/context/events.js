@@ -30,9 +30,10 @@ var App = {
 			alert: 'app::ui::alert',
 			confirm: 'app::ui::confirm'
 		},
-
 		register: {
 		    perform: 'app::register::perform',
+		    update: 'app::register::update',
+		    custDetails: 'app::register::custDetails',
             firstNameChanged: 'app::register::firstNameChanged',
             lastNameChanged: 'app::register::lastNameChanged',
             emailIdChanged: 'app::register::emailIdChanged',

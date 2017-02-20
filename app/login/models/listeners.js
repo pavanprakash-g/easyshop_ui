@@ -72,6 +72,12 @@ var listeners = function(eventBus, model) {
   eventBus.on(Events.register.perform, () => {
     model.registerModel.perform();
   });
+  eventBus.on(Events.register.custDetails, () => {
+    model.registerModel.custDetails();
+  });
+  eventBus.on(Events.register.update, () => {
+    model.registerModel.update();
+  });
   eventBus.on(Events.register.passwordChanged, (evt, value) => {
     model.registerModel.passwordChanged(value);
   });
