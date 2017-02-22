@@ -33,7 +33,7 @@ var Profile = class {
           this.details = response;
         }
       }).fail((jqXHR, textStatus, errorThrown)=>{
-          window.BUS.trigger(App.events.ui.alert,['problem in Login', 'Info']);
+          window.BUS.trigger(App.events.ui.alert,['problem in getting profile details', 'Info']);
       }).always(()=>{
         this.loading = false;
         this.eventBus.trigger(App.events.models.changed);

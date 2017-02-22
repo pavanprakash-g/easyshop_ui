@@ -45,26 +45,26 @@ var listeners = function(eventBus, model) {
   eventBus.on(Events.register.emailIdChanged, (evt, value) => {
     model.registerModel.emailIdChanged(value);
   });
-  eventBus.on(Events.register.phoneNumberChanged, (evt, value) => {
-    model.registerModel.phoneNumberChanged(value);
+  eventBus.on(Events.register.phoneNumberChanged, (evt, id, value) => {
+    model.registerModel.phoneNumberChanged(id, value);
   });
-  eventBus.on(Events.register.address1Changed, (evt, value) => {
-    model.registerModel.address1Changed(value);
+  eventBus.on(Events.register.address1Changed, (evt, id, value) => {
+    model.registerModel.address1Changed(id, value);
   });
-  eventBus.on(Events.register.address2Changed, (evt, value) => {
-    model.registerModel.address2Changed(value);
+  eventBus.on(Events.register.address2Changed, (evt, id, value) => {
+    model.registerModel.address2Changed(id, value);
   });
-  eventBus.on(Events.register.cityChanged, (evt, value) => {
-    model.registerModel.cityChanged(value);
+  eventBus.on(Events.register.cityChanged, (evt, id, value) => {
+    model.registerModel.cityChanged(id, value);
   });
-  eventBus.on(Events.register.stateChanged, (evt, value) => {
-    model.registerModel.stateChanged(value);
+  eventBus.on(Events.register.stateChanged, (evt, id, value) => {
+    model.registerModel.stateChanged(id, value);
   });
-  eventBus.on(Events.register.countryChanged, (evt, value) => {
-    model.registerModel.countryChanged(value);
+  eventBus.on(Events.register.countryChanged, (evt, id, value) => {
+    model.registerModel.countryChanged(id, value);
   });
-  eventBus.on(Events.register.zipCodeChanged, (evt, value) => {
-    model.registerModel.zipCodeChanged(value);
+  eventBus.on(Events.register.zipCodeChanged, (evt, id, value) => {
+    model.registerModel.zipCodeChanged(id, value);
   });
   eventBus.on(Events.register.securityQuesAnsChanged, (evt, value) => {
     model.registerModel.securityQuesAnsChanged(value);
@@ -81,9 +81,12 @@ var listeners = function(eventBus, model) {
   eventBus.on(Events.register.passwordChanged, (evt, value) => {
     model.registerModel.passwordChanged(value);
   });
-
-
-
+  eventBus.on(Events.register.addrPhoneNumberChanged, (evt, id, value) => {
+    model.registerModel.addrPhoneNumberChanged(id, value);
+  });
+  eventBus.on(Events.register.updateAddress, (evt, id) => {
+    model.registerModel.updateAddress(id);
+  });
 };
 
 module.exports = listeners;

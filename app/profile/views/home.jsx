@@ -7,6 +7,9 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 import RaisedButton from 'material-ui/RaisedButton';
 
 var Home = React.createClass({
+  home(){
+    window.router.setRoute('/login');
+  },
   login(){
     window.router.setRoute('/sign_in');
   },
@@ -26,6 +29,7 @@ var Home = React.createClass({
   return (
   <div>
     <div className='appBar'> 
+      <span className='homeButton'> <p onClick={this.home}>Home</p> </span>
       <span className='appBarButton'> <p onClick={this.openProfile}>Edit Profile</p> </span>
       <span className='logout-button'> <p onClick={this.logout}>Logout</p> </span>
     </div>

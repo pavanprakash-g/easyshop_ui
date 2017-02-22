@@ -33,6 +33,7 @@ var App = {
 		register: {
 		    perform: 'app::register::perform',
 		    update: 'app::register::update',
+		    autoSave: 'app::register::autoSave',
 		    custDetails: 'app::register::custDetails',
             firstNameChanged: 'app::register::firstNameChanged',
             lastNameChanged: 'app::register::lastNameChanged',
@@ -45,7 +46,9 @@ var App = {
             stateChanged: 'app:register::stateChanged',
             zipCodeChanged: 'app:register::zipCodeChanged',
             securityQuesAnsChanged: 'app:register::securityQuesAnsChanged',
-            countryChanged: 'app::register::countryChanged'
+            countryChanged: 'app::register::countryChanged',
+            addrPhoneNumberChanged: 'app::register::addrPhoneNumberChanged',
+            updateAddress: 'app::register::updateAddress'
 		}
 	}
 };

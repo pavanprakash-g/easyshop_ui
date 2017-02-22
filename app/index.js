@@ -99,7 +99,7 @@ var App = React.createClass({
     if (this.props.page === 'login' || this.props.page == "sign_in" || this.props.page === 'register' || 
       this.props.page === 'after_register' || this.props.page === 'forgetPassword' || this.props.page === 'forgetPasswordSuccess') {
       LoginView(components, this.props);
-  } else if (this.props.page === 'adminProfile' || this.props.page === 'home' || this.props.page === 'editProfile') {
+  } else if (this.props.page === 'adminProfile' || this.props.page === 'home' || this.props.page === 'editProfile' || this.props.page === 'usersList') {
     ProfileView(components, this.props);
   }
 }

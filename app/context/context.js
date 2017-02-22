@@ -15,13 +15,6 @@ var Context = function(eventBus, storage) {
     profileModel: profile
   };
 
-  $.ajaxPrefilter(function(options, localOptions, jqXHR) {
-    var loginState = self.models.userLogin.getState();
-    if (loginState.get('loggedIn')) {
-      jqXHR.setRequestHeader('X-AUTH-TOKEN', localstorage.get('authtoken'));
-    }
-  });
-
   eventBus.on(App.events.models.changed, function() {
     self.eventBus.trigger(App.events.ui.render, self.getState());
   });

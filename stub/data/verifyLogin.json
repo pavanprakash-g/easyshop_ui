@@ -1,6 +1,1 @@
-{
-    "status": "success",
-    "message" : "1234124312",
-    "username": "bavvv",
-    "uuid": "123213"
-}
+{"verifyLogin":{"firstName":"pavan","custId":3,"uuid":"726d64dc-77d3-40f6-be8c-598d5599b6b7","status":true}}

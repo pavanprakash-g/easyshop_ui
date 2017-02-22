@@ -10,6 +10,17 @@
       file: data/verifyLogin.json
 
 -  request:
+      url: ^/profile/custDetails$
+      headers:
+      Content-Type: application/json
+      method: GET
+   response:
+      headers:
+      Content-Type: application/json
+      status: 200
+      file: data/verifyLogin.json
+
+-  request:
       url: ^/register$
       headers:
       Content-Type: application/json

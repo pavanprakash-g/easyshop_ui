@@ -50,48 +50,55 @@ var Registration = class {
 
   emailIdChanged(value){
     this.mailId = value;
-    this.details.custLastName = value;
     this.eventBus.trigger(App.events.models.changed);
   }
 
-  phoneNumberChanged(value){
+  phoneNumberChanged(id, value){
     this.contactNum = value;
-    this.details.custPhoneNumber = value;
+    var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
+    this.details.addresses[index].phoneNumber = value;
     this.eventBus.trigger(App.events.models.changed);
   }
 
-  address1Changed(value){
+  address1Changed(id, value){
     this.address1 = value;
-    this.details.address1 = value;
+    var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
+    this.details.addresses[index].address1 = value;
     this.eventBus.trigger(App.events.models.changed);
   }
 
-  address2Changed(value){
+  address2Changed(id, value){
     this.address2 = value;
-    this.details.address2 = value;
+    var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
+    this.details.addresses[index].address2 = value;
     this.eventBus.trigger(App.events.models.changed);
   }
 
-  cityChanged(value){
+  cityChanged(id, value){
     this.city = value;
-    this.details.city = value;
+    var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
+    this.details.addresses[index].city = value;
     this.eventBus.trigger(App.events.models.changed);
   }
 
-  stateChanged(value){
+  stateChanged(id, value){
     this.state_name = value;
-    this.details.state = value;
+    var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
+    this.details.addresses[index].state = value;
     this.eventBus.trigger(App.events.models.changed);
   }
 
-  countryChanged(value){
+  countryChanged(id, value){
     this.country = value;
+    var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
+    this.details.addresses[index].country = value;
     this.eventBus.trigger(App.events.models.changed);
   }
 
-  zipCodeChanged(value){
+  zipCodeChanged(id, value){
     this.zipCode = value;
-    this.details.zipcode = value;
+    var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
+    this.details.addresses[index].zipcode = value;
     this.eventBus.trigger(App.events.models.changed);
   }  
 
@@ -132,7 +139,7 @@ var Registration = class {
       activeStatus: true
     });
   }
-  billingaddress() {
+  /*billingaddress() {
     return ({
       //billingaddress
       billingAddress1: this.address1,
@@ -153,8 +160,54 @@ var Registration = class {
       shipmentCountry: this.country,
       shipmentZipcode: this.zipcode
     })
+  } */
+
+  addrPhoneNumberChanged(id, value){
+    var index =  _.findIndex(this.details.addresses, (d) => d.id === id);
+    this.details.addresses[index].phoneNumber = value;
+    this.eventBus.trigger(App.events.models.changed);
   }
 
+  autoSave(id, key, value){
+    var index =  _.findIndex(this.details.addresses, (d) => d.id === id);
+    this.details.addresses[index].key = value;
+    this.eventBus.trigger(App.events.models.changed); 
+  }
+  /* You have to handle all the below methods as the above phone number method
+  addrAddress1Changed(id, value){
+    this.address1 = value;
+    this.details.address1 = value;
+    this.eventBus.trigger(App.events.models.changed);
+  }
+
+  address2Changed(id, value){
+    this.address2 = value;
+    this.details.address2 = value;
+    this.eventBus.trigger(App.events.models.changed);
+  }
+
+  cityChanged(id, value){
+    this.city = value;
+    this.details.city = value;
+    this.eventBus.trigger(App.events.models.changed);
+  }
+
+  stateChanged(id, value){
+    this.state_name = value;
+    this.details.state = value;
+    this.eventBus.trigger(App.events.models.changed);
+  }
+
+  countryChanged(id, value){
+    this.country = value;
+    this.eventBus.trigger(App.events.models.changed);
+  }
+
+  zipCodeChanged(id, value){
+    this.zipCode = value;
+    this.details.zipcode = value;
+    this.eventBus.trigger(App.events.models.changed);
+  } */
   perform(){
     var that = this;
     this.loading = true;
@@ -197,7 +250,7 @@ var Registration = class {
           this.cards = response.cards;
         }
       }).fail((jqXHR, textStatus, errorThrown)=>{
-          window.BUS.trigger(App.events.ui.alert,['problem in Login', 'Info']);
+          window.BUS.trigger(App.events.ui.alert,['problem in getting registration details', 'Info']);
       }).always(()=>{
         this.loading = false;
         this.eventBus.trigger(App.events.models.changed);
@@ -214,20 +267,36 @@ var Registration = class {
         contentType: 'application/json',
         dataType: "json"
       }).done((response)=>{
-        if(response.status === 'success'){
-          window.BUS.trigger(App.events.ui.alert, [response.message || 'Registered Successfully', 'Info', () => {
-            window.BUS.trigger(App.events.models.changed);
-            window.router.setRoute('/login');
-          }]);
-        }
+        window.BUS.trigger(App.events.ui.alert, [response.message || 'Updated Successfully', 'Info', () => {
+          window.BUS.trigger(App.events.models.changed);
+        }]);
       }).fail((jqXHR, textStatus, errorThrown)=>{
-          window.BUS.trigger(App.events.ui.alert,['problem in Registration', 'Info']);
+          window.BUS.trigger(App.events.ui.alert,['problem in updating profile details', 'Info']);
       }).always(()=>{
         this.loading = false;
         this.eventBus.trigger(App.events.models.changed);
       });
   }
-
+  updateAddress(addrId){
+    var custId = localStorage.getItem("custId");
+    var query =  _.find(this.details.addresses, (d) => d.addressId === addrId);
+    $.ajax({
+        type: 'PUT',
+        url: window.baseURL+'profile/address',
+        data: JSON.stringify(query),
+        contentType: 'application/json',
+        dataType: "json"
+      }).done((response)=>{
+          window.BUS.trigger(App.events.ui.alert, ['Updated Successfully', 'Info', () => {
+            window.BUS.trigger(App.events.models.changed);
+          }]);
+      }).fail((jqXHR, textStatus, errorThrown)=>{
+          window.BUS.trigger(App.events.ui.alert,['problem in updating address details', 'Info']);
+      }).always(()=>{
+        this.loading = false;
+        this.eventBus.trigger(App.events.models.changed);
+      });
+  }
   getState(){
     return Immutable.fromJS({
       firstName: this.firstName,

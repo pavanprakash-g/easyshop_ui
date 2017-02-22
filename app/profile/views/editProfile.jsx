@@ -4,110 +4,18 @@ var AppDefaults = require('../../lib/app_defaults');
 var Loader = require('react-loader');
 var _ = require('underscore');
 var classnames = require('classnames');
-
-var Card = React.createClass({
-  render: function(){
-    return(
-      <div className='borderedDiv'>
-      <div className='field-container'>
-        <p className='field-label'> Contact Number: </p>
-        <input type='number' className='field' placeholder="Contact Number" value={this.props.card.get('billingPhoneNumber')}
-           onChange={(e) => this.phoneNumberChanged(e.target.value)} />
-      </div>
-      <div className='field-container'>
-        <p className='field-label'> Address1: </p>
-        <textarea rows="4" cols='50' placeholder="Address 1" className='field' value={this.props.card.get('billingAddress1')}
-           onChange={(e) =>
-        this.address1Changed(e.target.value)} />
-      </div>
-      <div className='field-container'>
-        <p className='field-label'> Address2: </p>
-        <textarea rows="4" cols='50' placeholder="Address 2" className='field' value={this.props.card.get('billingAddress2')}
-           onChange={(e) =>
-        this.address2Changed(e.target.value)} />
-      </div>
-    </div>
-    );
-  }
-});
-
-var Addresses = React.createClass({
-  phoneNumberChanged(value){
-    window.BUS.trigger(App.events.register.phoneNumberChanged, [value]);
-  },
-
-  address1Changed(value){
-    window.BUS.trigger(App.events.register.address1Changed, [value]);
-  },
-
-  address2Changed(value){
-    window.BUS.trigger(App.events.register.address2Changed, [value]);
-  },
-
-  cityChanged(value){
-    window.BUS.trigger(App.events.register.cityChanged, [value]);
-  },
-
-  stateChanged(value){
-    window.BUS.trigger(App.events.register.stateChanged, [value]);
-  },
-
-  zipCodeChanged(value){
-    window.BUS.trigger(App.events.register.zipCodeChanged, [value]);
-  },
-  countryChanged(value){
-    window.BUS.trigger(App.events.register.countryChanged, [value]);
-  },
-  render: function (){
-    return (
-    <div className='borderedDiv'>
-      <div className='field-container'>
-        <p className='field-label'> Contact Number: </p>
-        <input type='number' className='field' placeholder="Contact Number" value={this.props.address.get('phoneNumber')}
-           onChange={(e) => this.phoneNumberChanged(e.target.value)} />
-      </div>
-      <div className='field-container'>
-        <p className='field-label'> Address1: </p>
-        <textarea rows="4" cols='50' placeholder="Address Line 1" className='field' value={this.props.address.get('address1')}
-           onChange={(e) =>
-        this.address1Changed(e.target.value)} />
-      </div>
-      <div className='field-container'>
-        <p className='field-label'> Address2: </p>
-        <textarea rows="4" cols='50' placeholder="Address Line 2" className='field' value={this.props.address.get('address2')}
-           onChange={(e) =>
-        this.address2Changed(e.target.value)} />
-      </div>
-      <div className='field-container'>
-        <p className='field-label'> City: </p>
-        <input className='field' placeholder="City" value={this.props.address.get('city')}
-           onChange={(e) => this.cityChanged(e.target.value)} />
-      </div>
-      <div className='field-container'>
-        <p className='field-label'> State: </p>
-        <input className='field' placeholder="State" value={this.props.address.get('state')}
-           onChange={(e) => this.stateChanged(e.target.value)} />
-      </div>
-      <div className='field-container'>
-        <p className='field-label'> Country: </p>
-        <input className='field' placeholder="Country" value={this.props.address.get('country')}
-           onChange={(e) => this.countryChanged(e.target.value)} />
-      </div>
-      <div className='field-container'>
-        <p className='field-label'> Zip Code: </p>
-        <input className='field' placeholder="Zip Code" value={this.props.address.get('zipcode')}
-           onChange={(e) => this.zipCodeChanged(e.target.value)} />
-      </div>
-    </div>
-    );
-  }
-});
+var Address = require('./address.jsx');
+var Card = require('./card_detail.jsx');
+var Immutable = require('immutable');
 
 var EditProfile = React.createClass({
   getInitialState(){
     return {
       tabId: 1
     };
+  },
+  home(){
+    window.router.setRoute('/login');
   },
   firstNameChanged(value){
     window.BUS.trigger(App.events.register.firstNameChanged, [value]);
@@ -167,16 +75,26 @@ var EditProfile = React.createClass({
   var tab1 = this.state.tabId === 1 ? {} : {display: 'none'} ;
   var tab2 = this.state.tabId === 2 ? {} : {display: 'none'} ;
   var tab3 = this.state.tabId === 3 ? {} : {display: 'none'} ;
-  var AddressesList = this.props.addresses.map(u => {
-      return <Addresses address={u}/>;
-  });
-
-  var cardsList = this.props.cards.map(u => {
+  var AddressesList;
+  if(this.props.details && this.props.details.get('addresses') && this.props.details.get('addresses').size !==0){
+    AddressesList = this.props.details.get('addresses').map(u => {
+      return <Address address={u}/>;
+    });
+  }else {
+     AddressesList = <Address address={Immutable.fromJS([])}/>
+  }
+  var cardsList;
+  if(this.props.details && this.props.details.get('cards')){
+    cardsList = this.props.cards.map(u => {
       return <Card card={u}/>;
-  });
+    });
+  }else {
+    cardsList =  <Card card={Immutable.fromJS([])}/>
+  }
   return (
   <div>
     <div className='appBar'> 
+      <span className='homeButton'> <p onClick={this.home}>Home</p> </span>
       <span className='appBarButton'> <p onClick={this.openProfile}>Edit Profile</p> </span>
       <span className='logout-button'> <p onClick={this.logout}>Logout</p> </span>
     </div>
@@ -203,40 +121,8 @@ var EditProfile = React.createClass({
       </div>
       <div className='field-container'>
         <p className='field-label'> Contact Number: </p>
-        <input type='number' className='field' placeholder="Contact Number" value={this.props.details.get('custPhoneNumber')}
+        <input className='field' placeholder="Contact Number" value={this.props.details.get('custPhoneNumber')}
            onChange={(e) => this.phoneNumberChanged(e.target.value)} />
-      </div>
-      <div className='field-container'>
-        <p className='field-label'> Address1: </p>
-        <textarea rows="4" cols='50' placeholder="Address 1" className='field' value={this.props.details.get('address1')}
-           onChange={(e) =>
-        this.address1Changed(e.target.value)} />
-      </div>
-      <div className='field-container'>
-        <p className='field-label'> Address2: </p>
-        <textarea rows="4" cols='50' placeholder="Address 2" className='field' value={this.props.details.get('address2')}
-           onChange={(e) =>
-        this.address2Changed(e.target.value)} />
-      </div>
-      <div className='field-container'>
-        <p className='field-label'> City: </p>
-        <input className='field' placeholder="City" value={this.props.details.get('city')}
-           onChange={(e) => this.cityChanged(e.target.value)} />
-      </div>
-      <div className='field-container'>
-        <p className='field-label'> State: </p>
-        <input className='field' placeholder="State" value={this.props.details.get('state')}
-           onChange={(e) => this.stateChanged(e.target.value)} />
-      </div>
-      <div className='field-container'>
-        <p className='field-label'> Country: </p>
-        <input className='field' placeholder="Country" value={this.props.details.get('country')}
-           onChange={(e) => this.countryChanged(e.target.value)} />
-      </div>
-      <div className='field-container'>
-        <p className='field-label'> Zip Code: </p>
-        <input className='field' placeholder="Zip Code" value={this.props.details.get('zipcode')}
-           onChange={(e) => this.zipCodeChanged(e.target.value)} />
       </div>
       <div className='field-container'>
         <div className='field-label' onClick={this.register}> Update</div>

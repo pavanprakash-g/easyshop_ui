@@ -40,6 +40,10 @@ var Routes = function(state) {
         routingState.page = 'adminProfile';
         window.BUS.trigger(Application.events.ui.render, routingState.state);
       },
+      '/usersList': function() {
+        routingState.page = 'usersList';
+        window.BUS.trigger(Application.events.ui.render, routingState.state);
+      },
       '/home': function() {
         routingState.page = 'home';
         window.BUS.trigger(Application.events.ui.render, routingState.state);
