@@ -49,6 +49,10 @@ var App = {
             countryChanged: 'app::register::countryChanged',
             addrPhoneNumberChanged: 'app::register::addrPhoneNumberChanged',
             updateAddress: 'app::register::updateAddress'
+		},
+		catalog: {
+			getAllItems: 'app::cataog::getAllItems',
+			currentItem: 'app::cataog::currentItem'
 		}
 	}
 };

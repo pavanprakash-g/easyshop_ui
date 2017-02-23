@@ -38,9 +38,6 @@ var UsersList = React.createClass({
   home(){
     window.router.setRoute('/adminProfile');
   },
-  itemCreatePage(){
-    window.router.setRoute('/itemCreate');
-  },
   componentDidMount: function(){
     window.BUS.trigger(App.events.profile.init);
 	},
@@ -52,8 +49,8 @@ var UsersList = React.createClass({
   <div>
     <div className='appBar'> 
       <span className='homeButton'> <p onClick={this.home}>Home</p> </span>
-      <span className='logout-button'> <p onClick={this.logout}>Logout</p> </span>
       <span className='appBarButton'> <p onClick={this.openUsersList}>Users List</p> </span>
+      <span className='logout-button'> <p onClick={this.logout}>Logout</p> </span>
     </div>
     <div>
       <Table>

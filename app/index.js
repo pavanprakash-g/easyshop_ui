@@ -10,6 +10,7 @@ var _ = require('underscore');
 var loginDetails = "login.details";
 var LoginView = require('./login/views/glue.jsx');
 var ProfileView = require('./profile/views/glue.jsx');
+var CatalogView = require('./catalog/views/glue.jsx');
 
 /*Material*/
 import {deepOrange500} from 'material-ui/styles/colors';
@@ -101,6 +102,8 @@ var App = React.createClass({
       LoginView(components, this.props);
   } else if (this.props.page === 'adminProfile' || this.props.page === 'home' || this.props.page === 'editProfile' || this.props.page === 'usersList') {
     ProfileView(components, this.props);
+  }else if (this.props.page === 'item'){
+    CatalogView(components, this.props);
   }
 }
 return (

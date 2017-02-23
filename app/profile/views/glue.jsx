@@ -10,7 +10,7 @@ module.exports = function(components, props){
 	else if(props.page === 'home')
   		components.push(<Home details={props.profileModel.get('details')}/>);
   	else if(props.page === 'adminProfile')
-  		components.push(<AdminProfile />);
+  		components.push(<AdminProfile items={props.catalogModel.get('items')}/>);
   	else if(props.page === 'editProfile')
   		components.push(<EditProfile details={props.authInfo.get('register').get('details')} addresses={props.authInfo.get('register').get('addresses')} cards={props.authInfo.get('register').get('cards')}/>);
   return components;

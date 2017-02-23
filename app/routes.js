@@ -51,6 +51,10 @@ var Routes = function(state) {
       '/editProfile': function() {
         routingState.page = 'editProfile';
         window.BUS.trigger(Application.events.ui.render, routingState.state);
+      },
+      '/item': function() {
+        routingState.page = 'item';
+        window.BUS.trigger(Application.events.ui.render, routingState.state);
       }
     };
 

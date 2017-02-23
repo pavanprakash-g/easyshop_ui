@@ -1,5 +1,22 @@
 var App = require('../../context/events');
 var React = require('react');
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+
+var TableData = React.createClass({
+  editItem(){
+    window.BUS.trigger(App.events.catalog.currentItem, [this.props.item]);
+    window.router.setRoute('/item');
+  },
+  render: function(){
+      return (
+        <TableRow>
+          <TableRowColumn><p onClick={this.editItem}>Edit</p></TableRowColumn>
+          <TableRowColumn>{this.props.item.get('itemId')}</TableRowColumn>
+          <TableRowColumn>{this.props.item.get('itemName')}</TableRowColumn>
+      </TableRow>
+      );
+  }
+});
 
 var AdminProfile = React.createClass({
   usersList(){
@@ -9,9 +26,12 @@ var AdminProfile = React.createClass({
     window.BUS.trigger(App.events.login.logout);
   },
   componentDidMount: function(){
-    window.BUS.trigger(App.events.profile.init);
+    window.BUS.trigger(App.events.catalog.getAllItems);
 	},
   render: function () {
+  var tableRows = this.props.items.map(u => {
+      return <TableData item={u}/>;
+  });
   return (
   <div>
     <div className='appBar'> 
@@ -19,6 +39,20 @@ var AdminProfile = React.createClass({
       <span className='appBarButton'> <p onClick={this.usersList}>Users List</p> </span>
       <span className='logout-button'> <p onClick={this.logout}>Logout</p> </span>
     </div>
+    <div>
+      <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHeaderColumn>Edit</TableHeaderColumn>
+          <TableHeaderColumn>Item Id</TableHeaderColumn>
+          <TableHeaderColumn>Item Name</TableHeaderColumn>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {tableRows}
+      </TableBody>
+     </Table>
+   </div>
   </div>);
   }
 });
