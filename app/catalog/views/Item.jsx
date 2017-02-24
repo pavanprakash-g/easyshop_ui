@@ -12,6 +12,9 @@ var Item = React.createClass({
   logout(){
     window.BUS.trigger(App.events.login.logout);
   },
+  autoSave(id, value){
+    window.BUS.trigger(App.events.catalog.autoSave, [id, value]);
+  },
   render: function () {
   return (
   <div>
@@ -24,21 +27,21 @@ var Item = React.createClass({
       <div className='field-container'>
         <p className='field-label'> Item Name: </p>
         <input type='text' className='field' placeholder="First Name" value={this.props.details.get('itemName')}
-          onChange={(e) => this.firstNameChanged(e.target.value)} />
+          onChange={(e) => this.autoSave('itemName', e.target.value)} />
       </div>
       <div className='field-container'>
         <p className='field-label'> Last Name: </p>
-        <input type='text' className='field' placeholder="Last Name" value={this.props.details.get('custLastName')}
-           onChange={(e) => this.lastNameChanged(e.target.value)} />
+        <textarea className='field' placeholder="Item Description" value={this.props.details.get('itemDescription')}
+           onChange={(e) => this.autoSave('itemDescription', e.target.value)} />
       </div>
       <div className='field-container'>
-        <p className='field-label'> Mail Id: </p>
-        <input type='mail' className='field' placeholder="Mail Id" value={this.props.details.get('custEmailid')}
+        <p className='field-label'> Item price </p>
+        <input type='number' className='field' placeholder="Item Price" value={this.props.details.get('itemPrice')}
            onChange={(e) => this.emailIdChanged(e.target.value)} />
       </div>
       <div className='field-container'>
         <p className='field-label'> Contact Number: </p>
-        <input className='field' placeholder="Contact Number" value={this.props.details.get('custPhoneNumber')}
+        <input type='number' className='field' placeholder="Contact Number" value={this.props.details.get('itemQuantity')}
            onChange={(e) => this.phoneNumberChanged(e.target.value)} />
       </div>
     </div>

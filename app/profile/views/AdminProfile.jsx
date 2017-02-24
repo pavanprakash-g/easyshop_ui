@@ -4,7 +4,7 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 
 var TableData = React.createClass({
   editItem(){
-    window.BUS.trigger(App.events.catalog.currentItem, [this.props.item]);
+    window.BUS.trigger(App.events.catalog.currentItem, [this.props.item.toJS()]);
     window.router.setRoute('/item');
   },
   render: function(){

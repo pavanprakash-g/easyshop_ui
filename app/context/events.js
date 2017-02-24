@@ -51,8 +51,9 @@ var App = {
             updateAddress: 'app::register::updateAddress'
 		},
 		catalog: {
-			getAllItems: 'app::cataog::getAllItems',
-			currentItem: 'app::cataog::currentItem'
+			getAllItems: 'app::catalog::getAllItems',
+			currentItem: 'app::catalog::currentItem',
+			autoSave: 'app::catalog::autoSave'
 		}
 	}
 };

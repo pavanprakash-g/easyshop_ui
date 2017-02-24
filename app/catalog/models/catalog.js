@@ -8,7 +8,6 @@ var Catalog = class {
     this.eventBus = eventBus;
     this.items = [];
     this.currentItem = [];
-		this.id = 10;
     this.localstorage = localstorage;
 	}
 
@@ -32,13 +31,18 @@ var Catalog = class {
 
   setCurrentItem(value){
     this.currentItem = value;
+    this.eventBus.trigger(App.events.models.changed);
+  }
+
+  autoSave(id, value){
+    this.currentItem[id] = value;
+    this.eventBus.trigger(App.events.models.changed); 
   }
 
   getState(){
     return Immutable.fromJS({
       items: this.items,
-      currentItem: this.currentItem,
-      id: this.id
+      currentItem: this.currentItem
     });
   }
 };

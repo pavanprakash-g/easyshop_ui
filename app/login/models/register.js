@@ -54,49 +54,62 @@ var Registration = class {
   }
 
   phoneNumberChanged(id, value){
-    this.contactNum = value;
-    var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
-    this.details.addresses[index].phoneNumber = value;
+    if(value === undefined)
+      this.contactNum = value;
+    else{
+      var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
+      this.details.addresses[index].phoneNumber = value;
+    }
     this.eventBus.trigger(App.events.models.changed);
   }
 
   address1Changed(id, value){
-    this.address1 = value;
-    var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
-    this.details.addresses[index].address1 = value;
-    this.eventBus.trigger(App.events.models.changed);
+    if(value === undefined)
+      this.address1 = value;
+    else{
+      var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
+      this.details.addresses[index].address1 = value;
+      this.eventBus.trigger(App.events.models.changed);
+    }
   }
 
   address2Changed(id, value){
-    this.address2 = value;
-    var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
-    this.details.addresses[index].address2 = value;
-    this.eventBus.trigger(App.events.models.changed);
+    if(value === undefined)
+      this.address2 = value;
+    else{
+      var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
+      this.details.addresses[index].address2 = value;
+      this.eventBus.trigger(App.events.models.changed);
+    }
   }
 
   cityChanged(id, value){
-    this.city = value;
+    if(value === undefined)
+      this.city = value;
     var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
     this.details.addresses[index].city = value;
     this.eventBus.trigger(App.events.models.changed);
   }
 
   stateChanged(id, value){
-    this.state_name = value;
+    if(value === undefined)
+      this.state_name = value;
     var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
     this.details.addresses[index].state = value;
     this.eventBus.trigger(App.events.models.changed);
   }
 
   countryChanged(id, value){
-    this.country = value;
+    if(value === undefined)
+      this.country = value;
     var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
     this.details.addresses[index].country = value;
     this.eventBus.trigger(App.events.models.changed);
   }
 
   zipCodeChanged(id, value){
-    this.zipCode = value;
+    if(value === undefined)
+      this.zipCode = value;
     var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
     this.details.addresses[index].zipcode = value;
     this.eventBus.trigger(App.events.models.changed);
