@@ -12,6 +12,14 @@ var listeners = function(eventBus, model) {
 	eventBus.on(Events.catalog.autoSave, (evt, id, value) => {
 		model.autoSave(id, value);
 	});
+
+	eventBus.on(Events.catalog.updateItem, (evt) => {
+		model.updateItem();
+	});
+
+	eventBus.on(Events.catalog.createItem, (evt) => {
+		model.createItem();
+	});
 };
 
 module.exports = listeners;

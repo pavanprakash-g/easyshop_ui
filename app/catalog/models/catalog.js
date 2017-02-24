@@ -39,6 +39,50 @@ var Catalog = class {
     this.eventBus.trigger(App.events.models.changed); 
   }
 
+  updateItem(){
+    $.ajax({
+      method: 'PUT',
+      url: window.baseURL+'catalog/updateItem',
+      contentType: 'application/json',
+      data: JSON.stringify(this.currentItem),
+      dataType: "json"
+    }).done((response)=>{
+        this.currentItem = [];
+    }).fail((jqXHR, textStatus, errorThrown)=>{
+        window.BUS.trigger(App.events.ui.alert,['problem in getting catalog details', 'Info']);
+    }).always(()=>{
+      this.loading = false;
+      this.eventBus.trigger(App.events.models.changed);
+    });
+  }
+
+  itemDetails(){
+    return({
+      itemName: this.currentItem['itemName'],
+      itemDescription: this.currentItem['itemDescription'],
+      itemPrice: this.currentItem['itemPrice'],
+      itemQuantity: this.currentItem['itemQuantity']
+    })
+  }
+
+  createItem(){
+    var data = this.itemDetails();
+    $.ajax({
+      method: 'POST',
+      url: window.baseURL+'catalog/createItem',
+      contentType: 'application/json',
+      data: JSON.stringify(data),
+      dataType: "json"
+    }).done((response)=>{
+      this.items = response;
+    }).fail((jqXHR, textStatus, errorThrown)=>{
+        window.BUS.trigger(App.events.ui.alert,['problem in getting catalog details', 'Info']);
+    }).always(()=>{
+      this.loading = false;
+      this.eventBus.trigger(App.events.models.changed);
+    });
+  }
+
   getState(){
     return Immutable.fromJS({
       items: this.items,

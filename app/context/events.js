@@ -53,7 +53,9 @@ var App = {
 		catalog: {
 			getAllItems: 'app::catalog::getAllItems',
 			currentItem: 'app::catalog::currentItem',
-			autoSave: 'app::catalog::autoSave'
+			autoSave: 'app::catalog::autoSave',
+			updateItem: 'app::catalog::updateItem',
+			createItem: 'app::catalog::createItem'
 		}
 	}
 };

@@ -15,7 +15,17 @@ var Item = React.createClass({
   autoSave(id, value){
     window.BUS.trigger(App.events.catalog.autoSave, [id, value]);
   },
+  update(){
+    window.BUS.trigger(App.events.catalog.updateItem);
+    window.history.back();
+  },
+  insert(){
+    window.BUS.trigger(App.events.catalog.createItem);
+    window.router.setRoute('/adminProfile');
+  },
   render: function () {
+  var isUpdate = this.props.details.get('itemName') === undefined ? {display: 'none'}: {};
+  var isInsert = this.props.details.get('itemName') === undefined ? {}: {display: 'none'};
   return (
   <div>
     <div className='appBar'> 
@@ -35,14 +45,24 @@ var Item = React.createClass({
            onChange={(e) => this.autoSave('itemDescription', e.target.value)} />
       </div>
       <div className='field-container'>
-        <p className='field-label'> Item price </p>
+        <p className='field-label'> Item price: </p>
         <input type='number' className='field' placeholder="Item Price" value={this.props.details.get('itemPrice')}
-           onChange={(e) => this.emailIdChanged(e.target.value)} />
+           onChange={(e) => this.autoSave('itemPrice', e.target.value)} />
       </div>
       <div className='field-container'>
-        <p className='field-label'> Contact Number: </p>
-        <input type='number' className='field' placeholder="Contact Number" value={this.props.details.get('itemQuantity')}
-           onChange={(e) => this.phoneNumberChanged(e.target.value)} />
+        <p className='field-label'> Item Quantity: </p>
+        <input type='number' className='field' placeholder="Item Quantity" value={this.props.details.get('itemQuantity')}
+           onChange={(e) => this.autoSave('itemQuantity', e.target.value)} />
+      </div>
+      <div style={isUpdate}>
+        <div className='field-container'>
+          <div className='btn' onClick={this.update}>Update</div>
+        </div>
+      </div>
+      <div style={isInsert}>
+        <div className='field-container'>
+          <div className='btn' onClick={this.insert}>Insert</div>
+        </div>
       </div>
     </div>
   </div>);

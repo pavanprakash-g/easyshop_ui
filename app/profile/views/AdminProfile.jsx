@@ -25,6 +25,9 @@ var AdminProfile = React.createClass({
   logout(){
     window.BUS.trigger(App.events.login.logout);
   },
+  openPage(){
+    window.router.setRoute('/item');
+  },
   componentDidMount: function(){
     window.BUS.trigger(App.events.catalog.getAllItems);
 	},
@@ -39,6 +42,9 @@ var AdminProfile = React.createClass({
       <span className='appBarButton'> <p onClick={this.usersList}>Users List</p> </span>
       <span className='logout-button'> <p onClick={this.logout}>Logout</p> </span>
     </div>
+    <div className='field-container'>
+      <input type='button' value='create' onClick={this.openPage} />
+    </div> 
     <div>
       <Table>
       <TableHeader>
