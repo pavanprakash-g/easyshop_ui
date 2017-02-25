@@ -55,7 +55,8 @@ var App = {
 			currentItem: 'app::catalog::currentItem',
 			autoSave: 'app::catalog::autoSave',
 			updateItem: 'app::catalog::updateItem',
-			createItem: 'app::catalog::createItem'
+			createItem: 'app::catalog::createItem',
+			deleteItem: 'app::catalog::deleteItem'
 		}
 	}
 };

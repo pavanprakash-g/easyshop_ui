@@ -7,10 +7,15 @@ var TableData = React.createClass({
     window.BUS.trigger(App.events.catalog.currentItem, [this.props.item.toJS()]);
     window.router.setRoute('/item');
   },
+  deleteItem(){
+    window.BUS.trigger(App.events.catalog.deleteItem, [this.props.item.get('itemId')]);
+    window.router.setRoute('/adminProfile');
+  },
   render: function(){
       return (
         <TableRow>
           <TableRowColumn><p onClick={this.editItem}>Edit</p></TableRowColumn>
+          <TableRowColumn><p onClick={this.deleteItem}>Delete</p></TableRowColumn>
           <TableRowColumn>{this.props.item.get('itemId')}</TableRowColumn>
           <TableRowColumn>{this.props.item.get('itemName')}</TableRowColumn>
       </TableRow>
@@ -50,6 +55,7 @@ var AdminProfile = React.createClass({
       <TableHeader>
         <TableRow>
           <TableHeaderColumn>Edit</TableHeaderColumn>
+          <TableHeaderColumn>Delete</TableHeaderColumn>
           <TableHeaderColumn>Item Id</TableHeaderColumn>
           <TableHeaderColumn>Item Name</TableHeaderColumn>
         </TableRow>

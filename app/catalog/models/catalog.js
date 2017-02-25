@@ -83,6 +83,23 @@ var Catalog = class {
     });
   }
 
+  deleteItem(id){
+    $.ajax({
+      method: 'DELETE',
+      url: window.baseURL+'catalog/deleteItem?itemId='+id,
+      contentType: 'application/json',
+      dataType: "json"
+    }).done((response)=>{
+      var index =  _.findIndex(this.items, (d) => d.itemId === id);
+      this.items = _.without(this.items,index);
+    }).fail((jqXHR, textStatus, errorThrown)=>{
+        window.BUS.trigger(App.events.ui.alert,['problem in getting catalog details', 'Info']);
+    }).always(()=>{
+      this.loading = false;
+      this.eventBus.trigger(App.events.models.changed);
+    });
+  }
+
   getState(){
     return Immutable.fromJS({
       items: this.items,

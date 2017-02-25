@@ -20,6 +20,10 @@ var listeners = function(eventBus, model) {
 	eventBus.on(Events.catalog.createItem, (evt) => {
 		model.createItem();
 	});
+
+	eventBus.on(Events.catalog.deleteItem, (evt, id) => {
+		model.deleteItem(id);
+	});
 };
 
 module.exports = listeners;

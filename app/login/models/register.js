@@ -55,7 +55,7 @@ var Registration = class {
 
   phoneNumberChanged(id, value){
     if(value === undefined)
-      this.contactNum = value;
+      this.contactNum = id;
     else{
       var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
       this.details.addresses[index].phoneNumber = value;
@@ -65,54 +65,62 @@ var Registration = class {
 
   address1Changed(id, value){
     if(value === undefined)
-      this.address1 = value;
+      this.address1 = id;
     else{
       var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
       this.details.addresses[index].address1 = value;
-      this.eventBus.trigger(App.events.models.changed);
     }
+    this.eventBus.trigger(App.events.models.changed);
   }
 
   address2Changed(id, value){
     if(value === undefined)
-      this.address2 = value;
+      this.address2 = id;
     else{
       var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
       this.details.addresses[index].address2 = value;
-      this.eventBus.trigger(App.events.models.changed);
     }
+    this.eventBus.trigger(App.events.models.changed);
   }
 
   cityChanged(id, value){
     if(value === undefined)
-      this.city = value;
-    var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
-    this.details.addresses[index].city = value;
+      this.city = id;
+    else{
+      var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
+      this.details.addresses[index].city = value;
+    }
     this.eventBus.trigger(App.events.models.changed);
   }
 
   stateChanged(id, value){
     if(value === undefined)
-      this.state_name = value;
-    var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
-    this.details.addresses[index].state = value;
-    this.eventBus.trigger(App.events.models.changed);
+      this.state_name = id;
+    else{
+      var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
+      this.details.addresses[index].state = value;
+    }
+      this.eventBus.trigger(App.events.models.changed);
   }
 
   countryChanged(id, value){
     if(value === undefined)
-      this.country = value;
-    var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
-    this.details.addresses[index].country = value;
-    this.eventBus.trigger(App.events.models.changed);
+      this.country = id;
+    else{
+      var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
+      this.details.addresses[index].country = value;
+    }
+      this.eventBus.trigger(App.events.models.changed);
   }
 
   zipCodeChanged(id, value){
     if(value === undefined)
-      this.zipCode = value;
-    var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
-    this.details.addresses[index].zipcode = value;
-    this.eventBus.trigger(App.events.models.changed);
+      this.zipCode = id;
+    else{
+      var index =  _.findIndex(this.details.addresses, (d) => d.addressId === id);
+      this.details.addresses[index].zipcode = value;
+    }
+      this.eventBus.trigger(App.events.models.changed);
   }  
 
   securityQuesAnsChanged(value){
@@ -148,7 +156,7 @@ var Registration = class {
       custPassword: md5(this.password),
       securityQuesAns: md5(this.securityQuesAns),
       securityQuesId: 2,
-      address: this.billingAddress,
+      address: [],
       activeStatus: true
     });
   }
@@ -224,8 +232,6 @@ var Registration = class {
   perform(){
     var that = this;
     this.loading = true;
-    this.billingaddress = this.billingaddress();
-    this.shipmentaddress = this.shipmentaddress();
     var query = this.formPayload();
     this.eventBus.trigger(App.events.models.changed);
     $.ajax({

@@ -5,7 +5,7 @@ import IconButton from 'material-ui/IconButton';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 
 var Home = React.createClass({
-  
+
   home(){
     window.router.setRoute('/login');
   },
@@ -21,6 +21,9 @@ var Home = React.createClass({
   openProfile(){
     window.router.setRoute('/editProfile');
   },
+  openItem(){
+    console.log();
+  },
   componentDidMount: function(){
     window.BUS.trigger(App.events.catalog.getAllItems);
   },
@@ -30,7 +33,8 @@ var Home = React.createClass({
           key={u.get('img')}
           title={u.get('itemName')}
           actionIcon={<IconButton><StarBorder color="rgb(0, 188, 212)" /></IconButton>}
-          titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)" > </GridTile>;
+          titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)" 
+          onClick={this.openItem}> </GridTile>;
   });
   return (
   <div>
