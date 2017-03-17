@@ -54,6 +54,11 @@ var Item = React.createClass({
         <input type='number' className='field' placeholder="Item Quantity" value={this.props.details.get('itemQuantity')}
            onChange={(e) => this.autoSave('itemQuantity', e.target.value)} />
       </div>
+      <div className='field-container'>
+        <p className='field-label'> Item Image URL(Give the url of the image of item): </p>
+        <input type='text' className='field' placeholder="https://www.imageurl.." value={this.props.details.get('itemImage')}
+           onChange={(e) => this.autoSave('itemImage', e.target.value)} />
+      </div>
       <div style={isUpdate}>
         <div className='field-container'>
           <div className='btn' onClick={this.update}>Update</div>

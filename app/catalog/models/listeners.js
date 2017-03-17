@@ -24,6 +24,10 @@ var listeners = function(eventBus, model) {
 	eventBus.on(Events.catalog.deleteItem, (evt, id) => {
 		model.deleteItem(id);
 	});
+
+	eventBus.on(Events.catalog.itemDetails, (evt, id) => {
+		model.itemDetails(id);
+	});
 };
 
 module.exports = listeners;

@@ -21,8 +21,8 @@ var Home = React.createClass({
   openProfile(){
     window.router.setRoute('/editProfile');
   },
-  openItem(){
-    console.log();
+  openItem(itemId){
+    window.BUS.trigger(App.events.catalog.itemDetails, [itemId]);
   },
   componentDidMount: function(){
     window.BUS.trigger(App.events.catalog.getAllItems);
@@ -30,11 +30,11 @@ var Home = React.createClass({
   render: function () {
   var GridTiles = this.props.items.map(u => {
      return <GridTile
-          key={u.get('img')}
+          key={u.get('itemId')}
           title={u.get('itemName')}
           actionIcon={<IconButton><StarBorder color="rgb(0, 188, 212)" /></IconButton>}
-          titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)" 
-          onClick={this.openItem}> </GridTile>;
+          titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)" > 
+          <img src={u.get('itemImage')} onClick={(e) => this.openItem(u.get('itemId'))}/> </GridTile>;
   });
   return (
   <div>
@@ -44,7 +44,6 @@ var Home = React.createClass({
       <span className='logout-button'> <p onClick={this.logout}>Logout</p> </span>
     </div>
     <div>
-      <p>This is where the customer will see the list of items!</p>
         <GridList  cols={3.6}>
           {GridTiles}
         </GridList>

@@ -56,17 +56,18 @@ var Catalog = class {
     });
   }
 
-  itemDetails(){
+  itemInfo(){
     return({
       itemName: this.currentItem['itemName'],
       itemDescription: this.currentItem['itemDescription'],
       itemPrice: this.currentItem['itemPrice'],
-      itemQuantity: this.currentItem['itemQuantity']
+      itemQuantity: this.currentItem['itemQuantity'],
+      itemImage: this.currentItem['itemImage']
     })
   }
 
   createItem(){
-    var data = this.itemDetails();
+    var data = this.itemInfo();
     $.ajax({
       method: 'POST',
       url: window.baseURL+'catalog/createItem',
@@ -98,6 +99,13 @@ var Catalog = class {
       this.loading = false;
       this.eventBus.trigger(App.events.models.changed);
     });
+  }
+
+  itemDetails(itemId){
+    var index =  _.findIndex(this.items, (d) => d.itemId === itemId);
+    this.currentItem = this.items[index];
+    this.eventBus.trigger(App.events.models.changed);
+    window.router.setRoute('/itemDetails');
   }
 
   getState(){

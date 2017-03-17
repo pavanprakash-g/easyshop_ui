@@ -86,25 +86,26 @@ var App = React.createClass({
     } */
     if (!this.props.authInfo.get('login').get('loggedIn') && this.props.page !== 'login' &&  this.props.page !== 'sign_in' 
       && this.props.page !== 'register' && this.props.page !== 'forgetPassword' && this.props.page !== 'forgetPasswordSuccess') {
-      this.props.router.setRoute('/login');
-    return (<div/>);
-  }
-  if (this.props.authInfo.get('login').get('loggedIn')  && (this.props.page === 'login' || this.props.page === 'sign_in')) {
+        this.props.router.setRoute('/login');
+        return (<div/>);
+    }
+  
+  if(this.props.authInfo.get('login').get('loggedIn')  && (this.props.page === 'login' || this.props.page === 'sign_in')) {
     if(this.props.authInfo.get('login').get('isAdmin')){
       this.props.router.setRoute('/adminProfile');
     }else{
       this.props.router.setRoute('/home');
     }
     return (<div/>);
-  } else {
+  }else {
     if (this.props.page === 'login' || this.props.page == "sign_in" || this.props.page === 'register' || 
       this.props.page === 'after_register' || this.props.page === 'forgetPassword' || this.props.page === 'forgetPasswordSuccess') {
       LoginView(components, this.props);
-  } else if (this.props.page === 'adminProfile' || this.props.page === 'home' || this.props.page === 'editProfile' || this.props.page === 'usersList') {
-    ProfileView(components, this.props);
-  }else if (this.props.page === 'item'){
-    CatalogView(components, this.props);
-  }
+    }else if (this.props.page === 'adminProfile' || this.props.page === 'home' || this.props.page === 'editProfile' || this.props.page === 'usersList') {
+      ProfileView(components, this.props);
+    }else if (this.props.page === 'item' || this.props.page === 'itemDetails'){
+      CatalogView(components, this.props);
+    }
 }
 return (
   <MuiThemeProvider muiTheme={muiTheme}>
