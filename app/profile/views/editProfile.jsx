@@ -96,6 +96,7 @@ var EditProfile = React.createClass({
     <div className='appBar'> 
       <span className='homeButton'> <p onClick={this.home}>Home</p> </span>
       <span className='appBarButton'> <p onClick={this.openProfile}>Edit Profile</p> </span>
+      <span className='cartButton'> <p onClick={this.openProfile}>Cart({this.props.cartCount})</p> </span>
       <span className='logout-button'> <p onClick={this.logout}>Logout</p> </span>
     </div>
     <div>

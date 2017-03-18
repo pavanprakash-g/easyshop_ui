@@ -28,6 +28,10 @@ var listeners = function(eventBus, model) {
 	eventBus.on(Events.catalog.itemDetails, (evt, id) => {
 		model.itemDetails(id);
 	});
+
+	eventBus.on(Events.catalog.itemDetails, (evt, id) => {
+		model.addToCart(id);
+	});
 };
 
 module.exports = listeners;

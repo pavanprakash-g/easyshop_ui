@@ -14,10 +14,6 @@
 	height: 60px;
 	background-color: rgba(0,188,212,1);
 }
-.appBarButton{
-    float: right;
-    margin: 10px 120px 10px 10px;
-}
 .tabSpan{
     display: inline-block;
     margin: 10px 120px 10px 10px;
@@ -27,7 +23,26 @@
     border-style: ridge;
     margin-right: 40px;
 }
+.borderedDivNoInline{
+    border: 1px solid black;
+    margin-right: 40px;
+}
 .homeButton{
-    float: left;
-    margin: 10px 0px 10px 10px;
+  display: inline-block;
+  text-align: left;
+}
+.appBarButton{
+  text-align: right;
+  display: inline-block;
+  margin: 10px 10px 10px 80%;
+}
+.cartButton{
+  text-align: right;
+  display: inline-block;
+  margin: 10px 10px 10px 2%;
+}
+.logout-button{
+  text-align: right;
+  display: inline-block;
+  margin: 10px 10px 10px 2%;
 }

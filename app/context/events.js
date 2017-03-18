@@ -57,7 +57,11 @@ var App = {
 			updateItem: 'app::catalog::updateItem',
 			createItem: 'app::catalog::createItem',
 			deleteItem: 'app::catalog::deleteItem',
-			itemDetails: 'app::catalog::itemDetails'
+			itemDetails: 'app::catalog::itemDetails',
+			addToCart: 'app::catalog::addToCart'
+		},
+		cart: {
+			getCartItems: 'app::cart::getCartItems'
 		}
 	}
 };

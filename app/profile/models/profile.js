@@ -66,7 +66,8 @@ var Profile = class {
       username: this.username,
       password: this.password,
       isAdmin: this.isAdmin,
-      details: this.details
+      details: this.details,
+      cartCount: this.localStorage.getItem('cartCount')
     });
   }
 };

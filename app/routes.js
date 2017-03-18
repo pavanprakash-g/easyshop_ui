@@ -59,6 +59,10 @@ var Routes = function(state) {
       '/itemDetails': function() {
         routingState.page = 'itemDetails';
         window.BUS.trigger(Application.events.ui.render, routingState.state);
+      },
+      '/cart': function() {
+        routingState.page = 'cart';
+        window.BUS.trigger(Application.events.ui.render, routingState.state);
       }
     };
 

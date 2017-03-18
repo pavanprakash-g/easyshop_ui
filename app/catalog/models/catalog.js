@@ -9,6 +9,8 @@ var Catalog = class {
     this.items = [];
     this.currentItem = [];
     this.localstorage = localstorage;
+    this.itemId = 0;
+    this.loading = false;
 	}
 
 	getAllItems(){
@@ -108,10 +110,41 @@ var Catalog = class {
     window.router.setRoute('/itemDetails');
   }
 
+  cartItem(){
+    return({
+      custId: this.localstorage.getItem('custId'),
+      itemId: this.itemId
+    })
+  }
+
+  addToCart(itemId){
+    var itemToCart = this.cartItem();
+    itemToCart.itemId = itemId;
+    this.loading= true;
+    this.eventBus.trigger(App.events.models.changed);
+    $.ajax({
+      method: 'POST',
+      url: window.baseURL+'cart/addToCart',
+      contentType: 'application/json',
+      data: JSON.stringify(itemToCart),
+      dataType: "json"
+    }).done((response)=>{
+      this.localstorage.setItem('cartCount',response.cartCount);
+    }).fail((jqXHR, textStatus, errorThrown)=>{
+        window.BUS.trigger(App.events.ui.alert,['problem in getting catalog details', 'Info']);
+    }).always(()=>{
+      this.loading = false;
+      this.eventBus.trigger(App.events.models.changed);
+    });
+    console.log("testing");
+  }
+
   getState(){
     return Immutable.fromJS({
       items: this.items,
-      currentItem: this.currentItem
+      loading: this.loading,
+      currentItem: this.currentItem,
+      cartCount: this.localstorage.getItem('cartCount')
     });
   }
 };

@@ -1,9 +1,11 @@
 var Login = require('./../login/models/login_wrapper');
 var Profile = require('./../profile/models/profile');
 var Catalog = require('./../catalog/models/catalog');
+var Cart = require('./../cart/models/cart');
 var LoginListeners = require('./../login/models/listeners');
 var ProfileListeners = require('./../profile/models/listeners');
 var CatalogListeners = require('./../catalog/models/listeners');
+var CartListeners = require('./../cart/models/listeners');
 var App = require('./events');
 var $ = require('jquery');
 
@@ -13,6 +15,7 @@ var Context = function(eventBus, storage) {
   var login = new Login(eventBus, storage);
   var profile = new Profile(eventBus, storage);
   var catalog = new Catalog(eventBus, storage);
+  var cart = new Cart(eventBus, storage);
 
   $.ajaxPrefilter(function( options ) {
     if ( !options.beforeSend) {
@@ -24,7 +27,8 @@ var Context = function(eventBus, storage) {
   this.models = {
     userLogin: login,
     profileModel: profile,
-    catalogModel: catalog
+    catalogModel: catalog,
+    cartModel: cart
   };
 
   eventBus.on(App.events.models.changed, function() {
@@ -34,6 +38,7 @@ var Context = function(eventBus, storage) {
   LoginListeners(eventBus, this.models.userLogin);
   ProfileListeners(eventBus, this.models.profileModel);
   CatalogListeners(eventBus, this.models.catalogModel);
+  CartListeners(eventBus, this.models.cartModel);
 
   eventBus.trigger(App.events.initComplete, this.getState());
 };
@@ -43,7 +48,8 @@ Context.prototype.getState = function() {
   return {
     authInfo: self.models.userLogin.getState(),
     profileModel: self.models.profileModel.getState(),
-    catalogModel: self.models.catalogModel.getState()
+    catalogModel: self.models.catalogModel.getState(),
+    cartModel: self.models.cartModel.getState()
   };
 };
 

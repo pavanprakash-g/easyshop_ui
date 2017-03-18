@@ -11,6 +11,7 @@ var loginDetails = "login.details";
 var LoginView = require('./login/views/glue.jsx');
 var ProfileView = require('./profile/views/glue.jsx');
 var CatalogView = require('./catalog/views/glue.jsx');
+var CartView = require('./cart/views/glue.jsx');
 
 /*Material*/
 import {deepOrange500} from 'material-ui/styles/colors';
@@ -105,6 +106,8 @@ var App = React.createClass({
       ProfileView(components, this.props);
     }else if (this.props.page === 'item' || this.props.page === 'itemDetails'){
       CatalogView(components, this.props);
+    }else if (this.props.page === 'cart'){
+      CartView(components, this.props);
     }
 }
 return (

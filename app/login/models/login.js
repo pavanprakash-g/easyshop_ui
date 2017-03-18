@@ -43,7 +43,6 @@ var Login = class {
   }
 
   perform(){
-    var that = this;
     this.loading = true;
     var pwd = md5(this.password);
     this.eventBus.trigger(App.events.models.changed);
@@ -57,6 +56,7 @@ var Login = class {
           this.localStorage.setItem('authtoken', response.verifyLogin.uuid);
           this.localStorage.setItem('username', response.verifyLogin.firstName);
           this.localStorage.setItem('custId', response.verifyLogin.custId);
+          this.localStorage.setItem('cartCount', response.verifyLogin.cartCount);
           window.router.setRoute("/login");
         }
       }).fail((jqXHR, textStatus, errorThrown)=>{
@@ -71,6 +71,7 @@ var Login = class {
       username: this.username,
       password: this.password,
       loading: this.loading,
+      cartCount: this.localStorage.getItem('cartCount'),
       securityQuesAns: this.securityQuesAns,
       loggedIn: _.isEmpty(this.localStorage.getItem('authtoken'))? false : true,
       isAdmin: this.localStorage.getItem('username')=='admin'? true : false

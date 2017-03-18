@@ -21,6 +21,9 @@ var Home = React.createClass({
   openProfile(){
     window.router.setRoute('/editProfile');
   },
+  openCart(){
+    window.router.setRoute('/cart');
+  },
   openItem(itemId){
     window.BUS.trigger(App.events.catalog.itemDetails, [itemId]);
   },
@@ -41,7 +44,9 @@ var Home = React.createClass({
     <div className='appBar'> 
       <span className='homeButton'> <p onClick={this.home}>Home</p> </span>
       <span className='appBarButton'> <p onClick={this.openProfile}>Edit Profile</p> </span>
+      <span className='cartButton'> <p onClick={this.openCart}>Cart({this.props.cartCount})</p> </span>
       <span className='logout-button'> <p onClick={this.logout}>Logout</p> </span>
+      <span > <p onClick={this.cart}>cart</p> </span>
     </div>
     <div>
         <GridList  cols={3.6}>

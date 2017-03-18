@@ -4,10 +4,37 @@
     margin-left: 20px;
 }
 #leftCol {
-    width: 36.5%;
+    width: 88.5%;
     float: left;
+    border: 1px solid black;
+    margin-top: 20px;
 }
 #centerCol {
-    margin-left: 38.0%;
-    margin-right: 270px;
+    margin-left: 156%;
+    width: 500px;
+}
+.multipleColumn{
+    display: inline-block;
+}
+.normal-btn {
+    color: black;
+    font-weight: bold;
+    border: 1px solid black;
+    width: 150px;
+    padding: 10px;
+    margin: 0px auto;
+}
+.inline{
+    display: inline-block;
+}
+.margin{
+    margin: 10px 10px 10px 10px;
+    width: 60%;
+}
+.total{
+    margin: 10px 10px 10px 10px;
+    width: 30%;
+}
+.alignRight{
+    text-align: right;
 }

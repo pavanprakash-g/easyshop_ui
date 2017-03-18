@@ -50,6 +50,7 @@ var UsersList = React.createClass({
     <div className='appBar'> 
       <span className='homeButton'> <p onClick={this.home}>Home</p> </span>
       <span className='appBarButton'> <p onClick={this.openUsersList}>Users List</p> </span>
+      <span className='appBarButton'> <p onClick={this.cart}>cart</p> </span>
       <span className='logout-button'> <p onClick={this.logout}>Logout</p> </span>
     </div>
     <div>
