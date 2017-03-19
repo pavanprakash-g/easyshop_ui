@@ -4,7 +4,11 @@ var AppDefaults = require('../../lib/app_defaults');
 var Loader = require('react-loader');
 
 var ItemDetails = React.createClass({
-
+  getInitialState(){
+    return {
+      count: 0
+    };
+  },
   openProfile(){
     window.router.setRoute('/editProfile');
   },
@@ -29,9 +33,14 @@ var ItemDetails = React.createClass({
     window.router.setRoute('/cart');
   },
   addToCart(itemId){
+    const {count} = this.state;
+    this.setState({count: count + 1});
     window.BUS.trigger(App.events.catalog.addToCart, [itemId]);
   },
   render: function () {
+    var totalQuantity = this.props.details.get('itemQuantity');
+    var availableQuantity = totalQuantity - this.state.count; 
+    var addToCartStyle = totalQuantity >= 1 && availableQuantity >=1 ? false : true;
   return (
   <div>
     <div className='appBar'> 
@@ -49,7 +58,7 @@ var ItemDetails = React.createClass({
         <p>{this.props.details.get('itemDescription')}</p>
         <hr/>
         <p>$ {this.props.details.get('itemPrice')}</p>
-        <div className='normal-btn' onClick={(e) => this.addToCart(this.props.details.get('itemId'))}>Add to cart</div>
+        <input disabled={addToCartStyle} className='normal-btn' onClick={(e) => this.addToCart(this.props.details.get('itemId'))} value="Add to cart" />
         <p>{this.props.details.get('itemDescription')}</p>
       </div>
       <div id="rightCol">

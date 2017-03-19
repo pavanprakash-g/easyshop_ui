@@ -46,7 +46,7 @@ var Home = React.createClass({
       <span className='appBarButton'> <p onClick={this.openProfile}>Edit Profile</p> </span>
       <span className='cartButton'> <p onClick={this.openCart}>Cart({this.props.cartCount})</p> </span>
       <span className='logout-button'> <p onClick={this.logout}>Logout</p> </span>
-      <span > <p onClick={this.cart}>cart</p> </span>
+      
     </div>
     <div>
         <GridList  cols={3.6}>

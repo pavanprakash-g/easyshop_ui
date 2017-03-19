@@ -2,10 +2,12 @@ var Login = require('./../login/models/login_wrapper');
 var Profile = require('./../profile/models/profile');
 var Catalog = require('./../catalog/models/catalog');
 var Cart = require('./../cart/models/cart');
+var Order = require('./../order/models/order');
 var LoginListeners = require('./../login/models/listeners');
 var ProfileListeners = require('./../profile/models/listeners');
 var CatalogListeners = require('./../catalog/models/listeners');
 var CartListeners = require('./../cart/models/listeners');
+var OrderListeners = require('./../order/models/listeners');
 var App = require('./events');
 var $ = require('jquery');
 
@@ -16,6 +18,7 @@ var Context = function(eventBus, storage) {
   var profile = new Profile(eventBus, storage);
   var catalog = new Catalog(eventBus, storage);
   var cart = new Cart(eventBus, storage);
+  var order = new Order(eventBus, storage);
 
   $.ajaxPrefilter(function( options ) {
     if ( !options.beforeSend) {
@@ -28,7 +31,8 @@ var Context = function(eventBus, storage) {
     userLogin: login,
     profileModel: profile,
     catalogModel: catalog,
-    cartModel: cart
+    cartModel: cart,
+    orderModel: order
   };
 
   eventBus.on(App.events.models.changed, function() {
@@ -39,6 +43,7 @@ var Context = function(eventBus, storage) {
   ProfileListeners(eventBus, this.models.profileModel);
   CatalogListeners(eventBus, this.models.catalogModel);
   CartListeners(eventBus, this.models.cartModel);
+  OrderListeners(eventBus, this.models.orderModel);
 
   eventBus.trigger(App.events.initComplete, this.getState());
 };
@@ -49,7 +54,8 @@ Context.prototype.getState = function() {
     authInfo: self.models.userLogin.getState(),
     profileModel: self.models.profileModel.getState(),
     catalogModel: self.models.catalogModel.getState(),
-    cartModel: self.models.cartModel.getState()
+    cartModel: self.models.cartModel.getState(),
+    orderModel: self.models.orderModel.getState()
   };
 };
 

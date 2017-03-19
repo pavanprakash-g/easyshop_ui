@@ -61,7 +61,16 @@ var App = {
 			addToCart: 'app::catalog::addToCart'
 		},
 		cart: {
-			getCartItems: 'app::cart::getCartItems'
+			getCartItems: 'app::cart::getCartItems',
+			deleteItem: 'app::cart::deleteItem',
+			reduceQuantity: 'app::cart::reduceQuantity',
+			validateStock: 'app::cart::validateStock'
+		},
+		order: {
+			getOrderItems: 'app::order::getOrderItems',
+			custDetails: 'app::order::custDetails',
+			saveAddress: 'app::order::saveAddress',
+			saveCard: 'app::order::saveCard'
 		}
 	}
 };

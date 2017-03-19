@@ -20,7 +20,8 @@ var Cart = class {
         contentType: 'application/json',
         dataType: "json"
       }).done((response)=>{
-          this.items = response;
+          this.items = response.data;
+          this.localstorage.setItem('cartCount',response.cartCount);
       }).fail((jqXHR, textStatus, errorThrown)=>{
           window.BUS.trigger(App.events.ui.alert,['problem in Login', 'Info']);
       }).always(()=>{
@@ -28,12 +29,69 @@ var Cart = class {
         this.eventBus.trigger(App.events.models.changed);
       });
   }
+
+  deleteItem(itemId){
+    $.ajax({
+        method: 'PUT',
+        url: window.baseURL+'/cart/updateCart?type=remove&itemId='+itemId,
+        contentType: 'application/json',
+        dataType: "json"
+      }).done((response)=>{
+          this.items = response;
+          this.items = response.data;
+          this.localstorage.setItem('cartCount',response.cartCount);
+      }).fail((jqXHR, textStatus, errorThrown)=>{
+          window.BUS.trigger(App.events.ui.alert,['problem in Login', 'Info']);
+      }).always(()=>{
+        this.loading = false;
+        this.eventBus.trigger(App.events.models.changed);
+      });
+  }
+
+  reduceQuantity(itemId){
+    $.ajax({
+        method: 'PUT',
+        url: window.baseURL+'/cart/updateCart?type=reduce&itemId='+itemId,
+        contentType: 'application/json',
+        dataType: "json"
+      }).done((response)=>{
+          this.items = response;
+          this.items = response.data;
+          this.localstorage.setItem('cartCount',response.cartCount);
+      }).fail((jqXHR, textStatus, errorThrown)=>{
+          window.BUS.trigger(App.events.ui.alert,['problem in Login', 'Info']);
+      }).always(()=>{
+        this.loading = false;
+        this.eventBus.trigger(App.events.models.changed);
+      });
+  }
+
+  validateStock(){
+    $.ajax({
+        method: 'GET',
+        url: window.baseURL+'/cart/validateCart',
+      contentType: 'application/json',
+      dataType: "json"
+    }).done((response)=>{
+        if(response.status){
+          window.router.setRoute('/order');
+        }else{
+          window.BUS.trigger(App.events.ui.alert,[response.message, 'Info']);  
+        }
+    }).fail((jqXHR, textStatus, errorThrown)=>{
+        window.BUS.trigger(App.events.ui.alert,['problem in Login', 'Info']);
+    }).always(()=>{
+      this.loading = false;
+      this.eventBus.trigger(App.events.models.changed);
+    }); 
+  }
   
   getState(){
     return Immutable.fromJS({
       items: this.items,
       loading: this.loading,
-      currentItem: this.currentItem
+      currentItem: this.currentItem,
+      cartCount: this.localstorage.getItem('cartCount')
     });
   }
 };

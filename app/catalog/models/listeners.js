@@ -29,7 +29,7 @@ var listeners = function(eventBus, model) {
 		model.itemDetails(id);
 	});
 
-	eventBus.on(Events.catalog.itemDetails, (evt, id) => {
+	eventBus.on(Events.catalog.addToCart, (evt, id) => {
 		model.addToCart(id);
 	});
 };
