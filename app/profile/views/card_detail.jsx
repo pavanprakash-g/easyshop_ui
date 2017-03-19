@@ -6,25 +6,48 @@ var _ = require('underscore');
 var classnames = require('classnames');
 
 var Card = React.createClass({
+
+cardNumChanged(value){
+    window.BUS.trigger(App.events.register.cardNumChanged, [this.props.card.get('cardId'), value]);
+  },
+
+  cardCvvChanged(value){
+    window.BUS.trigger(App.events.register.cardCvvChanged, [this.props.card.get('cardId'), value]);
+  },
+
+  cardExpMonChanged(value){
+    window.BUS.trigger(App.events.register.cardExpMonChanged, [this.props.card.get('cardId'), value]);
+  },
+
+  cardExpYearChanged(value){
+    window.BUS.trigger(App.events.register.cardExpYearChanged, [this.props.card.get('cardId'), value]);
+  },
+
   render: function(){
     return(
       <div className='borderedDiv'>
       <div className='field-container'>
-        <p className='field-label'> Contact Number: </p>
-        <input type='number' className='field' placeholder="Contact Number" value={this.props.card.get('billingPhoneNumber')}
-           onChange={(e) => this.phoneNumberChanged(e.target.value)} />
+        <p className='field-label'> Card Number: </p>
+        <input type='number' className='field' placeholder="Card Number" value={this.props.card.get('cardNumber')}
+           onChange={(e) => this.cardNumChanged(e.target.value)} />
       </div>
       <div className='field-container'>
-        <p className='field-label'> Address1: </p>
-        <textarea rows="4" cols='50' placeholder="Address 1" className='field' value={this.props.card.get('billingAddress1')}
+        <p className='field-label'> Card CVV: </p>
+        <input className='field' placeholder="Card CVV" className='field' value={this.props.card.get('cardCvv')}
            onChange={(e) =>
-        this.address1Changed(e.target.value)} />
+        this.cardCvvChanged(e.target.value)} />
       </div>
       <div className='field-container'>
-        <p className='field-label'> Address2: </p>
-        <textarea rows="4" cols='50' placeholder="Address 2" className='field' value={this.props.card.get('billingAddress2')}
+        <p className='field-label'> Card Expiry Month: </p>
+        <input className='field' placeholder="Card Expiry Month " className='field' value={this.props.card.get('cardExpMon')}
            onChange={(e) =>
-        this.address2Changed(e.target.value)} />
+        this.cardExpMonChanged(e.target.value)} />
+      </div>
+      <div className='field-container'>
+        <p className='field-label'> Card Expiry Year: </p>
+        <input className='field' placeholder="Card Expiry Year " className='field' value={this.props.card.get('cardExpYr')}
+           onChange={(e) =>
+        this.cardExpYearChanged(e.target.value)} />
       </div>
     </div>
     );

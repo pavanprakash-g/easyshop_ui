@@ -32,9 +32,14 @@ var Registration = class {
     this.details = [];
     this.addresses = [];
     this.cards = [];
+    this.cardNum = null;
+    this.cardExpMon = null;
+    this.cardExpYear = null;
+    this.cardCvv = null;
 
     this.localStorage = localStorage;
   }
+
 
   firstNameChanged(value){
     this.firstName = value;
@@ -122,6 +127,47 @@ var Registration = class {
     }
       this.eventBus.trigger(App.events.models.changed);
   }  
+
+  cardNumChanged(id, value){
+    if(value === undefined)
+      this.cardNum = id;
+    else{
+    var index =  _.findIndex(this.details.cards, (d) => d.cardId === id);
+    this.details.cards[index].cardnum = value;
+      }
+      this.eventBus.trigger(App.events.models.changed);
+    }
+
+  cardCvvChanged(id, value){
+    if(value === undefined)
+      this.cardCvv = id;
+    else{
+    var index =  _.findIndex(this.details.cards, (d) => d.cardId === id);
+    this.details.cards[index].cardCvv = value;
+      }
+      this.eventBus.trigger(App.events.models.changed);
+    }
+    
+  cardExpMonChanged(id, value){
+    if(value === undefined)
+      this.cardExpMon = id;
+    else{
+    var index =  _.findIndex(this.details.cards, (d) => d.cardId === id);
+    this.details.cards[index].cardExpMon = value;
+      }
+      this.eventBus.trigger(App.events.models.changed);
+    }
+    
+    cardExpYearChanged(id, value){
+    if(value === undefined)
+      this.cardExpYear = id;
+    else{
+    var index =  _.findIndex(this.details.cards, (d) => d.cardId === id);
+    this.details.cards[index].cardExpYear = value;
+      }
+      this.eventBus.trigger(App.events.models.changed);
+    }
+    
 
   securityQuesAnsChanged(value){
     this.securityQuesAns = value;

@@ -66,6 +66,20 @@ var listeners = function(eventBus, model) {
   eventBus.on(Events.register.zipCodeChanged, (evt, id, value) => {
     model.registerModel.zipCodeChanged(id, value);
   });
+
+  eventBus.on(Events.register.cardNumChanged, (evt, id, value) => {
+    model.registerModel.cardNumChanged(id, value);
+  });
+  eventBus.on(Events.register.cardCvvChanged, (evt, id, value) => {
+    model.registerModel.cardCvvChanged(id, value);
+  });
+  eventBus.on(Events.register.cardExpMonChanged, (evt, id, value) => {
+    model.registerModel.cardExpMonChanged(id, value);
+  });
+  eventBus.on(Events.register.cardExpYearChanged, (evt, id, value) => {
+    model.registerModel.cardExpYearChanged(id, value);
+  });
+
   eventBus.on(Events.register.securityQuesAnsChanged, (evt, value) => {
     model.registerModel.securityQuesAnsChanged(value);
   });

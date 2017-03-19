@@ -48,7 +48,11 @@ var App = {
             securityQuesAnsChanged: 'app:register::securityQuesAnsChanged',
             countryChanged: 'app::register::countryChanged',
             addrPhoneNumberChanged: 'app::register::addrPhoneNumberChanged',
-            updateAddress: 'app::register::updateAddress'
+            updateAddress: 'app::register::updateAddress',
+            cardNumChanged: 'app::register::cardNumChanged',
+            cardCvvChanged: 'app::register::cardCvvChanged',
+            cardExpMonChanged: 'app::register::cardExpMonChanged',
+            cardExpYearChanged: 'app::register::cardExpYearChanged'
 		},
 		catalog: {
 			getAllItems: 'app::catalog::getAllItems',

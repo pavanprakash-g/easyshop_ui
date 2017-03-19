@@ -85,8 +85,9 @@ var EditProfile = React.createClass({
   }
   var cardsList;
   if(this.props.details && this.props.details.get('cards')){
-    cardsList = this.props.cards.map(u => {
-      return <Card card={u}/>;
+    /* cardsList = this.props.detailscards.map(u => { */
+      cardsList = this.props.details.get('cards').map(u => {
+      return <Card card={u}/>; 
     });
   }else {
     cardsList =  <Card card={Immutable.fromJS([])}/>
