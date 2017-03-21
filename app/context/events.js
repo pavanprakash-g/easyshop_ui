@@ -70,7 +70,8 @@ var App = {
 			getOrderItems: 'app::order::getOrderItems',
 			custDetails: 'app::order::custDetails',
 			saveAddress: 'app::order::saveAddress',
-			saveCard: 'app::order::saveCard'
+			saveCard: 'app::order::saveCard',
+			createOrder: 'app::order::createOrder'
 		}
 	}
 };

@@ -5,8 +5,8 @@ var listeners = function(eventBus, model) {
 		model.getCartItems();
 	});
 
-	eventBus.on(Events.order.custDetails, (evt) => {
-		model.getCustDetails();
+	eventBus.on(Events.order.custDetails, (evt, itemCount, finalAmount, items) => {
+		model.getCustDetails(itemCount, finalAmount, items);
 	});
 
 	eventBus.on(Events.order.saveAddress, (evt, id) => {
@@ -16,6 +16,11 @@ var listeners = function(eventBus, model) {
 	eventBus.on(Events.order.saveCard, (evt, id) => {
 		model.saveCard(id);
 	});
+
+	eventBus.on(Events.order.createOrder, (evt, id) => {
+		model.createOrder(id);
+	});
+	
 };
 
 module.exports = listeners;

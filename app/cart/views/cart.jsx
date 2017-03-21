@@ -44,11 +44,7 @@ var Cart = React.createClass({
     window.BUS.trigger(App.events.cart.getCartItems);
   },
   render: function () {
-    var finalAmount = 0;
-    var itemCount = 0;
     var items = this.props.items.map(u => {
-      finalAmount += u.get('totalPrice');
-      itemCount += u.get('itemCount');
       return <CartItem item={u}/>;
     });
     return (
@@ -64,8 +60,8 @@ var Cart = React.createClass({
         </div>
         <div className="inline total">
           <div className="borderedDivNoInline">
-            <p><b>Number of Items deliverable:</b> {itemCount}</p>
-            <p><b>Final amount:</b> {finalAmount}</p>
+            <p><b>Number of Items deliverable:</b> {this.props.itemCount}</p>
+            <p><b>Final amount:</b> {this.props.finalAmount}</p>
           </div>
         </div>
         <div className="alignRight">

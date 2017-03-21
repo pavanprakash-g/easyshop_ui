@@ -31,3 +31,58 @@
       status: 200
       file: data/verifyLogin.json
 
+-  request:
+      url: ^/catalog/itemDetails$
+      headers:
+      Content-Type: application/json
+      method: GET
+   response:
+      headers:
+      Content-Type: application/json
+      status: 200
+      file: data/itemDetails.json
+
+-  request:
+      url: ^/cart/addToCart
+      headers:
+      Content-Type: application/json
+      method: POST
+      file: post_data/addToCart.json
+   response:
+      headers:
+      Content-Type: application/json
+      status: 200
+      file: data/addToCart.json
+
+-  request:
+      url: ^/cart/getCart$
+      headers:
+      Content-Type: application/json
+      method: GET
+   response:
+      headers:
+      Content-Type: application/json
+      status: 200
+      file: data/getCart.json
+
+-  request:
+      url: ^/cart/validateCart$
+      headers:
+      Content-Type: application/json
+      method: GET
+   response:
+      headers:
+      Content-Type: application/json
+      status: 200
+      file: data/validateCart.json
+
+-  request:
+      url: ^/profile/custDetails?id=3$
+      headers:
+      Content-Type: application/json
+      method: GET
+   response:
+      headers:
+      Content-Type: application/json
+      status: 200
+      file: data/custInfo.json
