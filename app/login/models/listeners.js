@@ -76,8 +76,11 @@ var listeners = function(eventBus, model) {
   eventBus.on(Events.register.cardExpMonChanged, (evt, id, value) => {
     model.registerModel.cardExpMonChanged(id, value);
   });
-  eventBus.on(Events.register.cardExpYearChanged, (evt, id, value) => {
-    model.registerModel.cardExpYearChanged(id, value);
+  eventBus.on(Events.register.cardExpYrChanged, (evt, id, value) => {
+    model.registerModel.cardExpYrChanged(id, value);
+  });
+  eventBus.on(Events.register.updateCard, (evt, id) => {
+    model.registerModel.updateCard(id);
   });
 
   eventBus.on(Events.register.securityQuesAnsChanged, (evt, value) => {

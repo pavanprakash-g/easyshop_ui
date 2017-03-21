@@ -34,7 +34,7 @@ var Registration = class {
     this.cards = [];
     this.cardNum = null;
     this.cardExpMon = null;
-    this.cardExpYear = null;
+    this.cardExpYr = null;
     this.cardCvv = null;
 
     this.localStorage = localStorage;
@@ -158,12 +158,12 @@ var Registration = class {
       this.eventBus.trigger(App.events.models.changed);
     }
     
-    cardExpYearChanged(id, value){
+    cardExpYrChanged(id, value){
     if(value === undefined)
-      this.cardExpYear = id;
+      this.cardExpYr = id;
     else{
     var index =  _.findIndex(this.details.cards, (d) => d.cardId === id);
-    this.details.cards[index].cardExpYear = value;
+    this.details.cards[index].cardExpYr = value;
       }
       this.eventBus.trigger(App.events.models.changed);
     }
@@ -362,6 +362,28 @@ var Registration = class {
         this.eventBus.trigger(App.events.models.changed);
       });
   }
+
+  updateCard(cardId){
+    var custId = localStorage.getItem("custId");
+    var query =  _.find(this.details.cards, (d) => d.cardId === cardId);
+    $.ajax({
+        type: 'PUT',
+        url: window.baseURL+'profile/card',
+        data: JSON.stringify(query),
+        contentType: 'application/json',
+        dataType: "json"
+      }).done((response)=>{
+          window.BUS.trigger(App.events.ui.alert, ['Updated Successfully', 'Info', () => {
+            window.BUS.trigger(App.events.models.changed);
+          }]);
+      }).fail((jqXHR, textStatus, errorThrown)=>{
+          window.BUS.trigger(App.events.ui.alert,['problem in updating card details', 'Info']);
+      }).always(()=>{
+        this.loading = false;
+        this.eventBus.trigger(App.events.models.changed);
+      });
+  }
+
   getState(){
     return Immutable.fromJS({
       firstName: this.firstName,

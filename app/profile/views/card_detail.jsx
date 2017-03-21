@@ -10,17 +10,17 @@ var Card = React.createClass({
 cardNumChanged(value){
     window.BUS.trigger(App.events.register.cardNumChanged, [this.props.card.get('cardId'), value]);
   },
-
   cardCvvChanged(value){
     window.BUS.trigger(App.events.register.cardCvvChanged, [this.props.card.get('cardId'), value]);
   },
-
   cardExpMonChanged(value){
     window.BUS.trigger(App.events.register.cardExpMonChanged, [this.props.card.get('cardId'), value]);
   },
-
-  cardExpYearChanged(value){
-    window.BUS.trigger(App.events.register.cardExpYearChanged, [this.props.card.get('cardId'), value]);
+  cardExpYrChanged(value){
+    window.BUS.trigger(App.events.register.cardExpYrChanged, [this.props.card.get('cardId'), value]);
+  },
+  updateCard(){
+    window.BUS.trigger(App.events.register.updateCard, [this.props.card.get("cardId")]);
   },
 
   render: function(){
@@ -44,10 +44,15 @@ cardNumChanged(value){
         this.cardExpMonChanged(e.target.value)} />
       </div>
       <div className='field-container'>
-        <p className='field-label'> Card Expiry Year: </p>
-        <input className='field' placeholder="Card Expiry Year " className='field' value={this.props.card.get('cardExpYr')}
+        <p className='field-label'> Card Expiry Yr: </p>
+        <input className='field' placeholder="Card Expiry Yr " className='field' value={this.props.card.get('cardExpYr')}
            onChange={(e) =>
-        this.cardExpYearChanged(e.target.value)} />
+        this.cardExpYrChanged(e.target.value)} />
+      </div>
+      <div className='field-container'>
+       <br/>
+       <br/>
+        <div className='field-label' onClick={this.updateCard}> Update</div>
       </div>
     </div>
     );

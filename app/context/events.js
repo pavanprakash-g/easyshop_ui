@@ -52,7 +52,8 @@ var App = {
             cardNumChanged: 'app::register::cardNumChanged',
             cardCvvChanged: 'app::register::cardCvvChanged',
             cardExpMonChanged: 'app::register::cardExpMonChanged',
-            cardExpYearChanged: 'app::register::cardExpYearChanged'
+            updateCard: 'app::register::updateCard',
+            cardExpYrChanged: 'app::register::cardExpYrChanged'
 		},
 		catalog: {
 			getAllItems: 'app::catalog::getAllItems',
