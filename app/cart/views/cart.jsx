@@ -3,8 +3,10 @@ var React = require('react');
 
 var CartItem = React.createClass({
   deleteItem(){
-    window.BUS.trigger(App.events.catalog.deleteItem, [this.props.item.get('itemId')]);
-    window.router.setRoute('/adminProfile');
+    window.BUS.trigger(App.events.cart.deleteItem, [this.props.item.get('itemId')]);
+  },
+  reduceQuantity(){
+    window.BUS.trigger(App.events.cart.reduceQuantity, [this.props.item.get('itemId')]);
   },
   render: function(){
       return (
@@ -14,6 +16,8 @@ var CartItem = React.createClass({
             <p><b>Price:</b> {this.props.item.get('itemPrice')}</p>
             <p><b>Quantity:</b> {this.props.item.get('itemCount')}</p>
             <p><b>Total Price:</b> {this.props.item.get('totalPrice')}</p>
+            <input type="button" value="Reduce Quantity" onClick={this.reduceQuantity}/>
+            &nbsp;<input type="button" value="Remove Item" onClick={this.deleteItem}/>
           </div>
         </div>
       );
@@ -32,6 +36,9 @@ var Cart = React.createClass({
   },
   logout(){
     window.BUS.trigger(App.events.login.logout);
+  },
+  placeOrder(){
+    window.BUS.trigger(App.events.cart.validateStock);
   },
   componentDidMount: function(){
     window.BUS.trigger(App.events.cart.getCartItems);
@@ -62,7 +69,7 @@ var Cart = React.createClass({
           </div>
         </div>
         <div className="alignRight">
-          <div onClick={(e) => this.placeOrder} className="blackregister-btn">Place Order</div>
+          <div onClick={this.placeOrder} className="blackregister-btn">Place Order</div>
         </div>
         
     </div>);
