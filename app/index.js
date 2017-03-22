@@ -32,7 +32,7 @@ const muiTheme = getMuiTheme({darkBaseTheme});
 $(function() {
   var bus = $({});
   window.BUS = bus;
-  window.baseURL = "http://0.0.0.0:5557/";
+  window.baseURL = "http://localhost:7070/";
   bus.on(Application.events.initComplete, function(event, state) {
     var routingState = Routes(state);
     ReactDOM.render(React.createElement(App, _.defaults(routingState, state)), document.getElementById('app'));
