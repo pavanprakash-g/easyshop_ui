@@ -72,7 +72,12 @@ var App = {
 			saveAddress: 'app::order::saveAddress',
 			saveCard: 'app::order::saveCard',
 			createOrder: 'app::order::createOrder',
-			ordersListAdmin: 'app::order::ordersListAdmin'
+			ordersListAdmin: 'app::order::ordersListAdmin',
+			custOrdersList: 'app::order::custOrdersList',
+			changeStatus: 'app::order::changeStatus',
+			changeItemStatus: 'app::order::changeItemStatus',
+			addressById: 'app::order::addressById',
+			approveReturn: 'app::order::approveReturn'
 		}
 	}
 };

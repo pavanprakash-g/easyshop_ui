@@ -20,8 +20,29 @@ var listeners = function(eventBus, model) {
 	eventBus.on(Events.order.createOrder, (evt, id) => {
 		model.createOrder(id);
 	});
+
 	eventBus.on(Events.order.ordersListAdmin, (evt) => {
 		model.ordersListAdmin();
+	});
+
+	eventBus.on(Events.order.addressById, (evt, id) => {
+		model.addressById(id);
+	});
+
+	eventBus.on(Events.order.custOrdersList, (evt) => {
+		model.custOrders();
+	});
+
+	eventBus.on(Events.order.changeStatus, (evt, orderId, status) => {
+		model.changeStatus(orderId, status);
+	});
+
+	eventBus.on(Events.order.changeItemStatus, (evt, orderId, itemId, status) => {
+		model.changeItemStatus(orderId, itemId, status);
+	});
+
+	eventBus.on(Events.order.approveReturn, (evt, orderId, itemId, status) => {
+		model.approveReturn(orderId, itemId, status);
 	});
 	
 };

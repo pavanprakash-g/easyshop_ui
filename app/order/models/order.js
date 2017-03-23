@@ -18,6 +18,8 @@ var Order = class {
     this.items = [];
     this.orderItems = [];
     this.ordersList = [];
+    this.custOrdersList = [];
+    this.addressDetails = [];
 	}
 
   getCustDetails(itemCount, finalAmount, items){
@@ -81,7 +83,7 @@ var Order = class {
       newItem['orderItemId'] = this.items.get(i).get('itemId');
       newItem['orderItemQuantity'] = this.items.get(i).get('itemCount');
       newItem['orderItemPrice'] = this.items.get(i).get('itemPrice');
-      newItem['orderItemStatus'] = 'Pending';
+      newItem['orderItemStatus'] = 'Pick';
       this.orderItems.push(newItem);
     }
   }
@@ -121,6 +123,87 @@ var Order = class {
       this.eventBus.trigger(App.events.models.changed);
     });
   }
+
+  custOrders(){
+    var custId = this.localstorage.getItem('custId');
+    $.ajax({
+      type: 'GET',
+      url: window.baseURL+'order/getOrders?custId='+custId,
+      contentType: 'application/json',
+      dataType: "json"
+    }).done((response)=>{
+      this.custOrdersList = response;
+    }).fail((jqXHR, textStatus, errorThrown)=>{
+        window.BUS.trigger(App.events.ui.alert,['problem in getting Order details', 'Info']);
+    }).always(()=>{
+      this.loading = false;
+      this.eventBus.trigger(App.events.models.changed);
+    });
+  }
+
+  addressById(addressId){
+    $.ajax({
+      type: 'GET',
+      url: window.baseURL+'profile/address?addressId='+addressId,
+      contentType: 'application/json',
+      dataType: "json"
+    }).done((response)=>{
+      this.addressDetails = response;
+    }).fail((jqXHR, textStatus, errorThrown)=>{
+        window.BUS.trigger(App.events.ui.alert,['problem in getting Order details', 'Info']);
+    }).always(()=>{
+      this.loading = false;
+      this.eventBus.trigger(App.events.models.changed);
+    });
+  }
+
+  changeStatus(orderId, status){
+    $.ajax({
+      type: 'PUT',
+      url: window.baseURL+'order/updateOrder?orderId='+orderId+'&orderStatus='+status,
+      contentType: 'application/json',
+      dataType: "json"
+    }).done((response)=>{
+      
+    }).fail((jqXHR, textStatus, errorThrown)=>{
+        window.BUS.trigger(App.events.ui.alert,['problem in getting Order details', 'Info']);
+    }).always(()=>{
+      this.loading = false;
+      this.eventBus.trigger(App.events.models.changed);
+    });
+  }
+
+  changeItemStatus(orderId, itemId, status){
+    $.ajax({
+      type: 'PUT',
+      url: window.baseURL+'order/updateOrderItem?orderId='+orderId+'&orderItemStatus='+status+'&orderItemId='+itemId,
+      contentType: 'application/json',
+      dataType: "json"
+    }).done((response)=>{
+      
+    }).fail((jqXHR, textStatus, errorThrown)=>{
+        window.BUS.trigger(App.events.ui.alert,['problem in getting Order details', 'Info']);
+    }).always(()=>{
+      this.loading = false;
+      this.eventBus.trigger(App.events.models.changed);
+    });
+  }
+
+  approveReturn(orderId, itemId, status){
+    $.ajax({
+      type: 'PUT',
+      url: window.baseURL+'order/updateOrderItem?orderId='+orderId+'&orderItemStatus='+status+'&orderItemId='+itemId,
+      contentType: 'application/json',
+      dataType: "json"
+    }).done((response)=>{
+      
+    }).fail((jqXHR, textStatus, errorThrown)=>{
+        window.BUS.trigger(App.events.ui.alert,['problem in getting Order details', 'Info']);
+    }).always(()=>{
+      this.loading = false;
+      this.eventBus.trigger(App.events.models.changed);
+    });
+  }
   
   getState(){
     return Immutable.fromJS({
@@ -128,7 +211,10 @@ var Order = class {
       cards: this.cards,
       selectedAddress: this.selectedAddress,
       selectedCard: this.selectedCard,
-      ordersList: this.ordersList
+      ordersList: this.ordersList,
+      custOrdersList: this.custOrdersList,
+      addressDetails: this.addressDetails,
+      itemName: this.itemName,
     });
   }
 };

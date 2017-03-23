@@ -21,12 +21,16 @@ var AppBar = React.createClass({
   ordersList(){
   window.router.setRoute('/ordersList');
   },
+  custOrder(){
+  window.router.setRoute('/custOrders');
+  },
   render: function () {
     var is_admin = JSON.parse(window.storage.is_admin);
     var profileEditVisible = is_admin ? 'hidden' : '';
     var cartVisible = is_admin ? 'hidden' : '';
     var usersListVisible = is_admin ? '' : 'hidden';
     var orderListVisible = is_admin ? '' : 'hidden';
+    var custOrderVisible = is_admin ? 'hidden' : '';
     var adminStyle = is_admin ? {top: '10px'} : {};
     return (
     <div className='app-bar'> 
@@ -38,6 +42,7 @@ var AppBar = React.createClass({
         </div>
         <div className={'tool-bar-item fa fa-users '+usersListVisible} onClick={this.usersList} />
         <div className={'tool-bar-item fa fa-shopping-bag '+orderListVisible} onClick={this.ordersList} />
+        <div className={'tool-bar-item fa fa-shopping-bag '+custOrderVisible} onClick={this.custOrder} />
 
         <div className='tool-bar-item fa fa-power-off' onClick={this.logout}/>
       </div>

@@ -1,6 +1,7 @@
 var React = require('react');
 var Orders = require('./Orders.jsx');
 var OrdersList = require('./OrdersList.jsx');
+var CustOrders = require('./CustOrders.jsx');
 
 module.exports = function(components, props){
 	if(props.page === 'order'){
@@ -11,5 +12,7 @@ module.exports = function(components, props){
 			itemCount={props.cartModel.get('itemCount')}/>);
 	}else if(props.page === 'ordersList'){
 		components.push(<OrdersList ordersList={props.orderModel.get('ordersList')}/>);
+	}else if(props.page === 'custOrders'){
+		components.push(<CustOrders ordersList={props.orderModel.get('custOrdersList')} address={props.orderModel.get('addressDetails')}/>);
 	}
 };
