@@ -71,7 +71,8 @@ var App = {
 			custDetails: 'app::order::custDetails',
 			saveAddress: 'app::order::saveAddress',
 			saveCard: 'app::order::saveCard',
-			createOrder: 'app::order::createOrder'
+			createOrder: 'app::order::createOrder',
+			ordersListAdmin: 'app::order::ordersListAdmin'
 		}
 	}
 };

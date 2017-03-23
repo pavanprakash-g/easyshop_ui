@@ -1,17 +1,8 @@
 var App = require('../../context/events');
 var React = require('react');
+var AppBar = require('../../lib/app_bar.jsx');
 
 var Item = React.createClass({
-
-  openUsersList(){
-    window.router.setRoute('/usersList');
-  },
-  home(){
-    window.router.setRoute('/login');
-  },
-  logout(){
-    window.BUS.trigger(App.events.login.logout);
-  },
   autoSave(id, value){
     window.BUS.trigger(App.events.catalog.autoSave, [id, value]);
   },
@@ -28,11 +19,7 @@ var Item = React.createClass({
   var isInsert = this.props.details.get('itemName') === undefined ? {}: {display: 'none'};
   return (
   <div>
-    <div className='appBar'> 
-      <span className='homeButton'> <p onClick={this.home}>Home</p> </span>
-      <span className='appBarButton'> <p onClick={this.openUsersList}>Users List</p> </span>
-      <span className='logout-button'> <p onClick={this.logout}>Logout</p> </span>
-    </div>
+    <AppBar />
     <div>
       <div className='field-container'>
         <p className='field-label'> Item Name: </p>

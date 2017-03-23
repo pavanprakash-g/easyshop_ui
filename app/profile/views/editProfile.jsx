@@ -7,15 +7,13 @@ var classnames = require('classnames');
 var Address = require('./address.jsx');
 var Card = require('./card_detail.jsx');
 var Immutable = require('immutable');
+var AppBar = require('../../lib/app_bar.jsx');
 
 var EditProfile = React.createClass({
   getInitialState(){
     return {
       tabId: 1
     };
-  },
-  home(){
-    window.router.setRoute('/login');
   },
   firstNameChanged(value){
     window.BUS.trigger(App.events.register.firstNameChanged, [value]);
@@ -58,9 +56,6 @@ var EditProfile = React.createClass({
   countryChanged(value){
     window.BUS.trigger(App.events.register.countryChanged, [value]);
   },
-  logout(){
-    window.BUS.trigger(App.events.login.logout);
-  },
   register(){
     window.BUS.trigger(App.events.register.update);
   },
@@ -93,12 +88,7 @@ var EditProfile = React.createClass({
   }
   return (
   <div>
-    <div className='appBar'> 
-      <span className='homeButton'> <p onClick={this.home}>Home</p> </span>
-      <span className='appBarButton'> <p onClick={this.openProfile}>Edit Profile</p> </span>
-      <span className='cartButton'> <p onClick={this.openProfile}>Cart({this.props.cartCount})</p> </span>
-      <span className='logout-button'> <p onClick={this.logout}>Logout</p> </span>
-    </div>
+    <AppBar />
     <div>
       <span className='tabSpan'> <p onClick={() => this.updateId(1)}>Personal Details</p> </span>
       <span className='tabSpan'> <p onClick={() => this.updateId(2)}>Addresses</p> </span>

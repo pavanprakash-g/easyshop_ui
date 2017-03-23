@@ -1,10 +1,12 @@
 var App = require('../../context/events');
+var AppBar = require('../../lib/app_bar.jsx'); 
 var React = require('react');
 import {
   Step,
   Stepper,
   StepLabel,
 } from 'material-ui/Stepper';
+
 var Addresses = React.createClass({
   saveAddress(){
     window.BUS.trigger(App.events.order.saveAddress, [this.props.address.get('addressId')]);
@@ -61,18 +63,6 @@ var Order = React.createClass({
       stepIndex: 0,
       finished: 0
     };
-  },
-  home(){
-    window.router.setRoute('/login');
-  },
-  openProfile(){
-    window.router.setRoute('/editProfile');
-  },
-  openCart(){
-    window.router.setRoute('/cart');
-  },
-  logout(){
-    window.BUS.trigger(App.events.login.logout);
   },
   placeOrder(){
     window.router.setRoute('/order');
@@ -131,12 +121,7 @@ var Order = React.createClass({
     });
     return (
       <div>
-        <div className='appBar'> 
-          <span className='homeButton'> <p onClick={this.home}>Home</p> </span>
-          <span className='appBarButton'> <p onClick={this.openProfile}>Edit Profile</p> </span>
-          <span className='cartButton'> <p onClick={this.openCart}>Cart({this.props.cartCount})</p> </span>
-          <span className='logout-button'> <p onClick={this.logout}>Logout</p> </span>
-        </div>  
+        <AppBar />
         <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
         <Stepper activeStep={stepIndex}>
           <Step>

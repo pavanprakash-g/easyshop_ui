@@ -1,6 +1,7 @@
 var App = require('../../context/events');
 var React = require('react');
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+var AppBar = require('../../lib/app_bar.jsx');
 
 var TableData = React.createClass({
   editItem(){
@@ -24,12 +25,6 @@ var TableData = React.createClass({
 });
 
 var AdminProfile = React.createClass({
-  usersList(){
-    window.router.setRoute('/usersList');
-  },
-  logout(){
-    window.BUS.trigger(App.events.login.logout);
-  },
   openPage(){
     window.router.setRoute('/item');
   },
@@ -42,11 +37,7 @@ var AdminProfile = React.createClass({
   });
   return (
   <div>
-    <div className='appBar'> 
-      <span className='homeButton'> <p onClick={this.home}>Home</p> </span>
-      <span className='appBarButton'> <p onClick={this.usersList}>Users List</p> </span>
-      <span className='logout-button'> <p onClick={this.logout}>Logout</p> </span>
-    </div>
+    <AppBar />
     <div className='field-container'>
       <input type='button' value='create' onClick={this.openPage} />
     </div> 

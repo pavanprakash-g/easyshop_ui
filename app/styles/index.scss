@@ -1,6 +1,7 @@
 @import './login.scss';
 @import './profile.scss';
 @import './catalog.scss';
+@import './app_bar.scss';
 @font-face
 {
   font-family: sanfrancisco;
@@ -19,4 +20,7 @@ body{
 	background-image: url('../images/home.jpg');
 	background-size: cover;
   background-repeat: round;
+}
+.hidden{
+  display: none !important;
 }

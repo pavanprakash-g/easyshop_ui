@@ -2,21 +2,13 @@ var App = require('../../context/events');
 var React = require('react');
 var AppDefaults = require('../../lib/app_defaults');
 var Loader = require('react-loader');
+var AppBar = require('../../lib/app_bar.jsx');
 
 var ItemDetails = React.createClass({
   getInitialState(){
     return {
       count: 0
     };
-  },
-  openProfile(){
-    window.router.setRoute('/editProfile');
-  },
-  home(){
-    window.router.setRoute('/login');
-  },
-  logout(){
-    window.BUS.trigger(App.events.login.logout);
   },
   autoSave(id, value){
     window.BUS.trigger(App.events.catalog.autoSave, [id, value]);
@@ -29,9 +21,6 @@ var ItemDetails = React.createClass({
     window.BUS.trigger(App.events.catalog.createItem);
     window.router.setRoute('/adminProfile');
   },
-  openCart(){
-    window.router.setRoute('/cart');
-  },
   addToCart(itemId){
     const {count} = this.state;
     this.setState({count: count + 1});
@@ -43,12 +32,7 @@ var ItemDetails = React.createClass({
     var addToCartStyle = totalQuantity >= 1 && availableQuantity >=1 ? false : true;
   return (
   <div>
-    <div className='appBar'> 
-      <span className='homeButton'> <p onClick={this.home}>Home</p> </span>
-      <span className='appBarButton'> <p onClick={this.openProfile}>Edit Profile</p> </span>
-      <span className='cartButton'> <p onClick={this.openCart}>Cart({this.props.cartCount})</p> </span>
-      <span className='logout-button'> <p onClick={this.logout}>Logout</p> </span>
-    </div>
+    <AppBar />
     <div className='multipleColumn'>
       <div id="leftCol">
         <img src={this.props.details.get('itemImage')} />

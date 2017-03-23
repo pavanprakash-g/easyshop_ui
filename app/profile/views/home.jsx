@@ -3,27 +3,9 @@ var React = require('react');
 import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+var AppBar = require('../../lib/app_bar.jsx');
 
 var Home = React.createClass({
-
-  home(){
-    window.router.setRoute('/login');
-  },
-  login(){
-    window.router.setRoute('/sign_in');
-  },
-  register(){
-    window.router.setRoute('/register');
-  },
-  logout(){
-    window.BUS.trigger(App.events.login.logout);
-  },
-  openProfile(){
-    window.router.setRoute('/editProfile');
-  },
-  openCart(){
-    window.router.setRoute('/cart');
-  },
   openItem(itemId){
     window.BUS.trigger(App.events.catalog.itemDetails, [itemId]);
   },
@@ -41,13 +23,7 @@ var Home = React.createClass({
   });
   return (
   <div>
-    <div className='appBar'> 
-      <span className='homeButton'> <p onClick={this.home}>Home</p> </span>
-      <span className='appBarButton'> <p onClick={this.openProfile}>Edit Profile</p> </span>
-      <span className='cartButton'> <p onClick={this.openCart}>Cart({this.props.cartCount})</p> </span>
-      <span className='logout-button'> <p onClick={this.logout}>Logout</p> </span>
-      
-    </div>
+    <AppBar />
     <div>
         <GridList  cols={3.6}>
           {GridTiles}

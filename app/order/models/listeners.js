@@ -20,6 +20,9 @@ var listeners = function(eventBus, model) {
 	eventBus.on(Events.order.createOrder, (evt, id) => {
 		model.createOrder(id);
 	});
+	eventBus.on(Events.order.ordersListAdmin, (evt) => {
+		model.ordersListAdmin();
+	});
 	
 };
 

@@ -17,6 +17,7 @@ var Order = class {
     this.finalAmount = 0;
     this.items = [];
     this.orderItems = [];
+    this.ordersList = [];
 	}
 
   getCustDetails(itemCount, finalAmount, items){
@@ -104,13 +105,30 @@ var Order = class {
         this.eventBus.trigger(App.events.models.changed);
       });
   }
+
+  ordersListAdmin(){
+    $.ajax({
+      type: 'GET',
+      url: window.baseURL+'order/getOrders',
+      contentType: 'application/json',
+      dataType: "json"
+    }).done((response)=>{
+      this.ordersList = response;
+    }).fail((jqXHR, textStatus, errorThrown)=>{
+        window.BUS.trigger(App.events.ui.alert,['problem in getting Order details', 'Info']);
+    }).always(()=>{
+      this.loading = false;
+      this.eventBus.trigger(App.events.models.changed);
+    });
+  }
   
   getState(){
     return Immutable.fromJS({
       addresses: this.addresses,
       cards: this.cards,
       selectedAddress: this.selectedAddress,
-      selectedCard: this.selectedCard
+      selectedCard: this.selectedCard,
+      ordersList: this.ordersList
     });
   }
 };
