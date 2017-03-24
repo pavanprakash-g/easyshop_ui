@@ -29,7 +29,26 @@ var Catalog = class {
         this.loading = false;
         this.eventBus.trigger(App.events.models.changed);
       });
+      this.getCartCount();
 	}
+
+  getCartCount(){
+    $.ajax({
+        method: 'GET',
+        url: window.baseURL+'cart/getCartCount',
+        contentType: 'application/json',
+        dataType: "json"
+      }).done((response)=>{
+        if(response != null){
+          this.localstorage.setItem('cartCount',response.cartCount);
+        }
+      }).fail((jqXHR, textStatus, errorThrown)=>{
+          window.BUS.trigger(App.events.ui.alert,['problem in getting catalog details', 'Info']);
+      }).always(()=>{
+        this.loading = false;
+        this.eventBus.trigger(App.events.models.changed);
+      });
+  }
 
   setCurrentItem(value){
     this.currentItem = value;
