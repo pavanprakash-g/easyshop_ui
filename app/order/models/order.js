@@ -100,6 +100,7 @@ var Order = class {
         if(response != null){
           window.router.setRoute('/home');
         }
+        this.localstorage.setItem('carCount',0);
       }).fail((jqXHR, textStatus, errorThrown)=>{
           window.BUS.trigger(App.events.ui.alert,['problem in getting profile details', 'Info']);
       }).always(()=>{

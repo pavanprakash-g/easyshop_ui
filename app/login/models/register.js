@@ -243,6 +243,12 @@ var Registration = class {
       }).done((response)=>{
         if(response.status === 'success'){
           this.localStorage.setItem('authtoken', response.uuid);
+          this.localStorage.setItem('username', response.info.firstName);
+          this.localStorage.setItem('custId', response.info.custId);
+          if(response.firstName === 'admin')
+            this.localStorage.setItem('is_admin', true);
+          else
+            this.localStorage.setItem('is_admin', false);
           window.BUS.trigger(App.events.ui.alert, [response.message || 'Registered Successfully', 'Info', () => {
             window.BUS.trigger(App.events.models.changed);
             window.router.setRoute('/login');

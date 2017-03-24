@@ -11,9 +11,11 @@ var Item = React.createClass({
 	},
 	render: function () {
 		var optionsState = this.props.item.get('orderItemStatus');
-		var buttonStyle;
+		var buttonStyle = {display: 'none'};
 		if(optionsState === 'Return Approved'){
 			buttonStyle = {display: 'none'};
+		}else if(optionsState === 'Ship'){
+			buttonStyle = {};
 		}
 	return (
 			<div className="borderedDivNoInline">
@@ -40,16 +42,16 @@ var Order = React.createClass({
 			<div className="borderedDivNoInline">
 				<p style={{'display':'inline'}}><b>OrderId:</b> {this.props.order.get('orderId')} </p>
 				<p className="statusP"><b>Order Status:</b> {this.props.order.get('orderStatus')}</p>
-				<p><b>Total Amount:</b> {this.props.order.get('orderTotal')}</p>
+				<p><b>Total Order Amount:</b> {this.props.order.get('orderTotal')}</p>
 				<div className="borderedDivNoInline">
-				<b>Shipping Address</b>
-				<p> Address Line 1: {this.props.address.get('address1')} </p>
-				<p> Address Line 2: {this.props.address.get('address2')} </p>
-				<p> Phone Number: {this.props.address.get('phoneNumber')} </p>
-				<p> City: {this.props.address.get('city')} </p>
-				<p> State: {this.props.address.get('state')} </p>
-				<p> Country: {this.props.address.get('country')} </p>
-				<p> ZipCode {this.props.address.get('zipcode')} </p>
+				<b>Shipping Address</b><br/>
+				Address Line 1: {this.props.address.get('address1')} <br/>
+			  Address Line 2: {this.props.address.get('address2')} <br/>
+				Phone Number: {this.props.address.get('phoneNumber')} <br/>
+				City: {this.props.address.get('city')} <br/>
+				State: {this.props.address.get('state')} <br/>
+				Country: {this.props.address.get('country')} <br/>
+				ZipCode {this.props.address.get('zipcode')} <br/>
 				</div>
 				{itemsList}
 			</div>
