@@ -1,10 +1,12 @@
 var App = require('../../context/events');
+var AppBar = require('../../lib/app_bar.jsx'); 
 var React = require('react');
 import {
   Step,
   Stepper,
   StepLabel,
 } from 'material-ui/Stepper';
+
 var Addresses = React.createClass({
   saveAddress(){
     window.BUS.trigger(App.events.order.saveAddress, [this.props.address.get('addressId')]);
@@ -42,6 +44,19 @@ var Cards = React.createClass({
 
   }
 });
+var Item = React.createClass({
+  render:function(){
+    return (
+      <div>
+        <p><b>Item Name:</b> {this.props.item.get('itemName')}</p>
+        <p><b>Purchase Quantity:</b> {this.props.item.get('itemCount')}</p>
+        <p><b>Total amount:</b> {this.props.item.get('totalPrice')}</p>
+        <hr/>
+      </div>
+    );
+
+  }
+});
 var Order = React.createClass({
   getInitialState(){
     return {
@@ -49,23 +64,11 @@ var Order = React.createClass({
       finished: 0
     };
   },
-  home(){
-    window.router.setRoute('/login');
-  },
-  openProfile(){
-    window.router.setRoute('/editProfile');
-  },
-  openCart(){
-    window.router.setRoute('/cart');
-  },
-  logout(){
-    window.BUS.trigger(App.events.login.logout);
-  },
   placeOrder(){
     window.router.setRoute('/order');
   },
   componentDidMount: function(){
-    window.BUS.trigger(App.events.order.custDetails);
+    window.BUS.trigger(App.events.order.custDetails, [this.props.itemCount, this.props.finalAmount, this.props.items]);
   },
   getStepContent(stepIndex) {
     switch (stepIndex) {
@@ -93,6 +96,9 @@ var Order = React.createClass({
       this.setState({stepIndex: stepIndex - 1});
     }
   },
+  confirmOrder(){
+    window.BUS.trigger(App.events.order.createOrder);
+  },
   render: function () {
     var finalAmount = 0;
     var itemCount = 0;
@@ -110,14 +116,12 @@ var Order = React.createClass({
     var CardsList = this.props.cards.map(u => {
       return <Cards card={u} selectedCard={selectedCard}/>;
     });
+    var OrderItems = this.props.items.map(u => {
+      return <Item item={u} />;
+    });
     return (
       <div>
-        <div className='appBar'> 
-          <span className='homeButton'> <p onClick={this.home}>Home</p> </span>
-          <span className='appBarButton'> <p onClick={this.openProfile}>Edit Profile</p> </span>
-          <span className='cartButton'> <p onClick={this.openCart}>Cart({this.props.cartCount})</p> </span>
-          <span className='logout-button'> <p onClick={this.logout}>Logout</p> </span>
-        </div>  
+        <AppBar />
         <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
         <Stepper activeStep={stepIndex}>
           <Step>
@@ -137,6 +141,16 @@ var Order = React.createClass({
       <div style={tab2}>
         {CardsList}
       </div>
+      <div style={tab3} className="addressesDiv">
+        {OrderItems}
+        <div className="alignRight">
+          <p><b># of Items:</b>{this.props.itemCount}</p>
+          <p><b>Bill Amount:</b>{this.props.finalAmount}</p>
+        </div>
+      </div>
+      <div className="alignRight" style={tab3}>
+          <div onClick={this.confirmOrder} className="blackregister-btn">Confirm Order</div>
+        </div>
       <div style={{marginTop: 12, padding: '20px 0px 420px 0px'}}>
         <span onClick={this.handlePrev} style={prevHidden} className='step-button1'>{"<< Prev"} </span>
         <span onClick={this.handleNext} style={nextHidden} className='step-button1'> {"Next >>"} </span>

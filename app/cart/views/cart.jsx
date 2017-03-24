@@ -1,5 +1,6 @@
 var App = require('../../context/events');
 var React = require('react');
+var AppBar = require('../../lib/app_bar.jsx');
 
 var CartItem = React.createClass({
   deleteItem(){
@@ -25,18 +26,6 @@ var CartItem = React.createClass({
 });
 
 var Cart = React.createClass({
-  home(){
-    window.router.setRoute('/login');
-  },
-  openProfile(){
-    window.router.setRoute('/editProfile');
-  },
-  openCart(){
-    window.router.setRoute('/cart');
-  },
-  logout(){
-    window.BUS.trigger(App.events.login.logout);
-  },
   placeOrder(){
     window.BUS.trigger(App.events.cart.validateStock);
   },
@@ -44,28 +33,19 @@ var Cart = React.createClass({
     window.BUS.trigger(App.events.cart.getCartItems);
   },
   render: function () {
-    var finalAmount = 0;
-    var itemCount = 0;
     var items = this.props.items.map(u => {
-      finalAmount += u.get('totalPrice');
-      itemCount += u.get('itemCount');
       return <CartItem item={u}/>;
     });
     return (
       <div>
-        <div className='appBar'> 
-          <span className='homeButton'> <p onClick={this.home}>Home</p> </span>
-          <span className='appBarButton'> <p onClick={this.openProfile}>Edit Profile</p> </span>
-          <span className='cartButton'> <p onClick={this.openCart}>Cart({this.props.cartCount})</p> </span>
-          <span className='logout-button'> <p onClick={this.logout}>Logout</p> </span>
-        </div>
+        <AppBar />
         <div className="inline margin">
           {items}
         </div>
         <div className="inline total">
           <div className="borderedDivNoInline">
-            <p><b>Number of Items deliverable:</b> {itemCount}</p>
-            <p><b>Final amount:</b> {finalAmount}</p>
+            <p><b>Number of Items deliverable:</b> {this.props.itemCount}</p>
+            <p><b>Final amount:</b> {this.props.finalAmount}</p>
           </div>
         </div>
         <div className="alignRight">

@@ -181,7 +181,6 @@ getStepContent(stepIndex) {
             <input className='field' placeholder="Zip Code" value={this.props.details.get('zipCode')}
                         onChange={(e) => this.zipCodeChanged(e.target.value)} />
            </div>
-           <Checkbox label='Shipping Address and Billing address same as the above details' onChange={(e) => this.addressCheckboxChanged(e.target.value)} />
           </div>
 
           <div style={securityInfoStyle}>

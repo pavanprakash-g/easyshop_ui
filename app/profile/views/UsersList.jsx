@@ -3,6 +3,7 @@ var React = require('react');
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import Toggle from 'material-ui/Toggle';
 import RaisedButton from 'material-ui/RaisedButton';
+var AppBar = require('../../lib/app_bar.jsx');
 
 var TableData = React.createClass({
   getInitialState(){
@@ -32,12 +33,6 @@ var TableData = React.createClass({
 });
 
 var UsersList = React.createClass({
-  logout(){
-    window.BUS.trigger(App.events.login.logout);
-  },
-  home(){
-    window.router.setRoute('/adminProfile');
-  },
   componentDidMount: function(){
     window.BUS.trigger(App.events.profile.init);
 	},
@@ -47,11 +42,7 @@ var UsersList = React.createClass({
     });
   return (
   <div>
-    <div className='appBar'> 
-      <span className='homeButton'> <p onClick={this.home}>Home</p> </span>
-      <span className='appBarButton'> <p onClick={this.openUsersList}>Users List</p> </span>
-      <span className='logout-button'> <p onClick={this.logout}>Logout</p> </span>
-    </div>
+    <AppBar />
     <div>
       <Table>
       <TableHeader>

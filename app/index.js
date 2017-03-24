@@ -19,7 +19,6 @@ import {deepOrange500} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
 
 /*const muiTheme = getMuiTheme({
   palette: {
@@ -32,6 +31,7 @@ const muiTheme = getMuiTheme({darkBaseTheme});
 $(function() {
   var bus = $({});
   window.BUS = bus;
+  window.storage = localStorage;
   window.baseURL = "http://localhost:7070/";
   bus.on(Application.events.initComplete, function(event, state) {
     var routingState = Routes(state);
@@ -109,7 +109,7 @@ var App = React.createClass({
       CatalogView(components, this.props);
     }else if (this.props.page === 'cart'){
       CartView(components, this.props);
-    }else if (this.props.page === 'order'){
+    }else if (this.props.page === 'order' || this.props.page === 'ordersList' || this.props.page === 'custOrders'){
       OrderView(components, this.props);
     }
 }

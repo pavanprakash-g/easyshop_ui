@@ -1,0 +1,39 @@
+.app-bar{
+	height: 60px;
+	background-color: rgba(0,188,212,1);
+	color: white;
+	.home-button{
+    	margin-left: 10px;
+    	font-size: 1.55rem;
+    	position: relative;
+    	top: 17px;
+	}
+	.tool-bar{
+		display: inline-block;
+		position: relative;
+    	float: right;
+    	font-size: 1.15rem;
+    	right: 10%;
+	}
+	.profile-edit{
+		right: 20%;  	
+		padding: 15px;
+	}
+	.cart{
+		right: 9%;
+    	font-size: 1.7rem;
+    	top: 16px;
+    	padding: 15px;
+    	.cart-count{
+    		font-size: 1rem;
+    		position: relative;
+    		top: -15px;
+    		font-weight: bold;
+    		left: -2px;
+    	}
+	}
+	.tool-bar-item{
+		font-size: 1.3rem;
+    	padding: 10px;
+	}
+}

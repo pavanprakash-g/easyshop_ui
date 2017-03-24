@@ -57,6 +57,7 @@ var Login = class {
           this.localStorage.setItem('username', response.verifyLogin.firstName);
           this.localStorage.setItem('custId', response.verifyLogin.custId);
           this.localStorage.setItem('cartCount', response.verifyLogin.cartCount);
+          this.localStorage.setItem('is_admin', response.verifyLogin.firstName === 'admin');
           window.router.setRoute("/login");
         }
       }).fail((jqXHR, textStatus, errorThrown)=>{
@@ -74,7 +75,7 @@ var Login = class {
       cartCount: this.localStorage.getItem('cartCount'),
       securityQuesAns: this.securityQuesAns,
       loggedIn: _.isEmpty(this.localStorage.getItem('authtoken'))? false : true,
-      isAdmin: this.localStorage.getItem('username')=='admin'? true : false
+      isAdmin: this.localStorage.getItem('username')==='admin'? true : false
     });
   }
 
