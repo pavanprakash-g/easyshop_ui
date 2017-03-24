@@ -9,7 +9,8 @@ module.exports = function(components, props){
 			addresses={props.orderModel.get('addresses')} details={props.orderModel}
   			cards={props.orderModel.get('cards')} 
   			finalAmount={props.cartModel.get('finalAmount')}
-			itemCount={props.cartModel.get('itemCount')}/>);
+			itemCount={props.cartModel.get('itemCount')}
+			tax={props.orderModel.get('taxPercentage')} />);
 	}else if(props.page === 'ordersList'){
 		components.push(<OrdersList ordersList={props.orderModel.get('ordersList')}/>);
 	}else if(props.page === 'custOrders'){

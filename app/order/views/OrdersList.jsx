@@ -61,11 +61,7 @@ var Order = React.createClass({
 	return (
 			<div className="borderedDivNoInline">
 				<p style={{'display':'inline'}}><b>OrderId:</b> {this.props.order.get('orderId')} </p>
-				<select style={{'marginLeft':"10%"}} onChange={(e) => this.changeStatus(e.target.value)} value={optionsState}>
-					<option value="Pending">Pending</option>
-					<option value="Ship">Ship</option>
-					<option value="Deliver">Deliver</option>
-				</select>
+				<div style={{'display':'inline','marginLeft':'10%'}}><b>Status:</b> {optionsState}</div>
 				<p><b>Total Amount:</b> {this.props.order.get('orderTotal')}</p>
 				{itemsList}
 			</div>

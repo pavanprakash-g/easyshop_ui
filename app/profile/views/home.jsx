@@ -19,13 +19,13 @@ var Home = React.createClass({
           title={u.get('itemName')}
           actionIcon={<IconButton><StarBorder color="rgb(0, 188, 212)" /></IconButton>}
           titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)" > 
-          <img src={u.get('itemImage')} onClick={(e) => this.openItem(u.get('itemId'))}/> </GridTile>;
+          <img src={u.get('itemImage')} style={{height:'190px'}} onClick={(e) => this.openItem(u.get('itemId'))}/> </GridTile>;
   });
   return (
   <div>
     <AppBar />
     <div>
-        <GridList  cols={3.6}>
+        <GridList  cols={3.5}>
           {GridTiles}
         </GridList>
     </div>

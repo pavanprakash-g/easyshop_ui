@@ -20,6 +20,7 @@ var Order = class {
     this.ordersList = [];
     this.custOrdersList = [];
     this.addressDetails = [];
+    this.taxPercentage = 0.0;
 	}
 
   getCustDetails(itemCount, finalAmount, items){
@@ -47,6 +48,9 @@ var Order = class {
 
   saveAddress(addressId){
     this.selectedAddress = addressId;
+    var index =  _.findIndex(this.addresses, (d) => d.addressId === addressId);
+    var that = this;
+    that.getTax(this.addresses[index].zipcode);
     this.eventBus.trigger(App.events.models.changed);
   }
 
@@ -55,8 +59,20 @@ var Order = class {
     this.eventBus.trigger(App.events.models.changed);
   }
 
-  getItems(){
-    
+  getTax(zipcode){
+    $.ajax({
+      type: 'GET',
+      url: window.baseURL+'order/getTax?zipcode='+zipcode,
+      contentType: 'application/json',
+      dataType: "json"
+    }).done((response)=>{
+      this.taxPercentage = response.taxPercentage;
+    }).fail((jqXHR, textStatus, errorThrown)=>{
+        window.BUS.trigger(App.events.ui.alert,['problem in getting Order details', 'Info']);
+    }).always(()=>{
+      this.loading = false;
+      this.eventBus.trigger(App.events.models.changed);
+    });
   }
 
   formPayload() {
@@ -64,28 +80,32 @@ var Order = class {
     return ({
       custId: this.localstorage.getItem('custId'),
       orderItemCount: this.itemCount,
-      orderTotal: this.finalAmount,
+      orderTotal: this.finalAmount + (this.finalAmount *(this.taxPercentage/100)),
+      taxAmount: this.finalAmount *(this.taxPercentage/100),
       orderAddressId: this.selectedAddress,
-      orderCreatedDate: this.getTimeStamp(),
-      orderUpdatedDate: this.getTimeStamp(),
       orderStatus: 'Pending',
       items:this.orderItems
     });
   }
 
-  getTimeStamp(){
+  /*getTimeStamp(){
     return Math.round((new Date()).getTime() / 1000);
-  }
+  }*/
 
   updateitems(){
-    for(var i=0; i< this.items.size; i++){
+    this.items.map(u => {
       var newItem = {};
-      newItem['orderItemId'] = this.items.get(i).get('itemId');
-      newItem['orderItemQuantity'] = this.items.get(i).get('itemCount');
-      newItem['orderItemPrice'] = this.items.get(i).get('itemPrice');
-      newItem['orderItemStatus'] = 'Pick';
-      this.orderItems.push(newItem);
-    }
+      var index = _.findIndex(this.orderItems, (d) => d.itemId === u.get('itemId'));
+      if(index > -1){
+        this.items.get(i).itemCount = u.get('itemCount')+1;
+      }else{
+        newItem['orderItemId'] = u.get('itemId');
+        newItem['orderItemQuantity'] = u.get('itemCount');
+        newItem['orderItemPrice'] = u.get('itemPrice');
+        newItem['orderItemStatus'] = 'Pick';
+        this.orderItems.push(newItem);
+      }
+    });
   }
 
   createOrder(){
@@ -216,6 +236,7 @@ var Order = class {
       custOrdersList: this.custOrdersList,
       addressDetails: this.addressDetails,
       itemName: this.itemName,
+      taxPercentage: this.taxPercentage
     });
   }
 };

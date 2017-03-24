@@ -110,6 +110,7 @@ var Order = React.createClass({
     var tab1 = this.state.stepIndex === 0 ? {} : {display: 'none'};
     var tab2 = this.state.stepIndex === 1 ? {} : {display: 'none'};
     var tab3 = this.state.stepIndex === 2 ? {padding: '40px'} : {display: 'none'};
+    var taxAmount = this.props.finalAmount*(this.props.tax/100);
     var AddressList = this.props.addresses.map(u => {
       return <Addresses address={u} selectedAddress={selectedAddress}/>;
     });
@@ -145,7 +146,8 @@ var Order = React.createClass({
         {OrderItems}
         <div className="alignRight">
           <p><b># of Items:</b>{this.props.itemCount}</p>
-          <p><b>Bill Amount:</b>{this.props.finalAmount}</p>
+          <p><b>Tax Amount:</b>{taxAmount}</p>
+          <p><b>Bill Amount:</b>{taxAmount + this.props.finalAmount}</p>
         </div>
       </div>
       <div className="alignRight" style={tab3}>

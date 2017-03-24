@@ -42,6 +42,7 @@ var Order = React.createClass({
 			<div className="borderedDivNoInline">
 				<p style={{'display':'inline'}}><b>OrderId:</b> {this.props.order.get('orderId')} </p>
 				<p className="statusP"><b>Order Status:</b> {this.props.order.get('orderStatus')}</p>
+				<p className="statusP"><b>Expected Delivery: </b> {this.props.order.get('expectedDeliveryDate')}</p>
 				<p><b>Total Order Amount:</b> {this.props.order.get('orderTotal')}</p>
 				<div className="borderedDivNoInline">
 				<b>Shipping Address</b><br/>
