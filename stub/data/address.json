@@ -1,0 +1,14 @@
+
+
+    {
+        "addressId": 1,
+        "custId": 3,
+        "address1": "Addr131",
+        "address2": "Addr23a",
+        "state": "TX",
+        "city": "Dallas",
+        "country": "US",
+        "zipcode": 1234,
+        "phoneNumber": "12124141"
+    }
+

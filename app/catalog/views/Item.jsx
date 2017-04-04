@@ -23,11 +23,11 @@ var Item = React.createClass({
     <div>
       <div className='field-container'>
         <p className='field-label'> Item Name: </p>
-        <input type='text' className='field' placeholder="First Name" value={this.props.details.get('itemName')}
+        <input type='text' className='field' placeholder="Item Name" value={this.props.details.get('itemName')}
           onChange={(e) => this.autoSave('itemName', e.target.value)} />
       </div>
       <div className='field-container'>
-        <p className='field-label'> Last Name: </p>
+        <p className='field-label'> Item Description: </p>
         <textarea className='field' placeholder="Item Description" value={this.props.details.get('itemDescription')}
            onChange={(e) => this.autoSave('itemDescription', e.target.value)} />
       </div>

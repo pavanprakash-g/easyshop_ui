@@ -77,6 +77,17 @@
       file: data/validateCart.json
 
 -  request:
+      url: ^/order/getOrders
+      headers:
+      Content-Type: application/json
+      method: GET
+   response:
+      headers:
+      Content-Type: application/json
+      status: 200
+      file: data/getOrders.json
+
+-  request:
       url: ^/profile/custDetails?id=3$
       headers:
       Content-Type: application/json
@@ -86,3 +97,25 @@
       Content-Type: application/json
       status: 200
       file: data/custInfo.json
+
+-  request:
+      url: ^/cart/getCartCount$
+      headers:
+      Content-Type: application/json
+      method: GET
+   response:
+      headers:
+      Content-Type: application/json
+      status: 200
+      file: data/getCartCount.json
+
+-  request:
+      url: ^/profile/address$
+      headers:
+      Content-Type: application/json
+      method: GET
+   response:
+      headers:
+      Content-Type: application/json
+      status: 200
+      file: data/address.json
