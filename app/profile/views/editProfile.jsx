@@ -65,6 +65,9 @@ var EditProfile = React.createClass({
   componentDidMount: function(){
     window.BUS.trigger(App.events.register.custDetails);
   },
+  isActiveTab(tab){
+    return this.state.tabId === tab ? 'active-tab' : '';
+  },
   render: function () {
   const {tabId} = this.state;
   var tab1 = this.state.tabId === 1 ? {} : {display: 'none'} ;
@@ -88,14 +91,16 @@ var EditProfile = React.createClass({
     cardsList =  <Card card={Immutable.fromJS([])}/>
   }
   return (
-  <div>
-    <AppBar />
-    <div>
-      <span className='tabSpan'> <p onClick={() => this.updateId(1)}>Personal Details</p> </span>
-      <span className='tabSpan'> <p onClick={() => this.updateId(2)}>Addresses</p> </span>
-      <span className='tabSpan'> <p onClick={() => this.updateId(3)}>Cards</p> </span>
+  <div style={{height: '100%', overflowY: 'hidden'}}>
+   <AppBar />
+   <div>
+    <div className='tab-container'>
+      <div className={'tabSpan '+this.isActiveTab(1)} onClick={() => this.updateId(1)} >Personal Details </div>
+      <div className={'tabSpan '+this.isActiveTab(2)} onClick={() => this.updateId(2)}> Addresses</div>
+      <div className={'tabSpan '+this.isActiveTab(3)} onClick={() => this.updateId(3)} >Cards </div>
     </div>
-    <div style={tab1}>
+    <div className='tab-data'>
+     <div style={tab1}>
       <div className='field-container'>
         <p className='field-label'> First Name: </p>
         <input type='text' className='field' placeholder="First Name" value={this.props.details.get('custFirstName')}
@@ -116,18 +121,18 @@ var EditProfile = React.createClass({
         <input className='field' placeholder="Contact Number" value={this.props.details.get('custPhoneNumber')}
            onChange={(e) => this.phoneNumberChanged(e.target.value)} />
       </div>
-      <div className='field-container'>
-        <div className='field-label' onClick={this.register}> Update</div>
-      </div>
-    </div>
+      <div className='field-btn' onClick={this.register}> UPDATE </div>
+     </div>
 
-    <div style={tab2}>
+     <div style={tab2}>
       {AddressesList}
-    </div>
+     </div>
 
-    <div style={tab3}>
+     <div style={tab3}>
       {cardsList}
+     </div>
     </div>
+  </div>
 </div>);
   }
 });

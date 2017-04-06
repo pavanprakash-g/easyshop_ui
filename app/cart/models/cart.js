@@ -76,6 +76,24 @@ var Cart = class {
       });
   }
 
+  increaseQuantity(itemId){
+    $.ajax({
+        method: 'PUT',
+        url: window.baseURL+'cart/updateCart?type=increase&itemId='+itemId,
+        contentType: 'application/json',
+        dataType: "json"
+      }).done((response)=>{
+          this.items = response.data;
+          this.findTotal(this.items);
+          this.localstorage.setItem('cartCount',response.cartCount);
+      }).fail((jqXHR, textStatus, errorThrown)=>{
+          window.BUS.trigger(App.events.ui.alert,['problem in Login', 'Info']);
+      }).always(()=>{
+        this.loading = false;
+        this.eventBus.trigger(App.events.models.changed);
+      });
+  }
+
   validateStock(){
     $.ajax({
         method: 'GET',

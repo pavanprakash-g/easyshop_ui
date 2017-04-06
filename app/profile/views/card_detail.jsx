@@ -25,7 +25,7 @@ cardNumChanged(value){
 
   render: function(){
     return(
-      <div className='borderedDiv'>
+    <div>
       <div className='field-container'>
         <p className='field-label'> Card Number: </p>
         <input type='number' className='field' placeholder="Card Number" value={this.props.card.get('cardNumber')}
@@ -49,11 +49,7 @@ cardNumChanged(value){
            onChange={(e) =>
         this.cardExpYrChanged(e.target.value)} />
       </div>
-      <div className='field-container'>
-       <br/>
-       <br/>
-        <div className='field-label' onClick={this.updateCard}> Update</div>
-      </div>
+      <div className='field-btn' onClick={this.register}> UPDATE </div>
     </div>
     );
   }

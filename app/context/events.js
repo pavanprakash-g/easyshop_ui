@@ -69,6 +69,7 @@ var App = {
 			getCartItems: 'app::cart::getCartItems',
 			deleteItem: 'app::cart::deleteItem',
 			reduceQuantity: 'app::cart::reduceQuantity',
+			increaseQuantity: 'app::cart::increaseQuantity',
 			validateStock: 'app::cart::validateStock'
 		},
 		order: {

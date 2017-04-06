@@ -22,9 +22,9 @@ var Home = React.createClass({
           <img src={u.get('itemImage')} style={{height:'190px'}} onClick={(e) => this.openItem(u.get('itemId'))}/> </GridTile>;
   });
   return (
-  <div>
+  <div style={{height: '100%', overflowY: 'auto'}}>
     <AppBar />
-    <div>
+    <div >
         <GridList  cols={3.5}>
           {GridTiles}
         </GridList>

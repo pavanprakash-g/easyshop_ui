@@ -37,7 +37,7 @@ var Address = React.createClass({
   },
   render: function (){
     return (
-    <div className='borderedDiv'>
+    <div>
       <div className='field-container'>
         <p className='field-label'> Contact Number: </p>
         <input type='number' className='field' placeholder="Contact Number" value={this.props.address.get('phoneNumber')}
@@ -75,11 +75,7 @@ var Address = React.createClass({
         <input className='field' placeholder="Zip Code" value={this.props.address.get('zipcode')}
            onChange={(e) => this.zipCodeChanged(e.target.value)} />
       </div>
-       <div className='field-container'>
-       <br/>
-       <br/>
-        <div className='field-label' onClick={this.updateAddress}> Update</div>
-      </div>
+      <div className='field-btn' onClick={this.register}> UPDATE </div>
     </div>
     );
   }

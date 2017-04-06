@@ -13,6 +13,10 @@ var listeners = function(eventBus, model) {
 		model.reduceQuantity(id);
 	});
 
+	eventBus.on(Events.cart.increaseQuantity, (evt, id) => {
+		model.increaseQuantity(id);
+	});
+
 	eventBus.on(Events.cart.validateStock, (evt) => {
 		model.validateStock();
 	});

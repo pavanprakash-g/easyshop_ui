@@ -9,17 +9,22 @@ var CartItem = React.createClass({
   reduceQuantity(){
     window.BUS.trigger(App.events.cart.reduceQuantity, [this.props.item.get('itemId')]);
   },
+  increaseQuantity(){
+    window.BUS.trigger(App.events.cart.increaseQuantity, [this.props.item.get('itemId')]);
+  },
   render: function(){
       return (
-        <div className="borderedDivNoInline">
-          <div className="inline">
-            <h1>{this.props.item.get('itemName')}</h1>
-            <p><b>Price:</b> {this.props.item.get('itemPrice')}</p>
-            <p><b>Quantity:</b> {this.props.item.get('itemCount')}</p>
-            <p><b>Total Price:</b> {this.props.item.get('totalPrice')}</p>
-            <input type="button" value="Reduce Quantity" onClick={this.reduceQuantity}/>
-            &nbsp;<input type="button" value="Remove Item" onClick={this.deleteItem}/>
+        <div className="item">
+          <div style={{float: 'right'}} >
+            <img width='150px' height='100px' src={this.props.item.get('itemImage')} />
           </div>
+          <div className='item-title'>{this.props.item.get('itemName')}</div>
+          <p style={{color: 'gray'}}>PRICE: {this.props.item.get('itemPrice')}</p>
+          <p style={{color: 'gray'}}>QUANTITY: {this.props.item.get('itemCount')}</p>
+          <p style={{color: 'gray'}}><b>TOTAL PRICE: &nbsp; $ {this.props.item.get('totalPrice')} </b></p>
+          <input type="button" value="-" style={{marginRight: '15px'}} onClick={this.reduceQuantity}/>
+          <input type="button" value="+" style={{marginRight: '15px'}} onClick={this.increaseQuantity}/>
+          <input type="button" value="Remove Item" onClick={this.deleteItem}/>
         </div>
       );
   }
@@ -38,20 +43,21 @@ var Cart = React.createClass({
     });
     return (
       <div>
+        <div style={{position: 'fixed', width: '100%'}}>
         <AppBar />
-        <div className="inline margin">
-          {items}
-        </div>
-        <div className="inline total">
-          <div className="borderedDivNoInline">
-            <p><b>Number of Items deliverable:</b> {this.props.itemCount}</p>
-            <p><b>Final amount:</b> {this.props.finalAmount}</p>
+        </div> 
+        <div className='cart-container'>
+          <div className="cart-items">
+            {items}
+          </div>
+          <div className="cart-to-order">
+            <div className="deliverable">
+              <p style={{color: 'gray'}}>TOTAL DELIVERABLE ITEMS: {this.props.itemCount}</p>
+              <p className='total-amt'>AMOUNT: &nbsp;$ {this.props.finalAmount}</p>
+            </div>
+            <div onClick={this.placeOrder} className="place-order">Place Order</div>
           </div>
         </div>
-        <div className="alignRight">
-          <div onClick={this.placeOrder} className="blackregister-btn">Place Order</div>
-        </div>
-        
     </div>);
   }
 });

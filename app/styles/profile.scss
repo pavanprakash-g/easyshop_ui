@@ -14,9 +14,56 @@
 	height: 60px;
 	background-color: rgba(0,188,212,1);
 }
-.tabSpan{
-    display: inline-block;
-    margin: 10px 120px 10px 10px;
+.active-tab{
+  border-bottom: 3px solid #00bcd4;
+}
+.tab-container{
+  display: table;
+  width: 100%;
+  .tabSpan{
+    display: table-cell;
+    width: 33.3%;
+    text-align: center;
+    padding: 20px;
+    font-size: 1.15rem;
+    text-transform: uppercase;
+  }
+}
+.tab-data{
+  margin-top: 20px;
+  height: 80%;
+  overflow-y: auto;
+  .field-container{
+    display: table;
+    width: 55%;
+    padding: 20px 0px;
+    margin: 0px auto;
+    .field-label{
+      display: table-cell;
+      width: 27%;
+      text-transform: uppercase;
+      vertical-align: middle;
+    }
+    .field-input{
+      display: table-cell;
+      width: 75%;
+    }
+    .field{
+      display: table-cell;
+      width: 60%;
+      padding: 10px;
+    }
+  }
+  .field-btn{
+    width: 10%;
+    text-align: center;
+    background-color: #00bcd4;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 70px auto;
+    color: white;
+    font-weight: bold;
+  }
 }
 .borderedDiv{
     display: inline-block;

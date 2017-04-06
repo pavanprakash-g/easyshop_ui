@@ -25,7 +25,7 @@ var AppBar = React.createClass({
   window.router.setRoute('/custOrders');
   },
   render: function () {
-    var is_admin = JSON.parse(window.storage.is_admin);
+    var is_admin = window.storage.is_admin ? JSON.parse(window.storage.is_admin) : false;
     var profileEditVisible = is_admin ? 'hidden' : '';
     var cartVisible = is_admin ? 'hidden' : '';
     var usersListVisible = is_admin ? '' : 'hidden';
