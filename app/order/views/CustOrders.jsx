@@ -19,9 +19,9 @@ var Item = React.createClass({
 		}
 	return (
 			<div className="borderedDivNoInline">
-				<p style={{'display':'inline'}}><b>Item Name:</b> {this.props.item.get('orderItemName')} </p>
+				<p style={{'display':'inline','color':'gray'}} ><b>Item Name:</b> {this.props.item.get('orderItemName')} </p>
 				<p className="statusP"><b>Item Status:</b> {this.props.item.get('orderItemStatus')} </p>
-				<p><b>Item Quantity:</b> {this.props.item.get('orderItemQuantity')} </p>
+				<p style={{'color':'gray'}}><b>Item Quantity:</b> {this.props.item.get('orderItemQuantity')} </p>
 				<div style={buttonStyle}>
 					<input type="button" value="Request Return" onClick={this.requestReturn}/>
 				</div>
@@ -39,20 +39,20 @@ var Order = React.createClass({
 			return <Item item={u} />
 		});
 	return (
-			<div className="borderedDivNoInline">
-				<p style={{'display':'inline'}}><b>OrderId:</b> {this.props.order.get('orderId')} </p>
+			<div className="orderDiv">
+				<p style={{'display':'inline','color': 'gray'}}><b>OrderId:</b> {this.props.order.get('orderId')} </p>
 				<p className="statusP"><b>Order Status:</b> {this.props.order.get('orderStatus')}</p>
 				<p className="statusP"><b>Expected Delivery: </b> {this.props.order.get('expectedDeliveryDate')}</p>
-				<p><b>Total Order Amount:</b> {this.props.order.get('orderTotal')}</p>
+				<p style={{'color':'gray'}}><b>Total Order Amount:</b> {this.props.order.get('orderTotal')}</p>
 				<div className="borderedDivNoInline">
-				<b>Shipping Address</b><br/>
-				Address Line 1: {this.props.address.get('address1')} <br/>
-			  Address Line 2: {this.props.address.get('address2')} <br/>
-				Phone Number: {this.props.address.get('phoneNumber')} <br/>
-				City: {this.props.address.get('city')} <br/>
-				State: {this.props.address.get('state')} <br/>
-				Country: {this.props.address.get('country')} <br/>
-				ZipCode {this.props.address.get('zipcode')} <br/>
+				<b style={{'color':'gray'}}>Shipping Address:</b><br/>
+				<span style={{'color':'gray'}}>Address Line 1: {this.props.address.get('address1')} </span><br/>
+			  <span style={{'color':'gray'}}>Address Line 2: {this.props.address.get('address2')} </span><br/>
+				<span style={{'color':'gray'}}>Phone Number: {this.props.address.get('phoneNumber')} </span><br/>
+				<span style={{'color':'gray'}}>City: {this.props.address.get('city')} </span> <br/>
+				<span style={{'color':'gray'}}>State: {this.props.address.get('state')}</span> <br/>
+				<span style={{'color':'gray'}}>Country: {this.props.address.get('country')}</span> <br/>
+				<span style={{'color':'gray'}}>ZipCode {this.props.address.get('zipcode')} </span><br/>
 				</div>
 				{itemsList}
 			</div>
@@ -61,13 +61,28 @@ var Order = React.createClass({
 });
 
 var CustOrders = React.createClass({
+	getInitialState(){
+    return {
+      tabId: 1
+    };
+  },
 	getAddressDetail(id){
 		window.BUS.trigger(App.events.order.addressById, [id]);
 	},
   componentDidMount: function(){
     window.BUS.trigger(App.events.order.custOrdersList);
   },
+  isActiveTab(tab){
+    return this.state.tabId === tab ? 'active-tab' : '';
+  },
+  updateId(value){
+    this.setState({tabId: value});
+  },
   render: function () {
+  	const {tabId} = this.state;
+  	var tab1 = this.state.tabId === 1 ? {} : {display: 'none'} ;
+  	var tab2 = this.state.tabId === 2 ? {} : {display: 'none'} ;
+  	var isHavingSubs = this.props.subscriptions.size > 0 ? true : false;
   	var ordersList = this.props.ordersList.map(u => {
   		if(this.props.address.size === 0){
   			this.getAddressDetail(u.get('orderAddressId'));
@@ -77,10 +92,18 @@ var CustOrders = React.createClass({
     return (
       <div>
         <AppBar />
-        <div>
+        <div className='tab-container'>
+      		<div className={'tabSpan '+this.isActiveTab(1)} onClick={() => this.updateId(1)} >Orders </div>
+      		<div className={'tabSpan '+this.isActiveTab(2)} onClick={() => this.updateId(2)}> Subscriptions</div>
+      	</div>
+        <div style={tab1}>
         	{ordersList}
         </div>
-      </div>);
+        <div style={tab2}>
+        	
+        </div>
+      </div>
+    );
   }
 });
 module.exports = CustOrders;

@@ -14,6 +14,7 @@ module.exports = function(components, props){
 	}else if(props.page === 'ordersList'){
 		components.push(<OrdersList ordersList={props.orderModel.get('ordersList')}/>);
 	}else if(props.page === 'custOrders'){
-		components.push(<CustOrders ordersList={props.orderModel.get('custOrdersList')} address={props.orderModel.get('addressDetails')}/>);
+		components.push(<CustOrders ordersList={props.orderModel.get('custOrdersList')} address={props.orderModel.get('addressDetails')}
+											subscriptions={props.orderModel.get('subsOrdersList')}/>);
 	}
 };

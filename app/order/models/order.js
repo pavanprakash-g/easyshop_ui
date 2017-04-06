@@ -20,6 +20,7 @@ var Order = class {
     this.ordersList = [];
     this.custOrdersList = [];
     this.addressDetails = [];
+    this.subsOrdersList = [];
     this.taxPercentage = 0.0;
 	}
 
@@ -160,6 +161,20 @@ var Order = class {
       this.loading = false;
       this.eventBus.trigger(App.events.models.changed);
     });
+
+    $.ajax({
+      type: 'GET',
+      url: window.baseURL+'subscriptionOrder/getSubscriptionOrders?custId='+custId,
+      contentType: 'application/json',
+      dataType: "json"
+    }).done((response)=>{
+      this.subsOrdersList = response;
+    }).fail((jqXHR, textStatus, errorThrown)=>{
+        window.BUS.trigger(App.events.ui.alert,['problem in getting Order details', 'Info']);
+    }).always(()=>{
+      this.loading = false;
+      this.eventBus.trigger(App.events.models.changed);
+    });
   }
 
   addressById(addressId){
@@ -234,6 +249,7 @@ var Order = class {
       selectedCard: this.selectedCard,
       ordersList: this.ordersList,
       custOrdersList: this.custOrdersList,
+      subsOrdersList: this.subsOrdersList,
       addressDetails: this.addressDetails,
       itemName: this.itemName,
       taxPercentage: this.taxPercentage
