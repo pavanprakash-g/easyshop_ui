@@ -108,3 +108,14 @@
       Content-Type: application/json
       status: 200
       file: data/address.json
+
+-  request:
+      url: ^/subscriptionOrder/getSubscriptionOrders$
+      headers:
+      Content-Type: application/json
+      method: GET
+   response:
+      headers:
+      Content-Type: application/json
+      status: 200
+      file: data/subsData.json

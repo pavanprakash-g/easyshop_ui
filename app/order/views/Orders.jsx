@@ -8,11 +8,15 @@ import {
 } from 'material-ui/Stepper';
 
 var Addresses = React.createClass({
-  saveAddress(){
-    window.BUS.trigger(App.events.order.saveAddress, [this.props.address.get('addressId')]);
+  saveShippingAddress(){
+    window.BUS.trigger(App.events.order.saveShippingAddress, [this.props.address.get('addressId')]);
+  },
+  saveBillingAddress(){
+    window.BUS.trigger(App.events.order.saveBillingAddress, [this.props.address.get('addressId')]);
   },
   render:function(){
-    var button = this.props.address.get('addressId') == this.props.selectedAddress? 'Address Selected':'Select Address';
+    var button1 = this.props.address.get('addressId') == this.props.selectedShippingAddress? 'Shipping Address Selected':'As Shipping Address';
+    var button2 = this.props.address.get('addressId') == this.props.selectedBillingAddress? 'Billing Address Selected':'As Billing Address';
     return (
       <div className="addressesDiv">
         <p>Phone No: {this.props.address.get('phoneNumber')}</p>
@@ -21,10 +25,10 @@ var Addresses = React.createClass({
         <p>City: {this.props.address.get('city')}</p>
         <p>State: {this.props.address.get('state')}</p>
         <p>Zipcode: {this.props.address.get('zipcode')}</p>
-        <input type="button" value={button} onClick={this.saveAddress} />
+        <input type="button" value={button1} onClick={this.saveShippingAddress} />&nbsp;
+        <input type="button" value={button2} onClick={this.saveBillingAddress} />
       </div>
     );
-
   }
 });
 var Cards = React.createClass({
@@ -103,7 +107,8 @@ var Order = React.createClass({
     var finalAmount = 0;
     var itemCount = 0;
     const {stepIndex} = this.state;
-    var selectedAddress = this.props.details.get('selectedAddress');
+    var selectedShippingAddress = this.props.details.get('selectedShippingAddress');
+    var selectedBillingAddress = this.props.details.get('selectedBillingAddress');
     var selectedCard = this.props.details.get('selectedCard');
     var nextHidden = this.state.stepIndex === 2 ? {display: 'none'} : {} ;
     var prevHidden = this.state.stepIndex === 0 ? {display: 'none'} : {marginRight: '30px'} ;
@@ -112,7 +117,7 @@ var Order = React.createClass({
     var tab3 = this.state.stepIndex === 2 ? {padding: '40px'} : {display: 'none'};
     var taxAmount = this.props.finalAmount*(this.props.tax/100);
     var AddressList = this.props.addresses.map(u => {
-      return <Addresses address={u} selectedAddress={selectedAddress}/>;
+      return <Addresses address={u} selectedShippingAddress={selectedShippingAddress} selectedBillingAddress={selectedBillingAddress}/>;
     });
     var CardsList = this.props.cards.map(u => {
       return <Cards card={u} selectedCard={selectedCard}/>;
@@ -151,7 +156,7 @@ var Order = React.createClass({
         </div>
       </div>
       <div className="alignRight" style={tab3}>
-          <div onClick={this.confirmOrder} className="blackregister-btn">Confirm Order</div>
+          <div onClick={this.confirmOrder} className="blackregister-btn orderButton">Confirm Order</div>
         </div>
       <div style={{marginTop: 12, padding: '20px 0px 420px 0px'}}>
         <span onClick={this.handlePrev} style={prevHidden} className='step-button1'>{"<< Prev"} </span>

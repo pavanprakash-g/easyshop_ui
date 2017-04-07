@@ -9,8 +9,12 @@ var listeners = function(eventBus, model) {
 		model.getCustDetails(itemCount, finalAmount, items);
 	});
 
-	eventBus.on(Events.order.saveAddress, (evt, id) => {
-		model.saveAddress(id);
+	eventBus.on(Events.order.saveShippingAddress, (evt, id) => {
+		model.saveShippingAddress(id);
+	});
+
+	eventBus.on(Events.order.saveBillingAddress, (evt, id) => {
+		model.saveBillingAddress(id);
 	});
 
 	eventBus.on(Events.order.saveCard, (evt, id) => {

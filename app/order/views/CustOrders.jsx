@@ -1,7 +1,7 @@
 var App = require('../../context/events');
 var AppBar = require('../../lib/app_bar.jsx'); 
 var React = require('react');
-
+var SubsOrders = require('./SubsOrders.jsx');
 var Item = React.createClass({
 	changeStatus(status){
 		window.BUS.trigger(App.events.order.changeItemStatus, [this.props.item.get('orderId'), this.props.item.get('orderItemId'), status]);
@@ -82,7 +82,13 @@ var CustOrders = React.createClass({
   	const {tabId} = this.state;
   	var tab1 = this.state.tabId === 1 ? {} : {display: 'none'} ;
   	var tab2 = this.state.tabId === 2 ? {} : {display: 'none'} ;
-  	var isHavingSubs = this.props.subscriptions.size > 0 ? true : false;
+  	//var isHavingSubs = this.props.subscriptions.size > 0 ? true : false;
+  	/*if(isHavingSubs){
+  		//var subsCreate = return <SubsOrders order={}/>
+  	}*/
+  	var subscriptions = this.props.subscriptions.map(u => {
+      return <SubsOrders order={u}/>;
+    });
   	var ordersList = this.props.ordersList.map(u => {
   		if(this.props.address.size === 0){
   			this.getAddressDetail(u.get('orderAddressId'));
@@ -100,7 +106,7 @@ var CustOrders = React.createClass({
         	{ordersList}
         </div>
         <div style={tab2}>
-        	
+        	{subscriptions}
         </div>
       </div>
     );

@@ -10,7 +10,8 @@ var Order = class {
     this.localstorage = localstorage;
     this.addresses = [];
     this.cards = [];
-    this.selectedAddress = 0;
+    this.selectedShippingAddress = 0;
+    this.selectedBillingAddress = 0;
     this.selectedCard = 0;
     this.loading = false;
     this.itemCount = 0;
@@ -47,11 +48,17 @@ var Order = class {
       });
   }
 
-  saveAddress(addressId){
-    this.selectedAddress = addressId;
+  saveShippingAddress(addressId){
+    this.selectedShippingAddress = addressId;
     var index =  _.findIndex(this.addresses, (d) => d.addressId === addressId);
     var that = this;
     that.getTax(this.addresses[index].zipcode);
+    this.eventBus.trigger(App.events.models.changed);
+  }
+
+  saveBillingAddress(addressId){
+    debugger;
+    this.selectedBillingAddress = addressId;
     this.eventBus.trigger(App.events.models.changed);
   }
 
@@ -83,7 +90,8 @@ var Order = class {
       orderItemCount: this.itemCount,
       orderTotal: this.finalAmount + (this.finalAmount *(this.taxPercentage/100)),
       taxAmount: this.finalAmount *(this.taxPercentage/100),
-      orderAddressId: this.selectedAddress,
+      orderAddressId: this.selectedShippingAddress,
+      orderBillingAddrId: this.selectedBillingAddress,
       orderStatus: 'Pending',
       items:this.orderItems
     });
@@ -245,7 +253,8 @@ var Order = class {
     return Immutable.fromJS({
       addresses: this.addresses,
       cards: this.cards,
-      selectedAddress: this.selectedAddress,
+      selectedShippingAddress: this.selectedShippingAddress,
+      selectedBillingAddress: this.selectedBillingAddress,
       selectedCard: this.selectedCard,
       ordersList: this.ordersList,
       custOrdersList: this.custOrdersList,

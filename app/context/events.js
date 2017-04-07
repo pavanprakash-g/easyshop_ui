@@ -81,8 +81,10 @@ var App = {
 			ordersListAdmin: 'app::order::ordersListAdmin',
 			custOrdersList: 'app::order::custOrdersList',
 			changeStatus: 'app::order::changeStatus',
-			changeItemStatus: 'app::order::changeItemStatus',
 			addressById: 'app::order::addressById',
+			changeItemStatus: 'app::order::changeItemStatus',
+			saveShippingAddress: 'app::order::saveShippingAddress',
+			saveBillingAddress: 'app::order::saveBillingAddress',
 			approveReturn: 'app::order::approveReturn'
 		}
 	}

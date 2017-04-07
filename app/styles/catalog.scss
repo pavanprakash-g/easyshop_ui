@@ -4,10 +4,11 @@
     margin-left: 20px;
 }
 #leftCol {
-    width: 88.5%;
+    width: 110%;
     float: left;
     border: 1px solid black;
     margin-top: 20px;
+    margin-left: 10px;
 }
 #centerCol {
     margin-left: 156%;
@@ -41,9 +42,17 @@
 .addressesDiv{
     display: inline-block;
     border-style: ridge;
+    border: 1px solid lightgray;
+    margin-bottom: 20px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-bottom: 5px solid #00bcd4;
+    display: table;
+    margin-top: 10px;
     margin-right: 40px;
-    margin-left: 25px;
-    margin-top: 100px;
+    margin-left: 15px;
+    padding: 20px;
+    width: 60%;
 }
 .statusP{
     color: gray;
