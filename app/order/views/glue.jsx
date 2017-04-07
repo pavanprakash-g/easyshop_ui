@@ -2,6 +2,7 @@ var React = require('react');
 var Orders = require('./Orders.jsx');
 var OrdersList = require('./OrdersList.jsx');
 var CustOrders = require('./CustOrders.jsx');
+var Addresses = require('./Addresses.jsx');
 
 module.exports = function(components, props){
 	if(props.page === 'order'){
@@ -17,5 +18,9 @@ module.exports = function(components, props){
 		components.push(<CustOrders ordersList={props.orderModel.get('custOrdersList')} address={props.orderModel.get('addressDetails')}
 											subscriptions={props.orderModel.get('subsOrdersList')}
 											addresses={props.orderModel.get('addresses')} />);
+	}else if(props.page === 'addresses'){
+		components.push(<Addresses addresses={props.orderModel.get('addresses')} 
+											selectedShippingAddress={props.orderModel.selectedShippingAddress}
+											selectedBillingAddress={props.orderModel.selectedBillingAddress} />)
 	}
 };
