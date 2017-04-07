@@ -2,7 +2,6 @@ var App = require('./../../context/events');
 var _ = require('underscore');
 var $ = require('jquery');
 var Immutable  = require('immutable');
-var moment = require('moment');
 
 var Order = class {
 	constructor(eventBus, localstorage){
@@ -153,7 +152,26 @@ var Order = class {
       this.eventBus.trigger(App.events.models.changed);
     });
   }
-
+ emptyStateSubscription() {
+  return [{
+      "subsOrderHdrId":null,
+      "custId":this.localstorage.getItem('custId'),
+      "subsOrderItemCount":0,
+      "subsOrderTotal":0,
+      "subsOrderStatus":"Pending",
+      "taxAmount":0,
+      "subsOrderAddressId":null,
+      "subsOrderCreatedDate":null,
+      "subsOrderUpdatedDate":null,
+      "subscriptionType":0,
+      "nextDueDate":null,
+      "items":[]
+    }];
+  };
+  addSubrOrder() {
+    this.subsOrdersList.push(this.emptyStateSubscription());
+    this.eventBus.trigger(App.events.models.changed);
+  }
   custOrders(){
     var custId = this.localstorage.getItem('custId');
     $.ajax({
@@ -177,6 +195,8 @@ var Order = class {
       dataType: "json"
     }).done((response)=>{
       this.subsOrdersList = response;
+      if(this.subsOrdersList.length === 0)
+        this.subsOrdersList.push(this.emptyStateSubscription());
     }).fail((jqXHR, textStatus, errorThrown)=>{
         window.BUS.trigger(App.events.ui.alert,['problem in getting Order details', 'Info']);
     }).always(()=>{

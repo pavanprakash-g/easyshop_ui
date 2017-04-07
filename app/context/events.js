@@ -85,7 +85,10 @@ var App = {
 			changeItemStatus: 'app::order::changeItemStatus',
 			saveShippingAddress: 'app::order::saveShippingAddress',
 			saveBillingAddress: 'app::order::saveBillingAddress',
-			approveReturn: 'app::order::approveReturn'
+			approveReturn: 'app::order::approveReturn',
+			subscriptionOrders: {
+				addSubrOrder: 'app::order::subscriptionOrders::addSubrOrder'
+			}
 		}
 	}
 };
