@@ -87,7 +87,9 @@ var App = {
 			saveBillingAddress: 'app::order::saveBillingAddress',
 			approveReturn: 'app::order::approveReturn',
 			subscriptionOrders: {
-				addSubrOrder: 'app::order::subscriptionOrders::addSubrOrder'
+				addSubrOrder: 'app::order::subscriptionOrders::addSubrOrder',
+				subscribe: 'app::order::subscriptionOrders::subscribe',
+				addItem: 'app::order::subscriptionOrders::addItem'
 			}
 		}
 	}

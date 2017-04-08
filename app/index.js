@@ -109,7 +109,7 @@ var App = React.createClass({
       CatalogView(components, this.props);
     }else if (this.props.page === 'cart'){
       CartView(components, this.props);
-    }else if (this.props.page === 'order' || this.props.page === 'ordersList' || this.props.page === 'custOrders' || this.props.page === 'addresses'){
+    }else if (this.props.page === 'order' || this.props.page === 'ordersList' || this.props.page === 'custOrders'){
       OrderView(components, this.props);
     }
 }

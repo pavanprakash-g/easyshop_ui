@@ -25,8 +25,8 @@ var listeners = function(eventBus, model) {
 		model.deleteItem(id);
 	});
 
-	eventBus.on(Events.catalog.itemDetails, (evt, id) => {
-		model.itemDetails(id);
+	eventBus.on(Events.catalog.itemDetails, (evt, id, purpose) => {
+		model.itemDetails(id, purpose);
 	});
 
 	eventBus.on(Events.catalog.addToCart, (evt, id) => {

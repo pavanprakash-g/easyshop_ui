@@ -48,6 +48,11 @@ var Routes = function(state) {
         routingState.page = 'home';
         window.BUS.trigger(Application.events.ui.render, routingState.state);
       },
+      'subscription/home': function() {
+        routingState.page = 'home';
+        routingState.options = {action: 'subscription'};
+        window.BUS.trigger(Application.events.ui.render, routingState.state);
+      },
       '/editProfile': function() {
         routingState.page = 'editProfile';
         window.BUS.trigger(Application.events.ui.render, routingState.state);
@@ -76,8 +81,8 @@ var Routes = function(state) {
         routingState.page = 'custOrders';
         window.BUS.trigger(Application.events.ui.render, routingState.state);
       },
-      '/addresses': function() {
-        routingState.page = 'addresses';
+      '/addreses': function() {
+        routingState.page = 'addreses';
         window.BUS.trigger(Application.events.ui.render, routingState.state);
       }
     };

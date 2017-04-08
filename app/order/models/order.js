@@ -153,7 +153,7 @@ var Order = class {
     });
   }
  emptyStateSubscription() {
-  return [{
+  return {
       "subsOrderHdrId":null,
       "custId":this.localstorage.getItem('custId'),
       "subsOrderItemCount":0,
@@ -161,16 +161,33 @@ var Order = class {
       "subsOrderStatus":"Pending",
       "taxAmount":0,
       "subsOrderAddressId":null,
+      "subsOrderBillingAddrId":null,
       "subsOrderCreatedDate":null,
       "subsOrderUpdatedDate":null,
       "subscriptionType":0,
       "nextDueDate":null,
       "items":[]
-    }];
+    };
   };
   addSubrOrder() {
     this.subsOrdersList.push(this.emptyStateSubscription());
     this.eventBus.trigger(App.events.models.changed);
+  }
+  addItem(item){
+    this.subsOrdersList[0].items.push({"subsOrderDtlId":null,
+            "subsOrderId": null,
+            "subsOrderItemId":item.get('itemId'),
+            "subsOrderItemQuantity":item.get('itemQuantity'),
+            "subsOrderItemPrice":item.get('itemPrice'),
+            "subsOrderItemStatus":"Pending",
+            "subsOrderItemName":item.get('itemName')});
+    this.eventBus.trigger(App.events.models.changed);
+    window.router.setRoute('/custOrders');
+  }
+  subscribe(order){
+    debugger;
+    this.subsOrdersList[0].subsOrderItemCount = this.subsOrdersList[0].items.length;
+    this.subsOrdersList[0].subscriptionType = order.subscriptionType;
   }
   custOrders(){
     var custId = this.localstorage.getItem('custId');

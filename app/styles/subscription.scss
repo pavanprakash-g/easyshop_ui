@@ -4,4 +4,46 @@
     margin: 20px auto;
     border: 1px solid #00bcd4;
     padding: 5px;
-} 
+}
+.subscription-orders {
+	padding: 20px;
+	width: 100%;
+}
+.subr-ordr-container{
+	border: 1px solid lightgray;
+    padding: 20px;
+    border-radius: 5px;
+    width: 85%;
+    margin: 0px auto;
+    .subr-title{
+    	font-weight: bold;
+    	font-size: 1.1rem;
+    }
+    .subr-addr{
+        width: 65%;
+    	padding: 5px;
+    	.addr{
+    	    padding-left: 10px;
+    		font-size: 0.8rem;
+    		position: relative;
+    		border-bottom: 1px solid lightgray;
+    		.edit-addr{
+    	    	color: gray;
+    			font-size: 1.1rem;
+    			position: absolute;
+    			top: -15px;
+    			left: 180px;
+    		}
+    	}
+    	.addr-btn{
+    		padding: 5px;
+    		width: 300px;
+    		color: gray;
+    		text-decoration: underline;
+    		font-size: 0.9rem;
+    	}
+    }
+    .subr-duration{
+
+    }
+}
