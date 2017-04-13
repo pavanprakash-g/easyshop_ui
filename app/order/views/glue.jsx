@@ -16,11 +16,11 @@ module.exports = function(components, props){
 		components.push(<OrdersList ordersList={props.orderModel.get('ordersList')}/>);
 	}else if(props.page === 'custOrders'){
 		components.push(<CustOrders ordersList={props.orderModel.get('custOrdersList')} address={props.orderModel.get('addressDetails')}
-											subscriptions={props.orderModel.get('subsOrdersList')}
-											addresses={props.orderModel.get('addresses')} />);
+											subscriptions={props.subscription}
+											addresses={props.orderModel.get('addresses')} 
+											routingOpts={props.options} />);
 	}else if(props.page === 'addresses'){
-		components.push(<Addresses addresses={props.orderModel.get('addresses')} 
-											selectedShippingAddress={props.orderModel.selectedShippingAddress}
-											selectedBillingAddress={props.orderModel.selectedBillingAddress} />)
+		components.push(<Addresses addresses={props.orderModel.get('addresses')} routingOpts={props.options} 
+								   subscriptionOrders={props.subscription.get('subsOrdersList')} />)
 	}
 };

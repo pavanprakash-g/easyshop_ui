@@ -1,5 +1,4 @@
-[  
-   {  
+{  
       "subsOrderHdrId":12,
       "subsOrderId":1,
       "custId":3,
@@ -11,7 +10,7 @@
       "subsOrderBillingAddrId": 2,
       "subsOrderCreatedDate":"2017-04-07 05:19:11",
       "subsOrderUpdatedDate":"2017-04-07 05:19:11",
-      "subscriptionType":3,
+      "subscriptionType":6,
       "nextDueDate":"2017-05-12 05:00:00",
       "items":[  
          {  
@@ -22,7 +21,15 @@
             "subsOrderItemPrice":10,
             "subsOrderItemStatus":"Pending",
             "subsOrderItemName":"Cricket ball"
+         },
+         {  
+            "subsOrderDtlId":12,
+            "subsOrderId":12,
+            "subsOrderItemId":1,
+            "subsOrderItemQuantity":2,
+            "subsOrderItemPrice":500,
+            "subsOrderItemStatus":"Pending",
+            "subsOrderItemName":"Cushions"
          }
       ]
-   }
-]
+}

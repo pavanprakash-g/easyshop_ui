@@ -61,51 +61,43 @@ var Order = React.createClass({
 });
 
 var CustOrders = React.createClass({
-	getInitialState(){
-    return {
-      tabId: 1
-    };
-  },
 	getAddressDetail(id){
 		window.BUS.trigger(App.events.order.addressById, [id]);
 	},
   componentDidMount: function(){
-    window.BUS.trigger(App.events.order.custOrdersList);
+  	window.BUS.trigger(App.events.order.custOrdersList);
     window.BUS.trigger(App.events.order.custDetails);
   },
   isActiveTab(tab){
-    return this.state.tabId === tab ? 'active-tab' : '';
+    return this.props.routingOpts.tab === tab ? 'active-tab' : '';
   },
-  updateId(value){
-    this.setState({tabId: value});
+  changeTab(tab){
+  	window.router.setRoute('/orders/'+tab);
   },
   render: function () {
-  	const {tabId} = this.state;
-  	var tab1 = this.state.tabId === 1 ? {} : {display: 'none'} ;
-  	var tab2 = this.state.tabId === 2 ? {} : {display: 'none'} ;
-  	//var isHavingSubs = this.props.subscriptions.size > 0 ? true : false;
-  	/*if(isHavingSubs){
-  		//var subsCreate = return <SubsOrders order={}/>
-  	}*/
+  	var tab1 = this.props.routingOpts.tab === 'regular' ? {} : {display: 'none'} ;
+  	var tab2 = this.props.routingOpts.tab === 'subscription' ? {} : {display: 'none'} ;
   	var ordersList = this.props.ordersList.map(u => {
   		if(this.props.address.size === 0){
   			this.getAddressDetail(u.get('orderAddressId'));
   		}
       return <Order order={u} address={this.props.address}/>;
     });
+    var currentTabContent;
+    if(this.props.routingOpts.tab === 'subscription'){
+    	currentTabContent = (<SubscriptionOrders subscriptions={this.props.subscriptions} addresses={this.props.addresses}
+    							routingOpts={this.props.routingOpts} />);
+    }else{
+    	currentTabContent = (<div> {ordersList} </div>);
+    }
     return (
       <div>
         <AppBar />
         <div className='tab-container'>
-      		<div className={'tabSpan '+this.isActiveTab(1)} onClick={() => this.updateId(1)} >Orders </div>
-      		<div className={'tabSpan '+this.isActiveTab(2)} onClick={() => this.updateId(2)}> Subscriptions</div>
+      		<div className={'tabSpan '+this.isActiveTab('regular')} onClick={() => this.changeTab('regular')} >Orders </div>
+      		<div className={'tabSpan '+this.isActiveTab('subscription')} onClick={() => this.changeTab('subscription')}> Subscriptions</div>
       	</div>
-        <div style={tab1}>
-        	{ordersList}
-        </div>
-        <div style={tab2}>
-        	<SubscriptionOrders orders={this.props.subscriptions} addresses={this.props.addresses}/>
-        </div>
+        {currentTabContent}
       </div>
     );
   }

@@ -7,7 +7,7 @@ var AppBar = require('../../lib/app_bar.jsx');
 
 var Home = React.createClass({
   openItem(itemId){
-    window.BUS.trigger(App.events.catalog.itemDetails, [itemId, this.props.action]);
+    window.BUS.trigger(App.events.catalog.itemDetails, [itemId, this.props.routingOpts]);
   },
   componentDidMount: function(){
     window.BUS.trigger(App.events.catalog.getAllItems);

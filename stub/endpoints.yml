@@ -119,3 +119,36 @@
       Content-Type: application/json
       status: 200
       file: data/subsData.json
+
+-  request:
+      url: ^/subscriptionOrder/delete$
+      headers:
+      Content-Type: application/json
+      method: GET
+   response:
+      headers:
+      Content-Type: application/json
+      status: 200
+      body: {"status": "success"}
+
+-  request:
+      url: ^/createSubscriptionOrder$
+      headers:
+      Content-Type: application/json
+      method: POST
+   response:
+      headers:
+      Content-Type: application/json
+      status: 200
+      file: subscription_orders/order_create.json
+
+-  request:
+      url: ^/updateSubscriptionOrder$
+      headers:
+      Content-Type: application/json
+      method: POST
+   response:
+      headers:
+      Content-Type: application/json
+      status: 200
+      file: subscription_orders/order_edit.json

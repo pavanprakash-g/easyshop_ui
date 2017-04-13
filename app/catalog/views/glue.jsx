@@ -6,6 +6,8 @@ module.exports = function(components, props){
 	if(props.page === 'item'){
 		components.push(<Item details={props.catalogModel.get('currentItem')}/>);
 	}else if(props.page === 'itemDetails'){
-		components.push(<ItemDetails details={props.catalogModel.get('currentItem')} purpose={props.catalogModel.get('purpose')} cartCount={props.catalogModel.get('cartCount')}/>);
+		components.push(<ItemDetails details={props.catalogModel.get('currentItem')} 
+				routingOpts={props.catalogModel.get('routingOpts')} 
+				cartCount={props.catalogModel.get('cartCount')} />);
 	}
 };

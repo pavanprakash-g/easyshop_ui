@@ -8,6 +8,8 @@ var ProfileListeners = require('./../profile/models/listeners');
 var CatalogListeners = require('./../catalog/models/listeners');
 var CartListeners = require('./../cart/models/listeners');
 var OrderListeners = require('./../order/models/listeners');
+var SubscriptionOrders = require('./../subscription_orders/models/subscription');
+var subscriptionListeners = require('./../subscription_orders/models/listeners');
 var App = require('./events');
 var $ = require('jquery');
 
@@ -19,6 +21,7 @@ var Context = function(eventBus, storage) {
   var catalog = new Catalog(eventBus, storage);
   var cart = new Cart(eventBus, storage);
   var order = new Order(eventBus, storage);
+  var subscription = new SubscriptionOrders(eventBus, storage);
 
   $.ajaxPrefilter(function( options ) {
     if ( !options.beforeSend) {
@@ -32,7 +35,8 @@ var Context = function(eventBus, storage) {
     profileModel: profile,
     catalogModel: catalog,
     cartModel: cart,
-    orderModel: order
+    orderModel: order,
+    subscription: subscription
   };
 
   eventBus.on(App.events.models.changed, function() {
@@ -44,6 +48,7 @@ var Context = function(eventBus, storage) {
   CatalogListeners(eventBus, this.models.catalogModel);
   CartListeners(eventBus, this.models.cartModel);
   OrderListeners(eventBus, this.models.orderModel);
+  subscriptionListeners(eventBus, this.models.subscription);
 
   eventBus.trigger(App.events.initComplete, this.getState());
 };
@@ -55,7 +60,8 @@ Context.prototype.getState = function() {
     profileModel: self.models.profileModel.getState(),
     catalogModel: self.models.catalogModel.getState(),
     cartModel: self.models.cartModel.getState(),
-    orderModel: self.models.orderModel.getState()
+    orderModel: self.models.orderModel.getState(),
+    subscription: self.models.subscription.getState()
   };
 };
 

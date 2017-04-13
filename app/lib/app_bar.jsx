@@ -22,7 +22,8 @@ var AppBar = React.createClass({
   window.router.setRoute('/ordersList');
   },
   custOrder(){
-  window.router.setRoute('/custOrders');
+    window.BUS.trigger(App.events.subscription.resetSubscriptionsList);
+    window.router.setRoute('/orders/regular');
   },
   render: function () {
     var is_admin = window.storage.is_admin ? JSON.parse(window.storage.is_admin) : false;

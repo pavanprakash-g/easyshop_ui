@@ -27,13 +27,13 @@ var ItemDetails = React.createClass({
     window.BUS.trigger(App.events.catalog.addToCart, [itemId]);
   },
   addToSubscription(item){
-    window.BUS.trigger(App.events.order.subscriptionOrders.addItem, [item]);
+    window.BUS.trigger(App.events.subscription.addItem, [this.props.routingOpts.get('orderId'), item]);
   },
   render: function () {
     var totalQuantity = this.props.details.get('itemQuantity');
     var availableQuantity = totalQuantity - this.state.count; 
     var addToCartStyle = totalQuantity >= 1 && availableQuantity >=1 ? false : true;
-    var subrVisible = this.props.purpose === 'subscription' ? '' : 'hidden';
+    var subrVisible = this.props.routingOpts.get('action') === 'subscription' ? '' : 'hidden';
   return (
   <div>
     <AppBar />
@@ -47,7 +47,8 @@ var ItemDetails = React.createClass({
         <hr/>
         <p>$ {this.props.details.get('itemPrice')}</p>
         <input disabled={addToCartStyle} className='normal-btn' onClick={(e) => this.addToCart(this.props.details.get('itemId'))} value="Add to cart" />
-        <input disabled={addToCartStyle} className={'normal-btn '+subrVisible } onClick={(e) => this.addToSubscription(this.props.details)} value="Add for Subscription" />
+        <input disabled={addToCartStyle} className={'normal-btn '+subrVisible } style={{marginLeft: '20px'}}
+            onClick={(e) => this.addToSubscription(this.props.details)} value="Add for Subscription" />
         <p>{this.props.details.get('itemDescription')}</p>
       </div>
       <div id="rightCol">

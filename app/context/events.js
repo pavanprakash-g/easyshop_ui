@@ -85,12 +85,18 @@ var App = {
 			changeItemStatus: 'app::order::changeItemStatus',
 			saveShippingAddress: 'app::order::saveShippingAddress',
 			saveBillingAddress: 'app::order::saveBillingAddress',
-			approveReturn: 'app::order::approveReturn',
-			subscriptionOrders: {
-				addSubrOrder: 'app::order::subscriptionOrders::addSubrOrder',
-				subscribe: 'app::order::subscriptionOrders::subscribe',
-				addItem: 'app::order::subscriptionOrders::addItem'
-			}
+			approveReturn: 'app::order::approveReturn'
+		},
+		subscription: {
+			addSubrOrder: 'app::subscription::addSubrOrder',
+			subscribe: 'app::subscription::subscribe',
+			addItem: 'app::subscription::addItem',
+			removeItem: 'app::subscription::removeItem',
+			getOrders: 'app::subscription::getOrders',
+			autoSave: 'app::subscription::autoSave',
+			resetSubscriptionsList: 'app::subscription::resetSubscriptionsList',
+			deleteOrder: 'app::subscription::deleteOrder',
+			itemCountChanged: 'app::subscription::itemCountChanged'
 		}
 	}
 };

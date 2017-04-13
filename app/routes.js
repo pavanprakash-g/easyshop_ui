@@ -48,11 +48,6 @@ var Routes = function(state) {
         routingState.page = 'home';
         window.BUS.trigger(Application.events.ui.render, routingState.state);
       },
-      'subscription/home': function() {
-        routingState.page = 'home';
-        routingState.options = {action: 'subscription'};
-        window.BUS.trigger(Application.events.ui.render, routingState.state);
-      },
       '/editProfile': function() {
         routingState.page = 'editProfile';
         window.BUS.trigger(Application.events.ui.render, routingState.state);
@@ -81,10 +76,21 @@ var Routes = function(state) {
         routingState.page = 'custOrders';
         window.BUS.trigger(Application.events.ui.render, routingState.state);
       },
-      '/addreses': function() {
-        routingState.page = 'addreses';
+      '/orders/:tab': function(tab) {
+        routingState.page = 'custOrders';
+        routingState.options = {tab: tab};
         window.BUS.trigger(Application.events.ui.render, routingState.state);
-      }
+      },
+      '/addresses/:orderId': function(orderId) {
+        routingState.page = 'addresses';
+        routingState.options = {orderId: parseInt(orderId)};
+        window.BUS.trigger(Application.events.ui.render, routingState.state);
+      },
+      '/home/:orderId': function(orderId) {
+        routingState.page = 'home';
+        routingState.options = {action: 'subscription', orderId: parseInt(orderId)};
+        window.BUS.trigger(Application.events.ui.render, routingState.state);
+      },
     };
 
     window.router = Router(routes);

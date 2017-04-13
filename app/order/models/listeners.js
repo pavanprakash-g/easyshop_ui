@@ -48,15 +48,6 @@ var listeners = function(eventBus, model) {
 	eventBus.on(Events.order.approveReturn, (evt, orderId, itemId, status) => {
 		model.approveReturn(orderId, itemId, status);
 	});
-	eventBus.on(Events.order.subscriptionOrders.addSubrOrder, () => {
-		model.addSubrOrder();
-	});
-	eventBus.on(Events.order.subscriptionOrders.addItem, (e, item) => {
-		model.addItem(item);
-	});
-	eventBus.on(Events.order.subscriptionOrders.subscribe, (e, order) => {
-		model.subscribe(order);
-	});
 };
 
 module.exports = listeners;

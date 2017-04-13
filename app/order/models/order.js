@@ -56,7 +56,6 @@ var Order = class {
   }
 
   saveBillingAddress(addressId){
-    debugger;
     this.selectedBillingAddress = addressId;
     this.eventBus.trigger(App.events.models.changed);
   }
@@ -152,7 +151,7 @@ var Order = class {
       this.eventBus.trigger(App.events.models.changed);
     });
   }
- emptyStateSubscription() {
+ /*emptyStateSubscription() {
   return {
       "subsOrderHdrId":null,
       "custId":this.localstorage.getItem('custId'),
@@ -164,7 +163,7 @@ var Order = class {
       "subsOrderBillingAddrId":null,
       "subsOrderCreatedDate":null,
       "subsOrderUpdatedDate":null,
-      "subscriptionType":0,
+      "subscriptionType":1,
       "nextDueDate":null,
       "items":[]
     };
@@ -177,18 +176,17 @@ var Order = class {
     this.subsOrdersList[0].items.push({"subsOrderDtlId":null,
             "subsOrderId": null,
             "subsOrderItemId":item.get('itemId'),
-            "subsOrderItemQuantity":item.get('itemQuantity'),
+            "subsOrderItemQuantity":1,
             "subsOrderItemPrice":item.get('itemPrice'),
             "subsOrderItemStatus":"Pending",
             "subsOrderItemName":item.get('itemName')});
     this.eventBus.trigger(App.events.models.changed);
-    window.router.setRoute('/custOrders');
+    window.router.setRoute('/orders/regular');
   }
   subscribe(order){
-    debugger;
     this.subsOrdersList[0].subsOrderItemCount = this.subsOrdersList[0].items.length;
     this.subsOrdersList[0].subscriptionType = order.subscriptionType;
-  }
+  }*/
   custOrders(){
     var custId = this.localstorage.getItem('custId');
     $.ajax({
@@ -198,22 +196,6 @@ var Order = class {
       dataType: "json"
     }).done((response)=>{
       this.custOrdersList = response;
-    }).fail((jqXHR, textStatus, errorThrown)=>{
-        window.BUS.trigger(App.events.ui.alert,['problem in getting Order details', 'Info']);
-    }).always(()=>{
-      this.loading = false;
-      this.eventBus.trigger(App.events.models.changed);
-    });
-
-    $.ajax({
-      type: 'GET',
-      url: window.baseURL+'subscriptionOrder/getSubscriptionOrders?custId='+custId,
-      contentType: 'application/json',
-      dataType: "json"
-    }).done((response)=>{
-      this.subsOrdersList = response;
-      if(this.subsOrdersList.length === 0)
-        this.subsOrdersList.push(this.emptyStateSubscription());
     }).fail((jqXHR, textStatus, errorThrown)=>{
         window.BUS.trigger(App.events.ui.alert,['problem in getting Order details', 'Info']);
     }).always(()=>{

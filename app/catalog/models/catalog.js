@@ -122,10 +122,10 @@ var Catalog = class {
     });
   }
 
-  itemDetails(itemId, purpose){
+  itemDetails(itemId, routingOpts){
     var index =  _.findIndex(this.items, (d) => d.itemId === itemId);
     this.currentItem = this.items[index];
-    this.purpose = purpose;
+    this.routingOpts = routingOpts;
     this.eventBus.trigger(App.events.models.changed);
     window.router.setRoute('/itemDetails');
   }
@@ -164,7 +164,7 @@ var Catalog = class {
       items: this.items,
       loading: this.loading,
       currentItem: this.currentItem,
-      purpose: this.purpose,
+      routingOpts: this.routingOpts,
       cartCount: this.localstorage.getItem('cartCount')
     });
   }

@@ -9,7 +9,7 @@ module.exports = function(components, props){
   		components.push(<UsersList details={props.profileModel.get('details')}/>);
 	else if(props.page === 'home')
   		components.push(<Home details={props.profileModel.get('details')} items={props.catalogModel.get('items')} 
-  			cartCount={props.catalogModel.get('cartCount')} action={props.options.action}/>);
+  			cartCount={props.catalogModel.get('cartCount')} routingOpts={props.options} />);
   	else if(props.page === 'adminProfile')
   		components.push(<AdminProfile items={props.catalogModel.get('items')}/>);
   	else if(props.page === 'editProfile')

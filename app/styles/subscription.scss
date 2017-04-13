@@ -9,24 +9,55 @@
 	padding: 20px;
 	width: 100%;
 }
+.empty-msg{
+    padding: 10px;
+    color: gray;
+    font-style: italic;
+    font-size: 0.8rem;
+}
 .subr-ordr-container{
+    position: relative;
 	border: 1px solid lightgray;
     padding: 20px;
     border-radius: 5px;
     width: 85%;
-    margin: 0px auto;
+    margin: 15px auto;
+    .subr-add-item{
+        position: absolute;
+        right: 10%;
+        top: 80px;
+        padding: 10px;
+        border: 1px solid lightgray;
+        font-weight: bold;
+        background-color: aliceblue;
+    }
+    .subscribe-btn{
+        background-color: #00bcd4;
+        width: 150px;
+        margin: 0px auto;
+        text-align: center;
+        padding: 7px;
+        color: white;
+        font-weight: bold;
+        border-radius: 3px;
+    }
+    .subr-delete{
+        color: gray;
+        font-size: 2rem;
+        float: right;
+    }
     .subr-title{
     	font-weight: bold;
     	font-size: 1.1rem;
     }
     .subr-addr{
-        width: 65%;
-    	padding: 5px;
+        padding: 5px;
+        display: inline-block;
+        margin-right: 75px;
     	.addr{
-    	    padding-left: 10px;
+    	    padding: 10px;
     		font-size: 0.8rem;
     		position: relative;
-    		border-bottom: 1px solid lightgray;
     		.edit-addr{
     	    	color: gray;
     			font-size: 1.1rem;
@@ -41,9 +72,30 @@
     		color: gray;
     		text-decoration: underline;
     		font-size: 0.9rem;
+            font-weight: bold;
     	}
     }
     .subr-duration{
-
+        float: right;
+        padding-right: 50px;
+        font-weight: bold;
     }
+    .subr-ordr-item{
+        position: relative;
+        color: gray;
+        font-size: 0.8rem;
+        display: inline-block;
+        padding: 10px;
+        margin-right: 20px;
+        .subr-item-del{
+            position: absolute;
+            right: 0px;
+            top: 10px;
+        }
+    }
+}
+.itemCountField{
+    width: 25px;
+    margin-left: 4px;
+    padding-left: 8px;
 }
