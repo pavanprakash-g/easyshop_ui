@@ -107,3 +107,31 @@
   padding: 10px;
   margin: 0px 0px 0px 80%;
 }
+.address-container{
+    width: 47%;
+    display: inline-block;
+    text-align: center;
+    font-size: 0.9rem;
+    //border: 1px solid lightgray;
+    margin-left: 2%;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    background-color: whitesmoke;
+    border: 1px solid lightgray;
+    .field-container{
+      display: table;
+      width: 100%;
+      padding: 10px;
+      margin: 0px auto;
+    }
+    .update-btn{
+      margin: 15px auto;
+      width: 25%;
+    }
+    .addr-del{
+      color: gray;
+      font-size: 1.57rem;
+      float: right;
+      padding: 7px 15px;
+    }
+}

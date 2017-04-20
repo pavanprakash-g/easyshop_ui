@@ -6,76 +6,60 @@ var _ = require('underscore');
 var classnames = require('classnames');
 
 var Address = React.createClass({
-  phoneNumberChanged(value){
-    window.BUS.trigger(App.events.register.phoneNumberChanged, [this.props.address.get('addressId'), value]);
-  },
-
-  address1Changed(value){
-    window.BUS.trigger(App.events.register.address1Changed, [this.props.address.get("addressId"), value]);
-  },
-
-  address2Changed(value){
-    window.BUS.trigger(App.events.register.address2Changed, [this.props.address.get("addressId"), value]);
-  },
-
-  cityChanged(value){
-    window.BUS.trigger(App.events.register.cityChanged, [this.props.address.get("addressId"), value]);
-  },
-
-  stateChanged(value){
-    window.BUS.trigger(App.events.register.stateChanged, [this.props.address.get("addressId"), value]);
-  },
-
-  zipCodeChanged(value){
-    window.BUS.trigger(App.events.register.zipCodeChanged, [this.props.address.get("addressId"), value]);
-  },
-  countryChanged(value){
-    window.BUS.trigger(App.events.register.countryChanged, [this.props.address.get("addressId"), value]);
-  },
   updateAddress(){
-    window.BUS.trigger(App.events.register.updateAddress, [this.props.address.get("addressId")]);
+    if(this.props.address.get('is_synced') === false)
+      window.BUS.trigger(App.events.register.address.submitAddress, [this.props.address.get("addressId")]);
+    else
+      window.BUS.trigger(App.events.register.address.updateAddress, [this.props.address.get("addressId")]);
+  },
+  deleteAddress(){
+    window.BUS.trigger(App.events.register.address.deleteAddress, [this.props.address.get("addressId")]);
   },
   render: function (){
+    var btnLabel = this.props.address.get('is_synced') === false ? 'SAVE NEW ADDRESS' : 'UPDATE ADDRESS';
     return (
-    <div>
+    <div className='address-container'>
+     <span className='fa fa-trash addr-del' onClick={this.deleteAddress}/>
+     <div style={{padding: '20px 10px'}}>
       <div className='field-container'>
         <p className='field-label'> Contact Number: </p>
         <input type='number' className='field' placeholder="Contact Number" value={this.props.address.get('phoneNumber')}
-           onChange={(e) => this.phoneNumberChanged(e.target.value)} />
+           onChange={(e) => window.BUS.trigger(App.events.register.address.autoSave, [this.props.address.get('addressId'), 'phoneNumber', e.target.value])} />
       </div>
-      <div className='field-container'>
+      <div className='field-container addr-ele'>
         <p className='field-label'> Address1: </p>
         <textarea rows="4" cols='50' placeholder="Address Line 1" className='field' value={this.props.address.get('address1')}
            onChange={(e) =>
-        this.address1Changed(e.target.value)} />
+        window.BUS.trigger(App.events.register.address.autoSave, [this.props.address.get('addressId'), 'address1', e.target.value])} />
       </div>
       <div className='field-container'>
         <p className='field-label'> Address2: </p>
         <textarea rows="4" cols='50' placeholder="Address Line 2" className='field' value={this.props.address.get('address2')}
            onChange={(e) =>
-        this.address2Changed(e.target.value)} />
+        window.BUS.trigger(App.events.register.address.autoSave, [this.props.address.get('addressId'), 'address2', e.target.value])} />
       </div>
       <div className='field-container'>
         <p className='field-label'> City: </p>
         <input className='field' placeholder="City" value={this.props.address.get('city')}
-           onChange={(e) => this.cityChanged(e.target.value)} />
+           onChange={(e) =>  window.BUS.trigger(App.events.register.address.autoSave, [this.props.address.get('addressId'), 'city', e.target.value])} />
       </div>
       <div className='field-container'>
         <p className='field-label'> State: </p>
         <input className='field' placeholder="State" value={this.props.address.get('state')}
-           onChange={(e) => this.stateChanged(e.target.value)} />
+           onChange={(e) =>  window.BUS.trigger(App.events.register.address.autoSave, [this.props.address.get('addressId'), 'state', e.target.value])} />
       </div>
       <div className='field-container'>
         <p className='field-label'> Country: </p>
         <input className='field' placeholder="Country" value={this.props.address.get('country')}
-           onChange={(e) => this.countryChanged(e.target.value)} />
+           onChange={(e) =>  window.BUS.trigger(App.events.register.address.autoSave, [this.props.address.get('addressId'), 'country', e.target.value])} />
       </div>
       <div className='field-container'>
         <p className='field-label'> Zip Code: </p>
         <input className='field' placeholder="Zip Code" value={this.props.address.get('zipcode')}
-           onChange={(e) => this.zipCodeChanged(e.target.value)} />
+           onChange={(e) =>  window.BUS.trigger(App.events.register.address.autoSave, [this.props.address.get('addressId'), 'zipcode', e.target.value])} />
       </div>
-      <div className='field-btn' onClick={this.register}> UPDATE </div>
+      <div className='field-btn update-btn' onClick={this.updateAddress}> {btnLabel}</div>
+     </div>
     </div>
     );
   }

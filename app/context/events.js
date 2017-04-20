@@ -53,7 +53,21 @@ var App = {
             cardCvvChanged: 'app::register::cardCvvChanged',
             cardExpMonChanged: 'app::register::cardExpMonChanged',
             updateCard: 'app::register::updateCard',
-            cardExpYrChanged: 'app::register::cardExpYrChanged'
+            cardExpYrChanged: 'app::register::cardExpYrChanged',
+            address: {
+            	addNewAddress: 'app::register::address::addNewAddress',
+				submitAddress: 'app::register::address::submitAddress',
+				autoSave: 'app::register::address::autoSave',
+				deleteAddress: 'app::register::address::deleteAddress',
+				updateAddress: 'app::register::address::updateAddress'
+            },
+            cards: {
+            	addNewCard: 'app::register::cards::addNewCard',
+				submitCard: 'app::register::cards::submitCard',
+				autoSave: 'app::register::cards::autoSave',
+				deleteCard: 'app::register::cards::deleteCard',
+				updateCard: 'app::register::cards::updateCard'
+            }
 		},
 		catalog: {
 			getAllItems: 'app::catalog::getAllItems',

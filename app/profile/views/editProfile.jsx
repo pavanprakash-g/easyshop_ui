@@ -68,28 +68,24 @@ var EditProfile = React.createClass({
   isActiveTab(tab){
     return this.state.tabId === tab ? 'active-tab' : '';
   },
+  addNewAddress(){
+    window.BUS.trigger(App.events.register.address.addNewAddress);
+  },
+  addNewCard(){
+    window.BUS.trigger(App.events.register.cards.addNewCard);
+  },
   render: function () {
   const {tabId} = this.state;
   var tab1 = this.state.tabId === 1 ? {} : {display: 'none'} ;
   var tab2 = this.state.tabId === 2 ? {} : {display: 'none'} ;
   var tab3 = this.state.tabId === 3 ? {} : {display: 'none'} ;
-  var AddressesList;
-  if(this.props.details && this.props.details.get('addresses') && this.props.details.get('addresses').size !==0){
-    AddressesList = this.props.details.get('addresses').map(u => {
-      return <Address address={u}/>;
-    });
-  }else {
-     AddressesList = <Address address={Immutable.fromJS([])}/>
-  }
-  var cardsList;
-  if(this.props.details && this.props.details.get('cards')){
-    /* cardsList = this.props.detailscards.map(u => { */
-      cardsList = this.props.details.get('cards').map(u => {
-      return <Card card={u}/>; 
-    });
-  }else {
-    cardsList =  <Card card={Immutable.fromJS([])}/>
-  }
+  var AddressesList = this.props.addresses.map(addr => {
+    return <Address address={addr} key={addr.get('addressId')}/>;
+  });
+  var cardsList = this.props.cards.map(card => {
+    return <Card card={card} key={card.get('cardId')}/>; 
+  });
+  
   return (
   <div style={{height: '100%', overflowY: 'hidden'}}>
    <AppBar />
@@ -116,20 +112,17 @@ var EditProfile = React.createClass({
         <input type='mail' className='field' placeholder="Mail Id" value={this.props.details.get('custEmailid')}
            onChange={(e) => this.emailIdChanged(e.target.value)} />
       </div>
-      <div className='field-container'>
-        <p className='field-label'> Contact Number: </p>
-        <input className='field' placeholder="Contact Number" value={this.props.details.get('custPhoneNumber')}
-           onChange={(e) => this.phoneNumberChanged(e.target.value)} />
-      </div>
       <div className='field-btn' onClick={this.register}> UPDATE </div>
      </div>
 
      <div style={tab2}>
       {AddressesList}
+      <div onClick={this.addNewAddress} style={{marginBottom: '50px'}} className="subscribe-order">ADD NEW ADDRESS</div>
      </div>
 
      <div style={tab3}>
       {cardsList}
+      <div onClick={this.addNewCard} style={{marginBottom: '50px'}} className="subscribe-order">ADD NEW CARD</div>
      </div>
     </div>
   </div>

@@ -30,16 +30,15 @@ var Registration = class {
     this.billingCountry = null;
     this.billingZipcode = null;
     this.details = [];
-    this.addresses = [];
-    this.cards = [];
     this.cardNum = null;
     this.cardExpMon = null;
     this.cardExpYr = null;
     this.cardCvv = null;
 
+    this.addresses = [];
+    this.cards = [];
     this.localStorage = localStorage;
   }
-
 
   firstNameChanged(value){
     this.firstName = value;
@@ -206,28 +205,7 @@ var Registration = class {
       activeStatus: true
     });
   }
-  /*billingaddress() {
-    return ({
-      //billingaddress
-      billingAddress1: this.address1,
-      billingAddress2: this.address2,
-      billingCity: this,city,
-      billingState: this.state_name,
-      billingCountry: this.country,
-      billingZipcode: this.zipcode
-    })
-  }
-  shippmentaddress() {
-    return ({
-      //shipmentAddress
-      shipmentAddress1: this.address1,
-      shipmentAddress2: this.address2,
-      shipmentCity: this.city,
-      shipmentState: this.state_name,
-      shipmentCountry: this.country,
-      shipmentZipcode: this.zipcode
-    })
-  } */
+ 
 
   addrPhoneNumberChanged(id, value){
     var index =  _.findIndex(this.details.addresses, (d) => d.id === id);
@@ -235,46 +213,12 @@ var Registration = class {
     this.eventBus.trigger(App.events.models.changed);
   }
 
-  autoSave(id, key, value){
+  autoSave1(id, key, value){
     var index =  _.findIndex(this.details.addresses, (d) => d.id === id);
     this.details.addresses[index].key = value;
     this.eventBus.trigger(App.events.models.changed); 
   }
-  /* You have to handle all the below methods as the above phone number method
-  addrAddress1Changed(id, value){
-    this.address1 = value;
-    this.details.address1 = value;
-    this.eventBus.trigger(App.events.models.changed);
-  }
-
-  address2Changed(id, value){
-    this.address2 = value;
-    this.details.address2 = value;
-    this.eventBus.trigger(App.events.models.changed);
-  }
-
-  cityChanged(id, value){
-    this.city = value;
-    this.details.city = value;
-    this.eventBus.trigger(App.events.models.changed);
-  }
-
-  stateChanged(id, value){
-    this.state_name = value;
-    this.details.state = value;
-    this.eventBus.trigger(App.events.models.changed);
-  }
-
-  countryChanged(id, value){
-    this.country = value;
-    this.eventBus.trigger(App.events.models.changed);
-  }
-
-  zipCodeChanged(id, value){
-    this.zipCode = value;
-    this.details.zipcode = value;
-    this.eventBus.trigger(App.events.models.changed);
-  } */
+  
   perform(){
     var that = this;
     this.loading = true;
@@ -319,6 +263,10 @@ var Registration = class {
           this.details = response;
           this.addresses = response.addresses;
           this.cards = response.cards;
+          if(this.addresses.length === 0)
+            this.addresses.push(this.emptyStateAddress());
+          if(this.cards.length === 0)
+            this.cards.push(this.emptyStateCard());
         }
       }).fail((jqXHR, textStatus, errorThrown)=>{
           window.BUS.trigger(App.events.ui.alert,['problem in getting registration details', 'Info']);
@@ -348,27 +296,7 @@ var Registration = class {
         this.eventBus.trigger(App.events.models.changed);
       });
   }
-  updateAddress(addrId){
-    var custId = localStorage.getItem("custId");
-    var query =  _.find(this.details.addresses, (d) => d.addressId === addrId);
-    $.ajax({
-        type: 'PUT',
-        url: window.baseURL+'profile/address',
-        data: JSON.stringify(query),
-        contentType: 'application/json',
-        dataType: "json"
-      }).done((response)=>{
-          window.BUS.trigger(App.events.ui.alert, ['Updated Successfully', 'Info', () => {
-            window.BUS.trigger(App.events.models.changed);
-          }]);
-      }).fail((jqXHR, textStatus, errorThrown)=>{
-          window.BUS.trigger(App.events.ui.alert,['problem in updating address details', 'Info']);
-      }).always(()=>{
-        this.loading = false;
-        this.eventBus.trigger(App.events.models.changed);
-      });
-  }
-
+  
   updateCard(cardId){
     var custId = localStorage.getItem("custId");
     var query =  _.find(this.details.cards, (d) => d.cardId === cardId);
@@ -390,6 +318,223 @@ var Registration = class {
       });
   }
 
+// ** Address related methods in editProfile **
+
+  emptyStateAddress() {
+    return {
+      "addressId":Date.now(),
+      "custId":this.localStorage.getItem('custId'),
+      "phoneNumber":null,
+      "address1":null,
+      "address2":null,
+      "city":null,
+      "state":null,
+      "country":null,
+      "zipcode":null,
+      "is_synced": false
+    };
+  }
+  autoSaveAddr(addressId, element, value){
+    var currentAddressIndex = _.findIndex(this.addresses, a => {
+      return a.addressId === addressId;
+    });
+    this.addresses[currentAddressIndex][element] = value;
+    this.eventBus.trigger(App.events.models.changed);
+  }
+  addNewAddress() {
+    this.addresses.push(this.emptyStateAddress());
+    this.eventBus.trigger(App.events.models.changed);
+  }
+  deleteAddress(addressId){
+    var that = this;
+    var currentAddressIndex = _.findIndex(this.addresses, addr => {
+      return addr.addressId === addressId;
+    });
+    if(this.addresses[currentAddressIndex].is_synced === false){
+      window.BUS.trigger(App.events.ui.alert, ["Do you want to discard Newly added address details without saving?", "Confirmation", () => {
+        that.addresses = _.filter(that.addresses, addr => {
+          return addr.addressId !== addressId;
+        });
+        that.eventBus.trigger(App.events.models.changed);
+      }]);
+    }else{
+      this.loading = true;
+      this.eventBus.trigger(App.events.models.changed);
+      var custId = this.localStorage.getItem('custId');
+      $.ajax({
+        type: 'DELETE',
+        url: window.baseURL+ 'profile/address?addressId='+addressId,
+        contentType: 'application/json',
+        dataType: "json"
+      }).done(()=>{
+        window.BUS.trigger(App.events.ui.confirm, ["Removed address from saved list successfully!", "Info", () => {
+          that.addresses = _.filter(that.addresses, addr => {
+            return addr.addressId !== addressId;
+          });
+          if(that.addresses.length === 0)
+            that.addresses.push(that.emptyStateAddress());
+          that.eventBus.trigger(App.events.models.changed);
+        }]);
+      }).fail((jqXHR, textStatus, errorThrown)=>{
+        window.BUS.trigger(App.events.ui.alert,['problem in deleting the address', 'Info']);
+      }).always(()=>{
+        this.loading = false;
+        this.eventBus.trigger(App.events.models.changed);
+      });
+    }
+  }
+  submitAddress(addrId){
+    var custId = localStorage.getItem("custId");
+    var currentAddressIndex =  _.findIndex(this.addresses, (d) => d.addressId === addrId);
+    var query = this.addresses[currentAddressIndex];
+    delete query.is_synced;
+    delete query.addressId;
+    $.ajax({
+        type: 'POST',
+        url: window.baseURL+'profile/address',
+        data: JSON.stringify(query),
+        contentType: 'application/json',
+        dataType: "json"
+      }).done((response)=>{
+          window.BUS.trigger(App.events.ui.alert, ['New Address saved Successfully', 'Info', () => {
+            window.BUS.trigger(App.events.models.changed);
+          }]);
+          this.addresses[currentAddressIndex] = response;
+      }).fail((jqXHR, textStatus, errorThrown)=>{
+          window.BUS.trigger(App.events.ui.alert,['problem in adding new address', 'Info']);
+      }).always(()=>{
+        this.loading = false;
+        this.eventBus.trigger(App.events.models.changed);
+      });
+  }
+  updateAddress(addrId){
+    var custId = localStorage.getItem("custId");
+    var query =  _.find(this.addresses, (d) => d.addressId === addrId);
+    $.ajax({
+        type: 'PUT',
+        url: window.baseURL+'profile/address',
+        data: JSON.stringify(query),
+        contentType: 'application/json',
+        dataType: "json"
+      }).done((response)=>{
+          window.BUS.trigger(App.events.ui.alert, ['Updated Successfully', 'Info', () => {
+            window.BUS.trigger(App.events.models.changed);
+          }]);
+          this.addresses = response;
+      }).fail((jqXHR, textStatus, errorThrown)=>{
+          window.BUS.trigger(App.events.ui.alert,['problem in updating address details', 'Info']);
+      }).always(()=>{
+        this.loading = false;
+        this.eventBus.trigger(App.events.models.changed);
+      });
+  }
+
+  // ** Card related methods in editProfile ** 
+
+  emptyStateCard() {
+    return {
+      "cardId":Date.now(),
+      "custId": localStorage.getItem("custId"),
+      "cardNumber": null,
+      "cardCvv": null,
+      "cardExpMon": null,
+      "cardExpYr": null,
+      "is_synced": false
+    };
+  }
+  autoSaveCard(cardId, element, value){
+    var currentCardIndex = _.findIndex(this.cards, c => {
+      return c.cardId === cardId;
+    });
+    this.cards[currentCardIndex][element] = value;
+    this.eventBus.trigger(App.events.models.changed);
+  }
+  addNewCard() {
+    this.cards.push(this.emptyStateCard());
+    this.eventBus.trigger(App.events.models.changed);
+  }
+  deleteCard(cardId){
+    var that = this;
+    var currentCardIndex = _.findIndex(this.cards, card => {
+      return card.cardId === cardId;
+    });
+    if(this.cards[currentCardIndex].is_synced === false){
+      window.BUS.trigger(App.events.ui.confirm, ["Do you want to discard Newly added card info without saving?", "Confirmation", () => {
+        that.cards = _.filter(that.cards, card => {
+          return card.cardId !== cardId;
+        });
+        that.eventBus.trigger(App.events.models.changed);
+      }]);
+    }else{
+      this.loading = true;
+      this.eventBus.trigger(App.events.models.changed);
+      var custId = this.localStorage.getItem('custId');
+      $.ajax({
+        type: 'DELETE',
+        url: window.baseURL+ 'profile/card?cardId='+cardId,
+        contentType: 'application/json',
+        dataType: "json"
+      }).done(()=>{
+        window.BUS.trigger(App.events.ui.alert, ["Removed card details from saved list successfully!", "Info", () => {
+          that.cards = _.filter(that.cards, card => {
+            return card.cardId !== cardId;
+          });
+          if(that.cards.length === 0)
+            that.cards.push(that.emptyStateCard());
+          that.eventBus.trigger(App.events.models.changed);
+        }]);
+      }).fail((jqXHR, textStatus, errorThrown)=>{
+        window.BUS.trigger(App.events.ui.alert,['problem in deleting the Card details', 'Info']);
+      }).always(()=>{
+        this.loading = false;
+        this.eventBus.trigger(App.events.models.changed);
+      });
+    }
+  }
+  submitCard(cardId){
+    var custId = localStorage.getItem("custId");
+    var currentCardIndex =  _.findIndex(this.cards, (d) => d.cardId === cardId);
+    var query = this.cards[currentCardIndex];
+    delete query.is_synced;
+    delete query.cardId;
+    $.ajax({
+        type: 'POST',
+        url: window.baseURL+'profile/card',
+        data: JSON.stringify(query),
+        contentType: 'application/json',
+        dataType: "json"
+      }).done((response)=>{
+          window.BUS.trigger(App.events.ui.alert, ['New Card Info saved Successfully', 'Info', () => {
+            window.BUS.trigger(App.events.models.changed);
+          }]);
+          this.cards[currentCardIndex] = response;
+      }).fail((jqXHR, textStatus, errorThrown)=>{
+          window.BUS.trigger(App.events.ui.alert,['problem in adding new card info', 'Info']);
+      }).always(()=>{
+        this.loading = false;
+        this.eventBus.trigger(App.events.models.changed);
+      });
+  }
+  updateCard(cardId){
+    var custId = localStorage.getItem("custId");
+    var query =  _.find(this.cards, (d) => d.cardId === cardId);
+    $.ajax({
+        type: 'PUT',
+        url: window.baseURL+'profile/card',
+        data: JSON.stringify(query),
+        contentType: 'application/json',
+        dataType: "json"
+      }).done((response)=>{
+          window.BUS.trigger(App.events.ui.alert, ['Updated Successfully', 'Info', () => {
+            window.BUS.trigger(App.events.models.changed);
+          }]);
+      }).fail((jqXHR, textStatus, errorThrown)=>{
+          window.BUS.trigger(App.events.ui.alert,['problem in updating card details', 'Info']);
+      }).always(()=>{
+        this.loading = false;
+        this.eventBus.trigger(App.events.models.changed);
+      });
+  }
   getState(){
     return Immutable.fromJS({
       firstName: this.firstName,
