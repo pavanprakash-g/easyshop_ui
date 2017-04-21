@@ -111,6 +111,10 @@ var App = {
 			resetSubscriptionsList: 'app::subscription::resetSubscriptionsList',
 			deleteOrder: 'app::subscription::deleteOrder',
 			itemCountChanged: 'app::subscription::itemCountChanged'
+		},
+		messages: {
+			getMessages: 'app::messages::getMessages',
+			markRead: 'app::messages::markRead'
 		}
 	}
 };

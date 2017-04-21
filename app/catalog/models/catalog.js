@@ -32,6 +32,41 @@ var Catalog = class {
       this.getCartCount();
 	}
 
+  getMessages(){
+    var unreadMessages =[];
+    $.ajax({
+        method: 'GET',
+        url: window.baseURL+'catalog/getMessages',
+        contentType: 'application/json',
+        dataType: "json"
+      }).done((response)=>{
+        this.messages = response;
+        unreadMessages = _.filter(this.messages, msg => {
+          return !(msg.read);
+        });
+        this.localstorage.setItem('messageCount',unreadMessages.length);
+      }).always(()=>{
+        this.eventBus.trigger(App.events.models.changed);
+      });
+  }
+
+  markRead(msgId){
+    var that = this;
+    var currentMessageIndex = _.findIndex(this.messages, m => {
+      return m.messageId === msgId;
+    });
+    $.ajax({
+      method: 'PUT',
+      url: window.baseURL+'catalog/messageMarkRead?messageId='+msgId,
+      contentType: 'application/json',
+      dataType: "json"
+    }).done((response)=>{
+        that.messages[currentMessageIndex].read = true;
+    }).always(()=>{
+      this.eventBus.trigger(App.events.models.changed);
+    });
+  }
+
   getCartCount(){
     $.ajax({
         method: 'GET',
@@ -165,7 +200,8 @@ var Catalog = class {
       loading: this.loading,
       currentItem: this.currentItem,
       routingOpts: this.routingOpts,
-      cartCount: this.localstorage.getItem('cartCount')
+      cartCount: this.localstorage.getItem('cartCount'),
+      messages: this.messages
     });
   }
 };

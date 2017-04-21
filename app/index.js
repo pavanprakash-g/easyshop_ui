@@ -105,7 +105,7 @@ var App = React.createClass({
       LoginView(components, this.props);
     }else if (this.props.page === 'adminProfile' || this.props.page === 'home' || this.props.page === 'editProfile' || this.props.page === 'usersList') {
       ProfileView(components, this.props);
-    }else if (this.props.page === 'item' || this.props.page === 'itemDetails'){
+    }else if (this.props.page === 'item' || this.props.page === 'itemDetails' || this.props.page === 'messages'){
       CatalogView(components, this.props);
     }else if (this.props.page === 'cart'){
       CartView(components, this.props);

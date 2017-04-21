@@ -91,6 +91,10 @@ var Routes = function(state) {
         routingState.options = {action: 'subscription', orderId: parseInt(orderId)};
         window.BUS.trigger(Application.events.ui.render, routingState.state);
       },
+      '/messages': function() {
+        routingState.page = 'messages';
+        window.BUS.trigger(Application.events.ui.render, routingState.state);
+      }
     };
 
     window.router = Router(routes);

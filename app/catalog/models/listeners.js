@@ -32,6 +32,13 @@ var listeners = function(eventBus, model) {
 	eventBus.on(Events.catalog.addToCart, (evt, id) => {
 		model.addToCart(id);
 	});
+	eventBus.on(Events.messages.getMessages, () => {
+		model.getMessages();
+	});
+
+	eventBus.on(Events.messages.markRead, (evt, msgId) => {
+		model.markRead(msgId);
+	});
 };
 
 module.exports = listeners;

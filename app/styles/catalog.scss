@@ -59,3 +59,39 @@
     display: inline;
     margin-left:10%;
 }
+.messages-container{
+    height: 100%;
+    font-family: sanfrancisco;
+    margin-bottom: 50px;
+    width: 70%;
+    margin: 15px auto;
+    border: 1px solid lightblue;
+    border-radius: 5px;
+    .message{
+        border-bottom: 1px solid lightgray;
+        padding: 5px 10px;
+        .msg-content{
+            margin: 0px;
+            display: inline-block;
+        }
+        .msg-icon{
+            padding: 0px 10px;
+            color: #00bcd4;
+        }
+        .date-container{
+            color: gray;
+            font-size: 0.9rem;
+            text-align: right;
+            margin-right: 30px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    }
+    .msg-read{
+        background-color: #F5F5F5;
+    }
+    .read-tick{
+        padding: 0px 7px;
+        color: green;
+    }
+}

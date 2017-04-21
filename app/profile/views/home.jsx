@@ -11,6 +11,7 @@ var Home = React.createClass({
   },
   componentDidMount: function(){
     window.BUS.trigger(App.events.catalog.getAllItems);
+    window.BUS.trigger(App.events.messages.getMessages);
   },
   render: function () {
   var GridTiles = this.props.items.map(u => {
