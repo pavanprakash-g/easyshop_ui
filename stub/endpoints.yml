@@ -152,3 +152,14 @@
       Content-Type: application/json
       status: 200
       file: subscription_orders/order_edit.json
+
+-  request:
+      url: ^/catalog/getMessages$
+      headers:
+      Content-Type: application/json
+      method: GET
+   response:
+      headers:
+      Content-Type: application/json
+      status: 200
+      file: data/messages.json

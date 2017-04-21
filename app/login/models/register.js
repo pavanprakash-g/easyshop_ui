@@ -420,7 +420,7 @@ var Registration = class {
           window.BUS.trigger(App.events.ui.alert, ['Updated Successfully', 'Info', () => {
             window.BUS.trigger(App.events.models.changed);
           }]);
-          this.addresses = response;
+          //this.addresses = response;
       }).fail((jqXHR, textStatus, errorThrown)=>{
           window.BUS.trigger(App.events.ui.alert,['problem in updating address details', 'Info']);
       }).always(()=>{

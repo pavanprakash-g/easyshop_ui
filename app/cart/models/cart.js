@@ -33,6 +33,8 @@ var Cart = class {
   }
 
   findTotal(items){
+    this.finalAmount = 0;
+    this.itemCount = 0;
     for (var i = 0; i < items.length; i++) {
       this.finalAmount += items[i].totalPrice;
       this.itemCount += items[i].itemCount;

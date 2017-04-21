@@ -1,0 +1,12 @@
+
+
+    [
+        {
+            "messageId": 1,
+            "custId": 3,
+            "messageContent": "Hi",
+            "messageTime": "2017-04-21 05:00:00",
+            "read": false
+        }
+    ]
+
