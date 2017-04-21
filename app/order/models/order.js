@@ -243,7 +243,15 @@ var Order = class {
       contentType: 'application/json',
       dataType: "json"
     }).done((response)=>{
-      
+      if(this.custOrdersList.length>0){
+        var index1 =  _.findIndex(this.custOrdersList, (d) => d.orderId === orderId);
+        var index2 =  _.findIndex(this.custOrdersList[index1].items, (d) => d.orderItemId === itemId);
+        this.custOrdersList[index1].items[index2].orderItemStatus=status;
+      }else if(this.ordersList.length>0){
+        var index1 =  _.findIndex(this.ordersList, (d) => d.orderId === orderId);
+        var index2 =  _.findIndex(this.ordersList[index1].items, (d) => d.orderItemId === itemId);
+        this.ordersList[index1].items[index2].orderItemStatus=status;
+      }
     }).fail((jqXHR, textStatus, errorThrown)=>{
         window.BUS.trigger(App.events.ui.alert,['problem in getting Order details', 'Info']);
     }).always(()=>{
