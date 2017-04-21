@@ -18,7 +18,7 @@ var Message = React.createClass({
       <span className='fa fa-comment msg-icon' />
       <p className='msg-content'>{this.props.message.get('messageContent')}</p>
       <div className='date-container'>
-        <span className='msg-datetime'>{moment(this.props.message.get('messageTime')).format('DD-MMM-YY, hh:mm:ss a')} </span>
+        <span className='msg-datetime'>{moment(this.props.message.get('messageTime')).format('DD-MMM-YY, hh:mm:ss A')} </span>
         <span className={'fa fa-check-square-o read-tick '+readIconVisible} />
       </div>
     </div>);

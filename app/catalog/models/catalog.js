@@ -11,6 +11,7 @@ var Catalog = class {
     this.localstorage = localstorage;
     this.itemId = 0;
     this.loading = false;
+    this.messages = [];
 	}
 
 	getAllItems(){
@@ -52,6 +53,7 @@ var Catalog = class {
 
   markRead(msgId){
     var that = this;
+    var unreadMessages =[];
     var currentMessageIndex = _.findIndex(this.messages, m => {
       return m.messageId === msgId;
     });
@@ -62,6 +64,10 @@ var Catalog = class {
       dataType: "json"
     }).done((response)=>{
         that.messages[currentMessageIndex].read = true;
+        unreadMessages = _.filter(this.messages, msg => {
+          return !(msg.read);
+        });
+        this.localstorage.setItem('messageCount',unreadMessages.length);
     }).always(()=>{
       this.eventBus.trigger(App.events.models.changed);
     });

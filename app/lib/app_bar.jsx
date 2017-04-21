@@ -37,6 +37,7 @@ var AppBar = React.createClass({
     var orderListVisible = is_admin ? '' : 'hidden';
     var custOrderVisible = is_admin ? 'hidden' : '';
     var adminStyle = is_admin ? {top: '10px'} : {};
+    var msgCountVisible = window.storage.messageCount === "0" ? 'hidden' : '';
     return (
     <div className='app-bar'> 
       <div className='home-button fa fa-home' onClick={this.home}> Easyshop </div>
@@ -46,7 +47,7 @@ var AppBar = React.createClass({
           <span className='cart-count'> {window.storage.cartCount} </span>
         </div>
         <div className={'cart fa fa-comments '+messageVisible} onClick={this.openMessages}> 
-          <span className='cart-count'> {window.storage.messageCount} </span>
+          <span className={'cart-count '+msgCountVisible}> {window.storage.messageCount} </span>
         </div>
         <div className={'tool-bar-item fa fa-users '+usersListVisible} onClick={this.usersList} />
         <div className={'tool-bar-item fa fa-shopping-bag '+orderListVisible} onClick={this.ordersList} />
