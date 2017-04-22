@@ -25,7 +25,9 @@ var Catalog = class {
           this.items = response;
         }
       }).fail((jqXHR, textStatus, errorThrown)=>{
-          window.BUS.trigger(App.events.ui.alert,['problem in getting catalog details', 'Info']);
+          console.log(errorThrown);
+          this.localstorage.clear();
+          //window.BUS.trigger(App.events.ui.alert,['problem in getting catalog details', 'Info']);
       }).always(()=>{
         this.loading = false;
         this.eventBus.trigger(App.events.models.changed);
@@ -84,7 +86,7 @@ var Catalog = class {
           this.localstorage.setItem('cartCount',response.cartCount);
         }
       }).fail((jqXHR, textStatus, errorThrown)=>{
-          window.BUS.trigger(App.events.ui.alert,['problem in getting catalog details', 'Info']);
+          //window.BUS.trigger(App.events.ui.alert,['problem in getting catalog details', 'Info']);
       }).always(()=>{
         this.loading = false;
         this.eventBus.trigger(App.events.models.changed);

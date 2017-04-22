@@ -32,7 +32,7 @@ $(function() {
   var bus = $({});
   window.BUS = bus;
   window.storage = localStorage;
-  window.baseURL = "http://localhost:5050/";
+  window.baseURL = "http://localhost:7070/";
   bus.on(Application.events.initComplete, function(event, state) {
     var routingState = Routes(state);
     ReactDOM.render(React.createElement(App, _.defaults(routingState, state)), document.getElementById('app'));
