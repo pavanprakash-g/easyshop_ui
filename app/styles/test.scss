@@ -1,0 +1,205 @@
+.test-div{
+    background-color: rgb(32, 32, 32);
+    height: 100%;
+}
+.login-form-test{
+    text-align: center;
+    background-color: white;
+    max-width: 500px;
+    max-height: 600px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: 1px 4px 8px 1px black;
+    border-radius: 10px;
+    text-decoration-color: black;
+}
+.title{
+    border:none;
+    font-weight: bold;
+    font-style: oblique;
+    font-size: 1.5rem;
+}
+.names{
+    text-align: center;
+    box-shadow: 10px gray;
+    margin: 15px 30px 30px 45px;
+    padding: 10px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.input-fields{
+    box-shadow: 10px gray;
+    margin: 15px 30px 30px 45px;
+    padding: 10px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 80%;
+    box-sizing: border-box;
+}
+
+.submit-button{
+    margin: 15px 30px 30px 45px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 80%;
+    box-sizing: border-box;
+}
+input[type ="button"]:hover{
+    border:1px solid #5AB0DB;
+    background-color: rgb(82, 141, 243);
+}
+input:hover{
+    border:1px solid rgb(57, 143, 248);
+}
+
+.appbar{
+    display: table;
+    height: 45px;
+    width: 100%;
+    //box-shadow: 0px 3px 10px black;
+    background-color: rgb(75, 73, 73);
+}
+
+.appbar-name{
+    display: table-cell;
+    vertical-align: middle;
+    color: white;
+    padding-left: 10px;
+}
+
+.appbar-info{
+    text-align: center; 
+    margin: 1em 0;
+    float: right;
+    color: white;
+    //padding: 10px;
+}
+.image-thumbnail{
+    display: inline-block;
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    padding-left: 10px;
+}
+
+.left-block{
+    border-right: 2px solid gray;
+    width: 175px;
+    height: calc(100% - 45px); 
+    padding: 30px;
+    //display: sticky;
+    float: left;
+}
+
+.right-block{
+    overflow:auto;
+    height: calc(100% - 45px);
+    float: left;
+    width: calc(100% - 237px);
+}
+
+.search-block{
+    border-bottom: 2px solid gray;
+}
+.search-area{
+    float: right;
+    display: table-cell;
+    vertical-align: middle;     
+}
+
+.left-menu{
+    padding: 10px 10px 10px 10px;
+}
+.left-menu:hover{
+    background-color: gray;
+}
+.title-size{
+    font-size: 30px;    
+    padding: 10px;
+}
+
+.users-list{
+    padding: 30px;
+    //display: table;
+    margin-left: 70px;
+}
+
+.user{
+    display: inline-block;
+    border: 2px solid lightgrey;
+    width: 230px;
+    height: 270px;
+    margin: 0px 40px 40px 0px;
+    overflow: hidden;
+}
+
+.user-name{
+    display: table;
+    width: 100%;
+    height: 40%;
+    border-bottom: 1px solid lightgrey;
+}
+.user-name-left{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+.user-name-right{
+    display: table-cell;
+    padding: 15px;
+}
+
+.user-image{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+
+}
+
+.name-style{
+    color: lightgreen;
+    font-weight: bold;
+    width: 130px;
+    overflow: hidden;
+}
+
+.line-clamp{
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    width: 150px;
+}
+
+.title-style{
+    font-size: 0.85em;
+}
+
+.user-info{
+    display: table;
+    padding: 30px;
+}
+.user-info-content{
+    padding-bottom : 15px;
+}
+
+.pad-left-10{
+    padding-left: 10px;
+}
+.pad-left-16{
+    padding-left: 16px;
+}
+
+td {
+    padding-bottom: 15px;
+    padding-left: 3px;
+}

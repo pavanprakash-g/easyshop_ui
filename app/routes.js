@@ -94,6 +94,10 @@ var Routes = function(state) {
       '/messages': function() {
         routingState.page = 'messages';
         window.BUS.trigger(Application.events.ui.render, routingState.state);
+      },
+      '/test': function() {
+        routingState.page = 'test';
+        window.BUS.trigger(Application.events.ui.render, routingState.state);
       }
     };
 

@@ -39,7 +39,7 @@ var ItemDetails = React.createClass({
     <AppBar />
     <div className='multipleColumn'>
       <div id="leftCol">
-        <img src={this.props.details.get('itemImage')} />
+        <img src={this.props.details.get('itemImage')} width="400px" height="400px"/>
       </div>
       <div id="centerCol">
         <h1><span>{this.props.details.get('itemName')}</span></h1>

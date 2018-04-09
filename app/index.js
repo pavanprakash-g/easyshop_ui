@@ -13,6 +13,7 @@ var ProfileView = require('./profile/views/glue.jsx');
 var CatalogView = require('./catalog/views/glue.jsx');
 var CartView = require('./cart/views/glue.jsx');
 var OrderView = require('./order/views/glue.jsx');
+var TestView = require('./test/views/glue.jsx');
 
 /*Material*/
 import {deepOrange500} from 'material-ui/styles/colors';
@@ -32,7 +33,7 @@ $(function() {
   var bus = $({});
   window.BUS = bus;
   window.storage = localStorage;
-  window.baseURL = "http://localhost:7070/";
+  window.baseURL = "http://localhost:5050/";
   bus.on(Application.events.initComplete, function(event, state) {
     var routingState = Routes(state);
     ReactDOM.render(React.createElement(App, _.defaults(routingState, state)), document.getElementById('app'));
@@ -87,7 +88,7 @@ var App = React.createClass({
       window.router.setRoute("/profile");
     } */
     if (!this.props.authInfo.get('login').get('loggedIn') && this.props.page !== 'login' &&  this.props.page !== 'sign_in' 
-      && this.props.page !== 'register' && this.props.page !== 'forgetPassword' && this.props.page !== 'forgetPasswordSuccess') {
+      && this.props.page !== 'register' && this.props.page !== 'forgetPassword' && this.props.page !== 'forgetPasswordSuccess'&& this.props.page !== 'test') {
         this.props.router.setRoute('/login');
         return (<div/>);
     }
@@ -111,6 +112,8 @@ var App = React.createClass({
       CartView(components, this.props);
     }else if (this.props.page === 'order' || this.props.page === 'ordersList' || this.props.page === 'custOrders' || this.props.page === 'addresses'){
       OrderView(components, this.props);
+    }else if(this.props.page === 'test'){
+      TestView(components, this.props);
     }
 }
 return (

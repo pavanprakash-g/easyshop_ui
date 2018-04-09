@@ -115,6 +115,9 @@ var App = {
 		messages: {
 			getMessages: 'app::messages::getMessages',
 			markRead: 'app::messages::markRead'
+		},
+		test: {
+			firstNameChangedTest: 'app::test::firstNameChangedTest'
 		}
 	}
 };

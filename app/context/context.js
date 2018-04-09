@@ -3,11 +3,13 @@ var Profile = require('./../profile/models/profile');
 var Catalog = require('./../catalog/models/catalog');
 var Cart = require('./../cart/models/cart');
 var Order = require('./../order/models/order');
+var Test = require('./../test/models/test');
 var LoginListeners = require('./../login/models/listeners');
 var ProfileListeners = require('./../profile/models/listeners');
 var CatalogListeners = require('./../catalog/models/listeners');
 var CartListeners = require('./../cart/models/listeners');
 var OrderListeners = require('./../order/models/listeners');
+var TestListeners = require('./../test/models/listeners');
 var SubscriptionOrders = require('./../subscription_orders/models/subscription');
 var subscriptionListeners = require('./../subscription_orders/models/listeners');
 var App = require('./events');
@@ -22,6 +24,7 @@ var Context = function(eventBus, storage) {
   var cart = new Cart(eventBus, storage);
   var order = new Order(eventBus, storage);
   var subscription = new SubscriptionOrders(eventBus, storage);
+  var test = new Test(eventBus, storage);
 
   $.ajaxPrefilter(function( options ) {
     if ( !options.beforeSend) {
@@ -36,7 +39,8 @@ var Context = function(eventBus, storage) {
     catalogModel: catalog,
     cartModel: cart,
     orderModel: order,
-    subscription: subscription
+    subscription: subscription,
+    testModel: test
   };
 
   eventBus.on(App.events.models.changed, function() {
@@ -48,6 +52,7 @@ var Context = function(eventBus, storage) {
   CatalogListeners(eventBus, this.models.catalogModel);
   CartListeners(eventBus, this.models.cartModel);
   OrderListeners(eventBus, this.models.orderModel);
+  TestListeners(eventBus, this.models.testModel);
   subscriptionListeners(eventBus, this.models.subscription);
 
   eventBus.trigger(App.events.initComplete, this.getState());
@@ -61,7 +66,8 @@ Context.prototype.getState = function() {
     catalogModel: self.models.catalogModel.getState(),
     cartModel: self.models.cartModel.getState(),
     orderModel: self.models.orderModel.getState(),
-    subscription: self.models.subscription.getState()
+    subscription: self.models.subscription.getState(),
+    testModel: self.models.testModel.getState()
   };
 };
 
