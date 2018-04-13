@@ -71,6 +71,14 @@ var Test = React.createClass({
                     <td><span className='fa fa-phone'></span></td>
                     <td className="line-clamp">Tel: 152-545-5454</td>
                   </tr>
+                  <tr>
+                    <td><span className='fa fa-phone'></span></td>
+                    <td className="line-clamp">Tel: 152-545-5454</td>
+                  </tr>
+                  <tr>
+                    <td><span className='fa fa-phone'></span></td>
+                    <td className="line-clamp">Tel: 152-545-5454</td>
+                  </tr>
                 </table>
               </div>
             </div>
@@ -86,7 +94,32 @@ var Test = React.createClass({
                 </div>
               </div>
               <div className="user-info">
-                <table>
+                <div className="user-info-row">
+                  <div className = "user-info-cell">
+                    <span className="fa fa-envelope"></span>
+                  </div>
+                  <div cl32pxassName = "user-info-cell line-clamp">
+                    abc@gmail.com
+                  </div>
+                </div>
+                
+                <div className="user-info-row">
+                  <div className = "user-info-cell">
+                    <span className="fa fa-mobile"></span>
+                  </div>
+                  <div className = "user-info-cell line-clamp">
+                    Mob:123-245-6452
+                  </div>
+                </div>
+                <div className="user-info-row">
+                  <div className = "user-info-cell">
+                    <span className="fa fa-phone"></span>
+                  </div>
+                  <div className = "user-info-cell line-clamp">
+                    Tel: 152-545-5454dfhhhhhhhhhhhhhhhhhhhhh
+                  </div>
+                </div>
+                {/* <table>
                   <tr>
                     <td><span className="fa fa-envelope"></span></td>
                     <td>abc@gmail.com</td>
@@ -99,7 +132,7 @@ var Test = React.createClass({
                     <td><span className='fa fa-phone'></span></td>
                     <td>Tel: 152-545-5454</td>
                   </tr>
-                </table>
+                </table> */}
               </div>
             </div>
             

@@ -1,3 +1,7 @@
+html,
+body {
+	height: 100%;
+}
 .test-div{
     background-color: rgb(32, 32, 32);
     height: 100%;
@@ -94,7 +98,8 @@ input:hover{
 .left-block{
     border-right: 2px solid gray;
     width: 175px;
-    height: calc(100% - 45px); 
+    //height: calc(100% - 45px); 
+    height: 100%; 
     padding: 30px;
     //display: sticky;
     float: left;
@@ -102,7 +107,8 @@ input:hover{
 
 .right-block{
     overflow:auto;
-    height: calc(100% - 45px);
+    height: 100%; 
+    height: -moz-calc(100% - 45px);
     float: left;
     width: calc(100% - 237px);
 }
@@ -137,9 +143,10 @@ input:hover{
     display: inline-block;
     border: 2px solid lightgrey;
     width: 230px;
-    height: 270px;
+    height: 290px;
     margin: 0px 40px 40px 0px;
     overflow: hidden;
+    overflow-y: auto;
 }
 
 .user-name{
@@ -186,10 +193,16 @@ input:hover{
 
 .user-info{
     display: table;
-    padding: 30px;
+    padding: 35px 0px 0px 25px;
 }
-.user-info-content{
-    padding-bottom : 15px;
+.user-info-row{
+    display: table-row;
+    padding: 5px;
+}
+
+.user-info-cell{
+    display: table-cell;
+    padding: 0px 10px 10px 0px;
 }
 
 .pad-left-10{
